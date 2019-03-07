@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  vralumglassweb:
+    container_name: "glass-web"
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: VralumGlassWeb/Dockerfile
+    volumes:
+      - .:/var/www/glass_web
+    depends_on:
+      - "postgres"
+    networks:
+      - glass-network
+
+  postgres:
+    container_name: "glass-postgredb"
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "1q2w3e4r"
+    networks:
+      - glass-network
+    ports:
+      - "5432:5432"
+
+networks:
+    glass-network:
+      driver: bridge

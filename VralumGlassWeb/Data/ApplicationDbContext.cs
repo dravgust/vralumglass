@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VralumGlassWeb.Data.Models;
 
 namespace VralumGlassWeb.Data
 {
@@ -12,5 +13,7 @@ namespace VralumGlassWeb.Data
 			: base(options)
 		{
 		}
+
+		public DbSet<Customer> Customers { get; set; }
 	}
 }
