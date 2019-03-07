@@ -40,5 +40,16 @@ namespace VralumGlassWeb.Pages
 
 	        return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostExport()
+        {
+	        var ie = new ImportExport();
+
+	        var customers = await _db.Customers.ToListAsync();
+
+			var data = ie.Export(customers);
+
+			return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Customers.xlsx");
+        }
     }
 }

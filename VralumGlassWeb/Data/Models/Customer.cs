@@ -11,6 +11,9 @@ namespace VralumGlassWeb.Data.Models
 		public int Id { get; set; }
 
 		[Required, StringLength(100)]
+		public string CustomerId { get; set; }
+
+		[Required, StringLength(100)]
 		public string Name { get; set; }
 	}
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using VralumGlassWeb.Data;
 using VralumGlassWeb.Data.Models;
 
@@ -21,9 +22,24 @@ namespace VralumGlassWeb.Pages
 		[BindProperty]
 		public Customer Customer { get; set; }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet(string customerId)
         {
+	        if (string.IsNullOrEmpty(customerId))
+	        {
+		        return RedirectToPage("/Index");
+	        }
 
+	        Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(customerId));
+
+	        if (Customer == null)
+	        {
+				Customer = new Customer
+				{
+					CustomerId = customerId
+				};
+	        }
+
+	        return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -33,8 +49,27 @@ namespace VralumGlassWeb.Pages
 		        return Page();
 	        }
 
-	        _db.Customers.Add(Customer);
-	        await _db.SaveChangesAsync();
+			var customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(Customer.CustomerId));
+
+			if (customer != null)
+			{
+				customer.Name = Customer.Name;
+				_db.Attach(customer).State = EntityState.Modified;
+			}
+			else
+			{
+				_db.Attach(Customer).State = EntityState.Added;
+			}
+
+			try
+			{
+				await _db.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				throw new Exception($"Customer {Customer.Id} not found!");
+			}
+
 	        return RedirectToPage("/Index");
         }
     }
