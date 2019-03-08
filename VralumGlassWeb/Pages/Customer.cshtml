@@ -8,46 +8,54 @@
 
 <form method="post" enctype="multipart/form-data">
     <div class="row">
-        <div class="col-md-4">
-            <input type="file" id="fUpload" name="files" class="form-control" />
-        </div>
-        <div class="col-md-8">
-            <input type="button" id="btnUpload" value="Upload" />
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-8" style="padding-top:10px;">
-            <button asp-page-handler="Export">Export</button>
+            <button class="btn btn-outline-success" asp-page-handler="Export">Export Excel</button>
         </div>
     </div>
-    <br />
-    <div id="dvData"></div>
 </form>
 
 <form method="post">
-    <table class="table">
+    <table class="table" style="margin-top: 5px;">
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Identity Number</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">Persons</th>
+                <th scope="col">Key Received</th>
+                <th scope="col">Project Entr.</th>
+                <th scope="col">Constructor</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
         @foreach (var contact in Model.Customers)
         {
             <tr>
-                <td>@contact.Id</td>
+                <th scope="row">@contact.Id</th>
                 <td>@contact.Name</td>
+                <td>@contact.Surname</td>
+                <td>@contact.Identity</td>
+                <td>@contact.Age</td>
+                <td>@contact.Email</td>
+                <td>@contact.Address</td>
+                <td>@contact.City</td>
+                <td>@contact.PersonsAtHome</td>
+                <td>@contact.KeyReceived.ToString("dd/MM/yyyy")</td>
+                <td>@contact.ProjectName</td>
+                <td>@contact.Constructor</td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@contact.Id">edit</a>
-                    <button type="submit" asp-page-handler="delete" 
-                            asp-route-id="@contact.Id">delete</button>
+                    <button class="btn btn-outline-danger btn-sm" type="submit" asp-page-handler="delete" asp-route-id="@contact.Id">delete</button>
                 </td>
             </tr>
         }
         </tbody>
     </table>
-
-    <a asp-page="./Create">Create</a>
+    
 </form>
 

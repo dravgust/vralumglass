@@ -6,12 +6,89 @@
 
 <h1>Customer</h1>
 <p>
-    Enter your name.
+    Please fill out the form with your personal data.
 </p>
+
 <div asp-validation-summary="All"></div>
 <form method="POST">
-    <div>ID: <input asp-for="Customer.CustomerId"/></div>
-    <div>Name: <input asp-for="Customer.Name"/></div>
-    <input type="submit"/>
+    <input type="hidden" asp-for="Customer.CustomerId" />
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputName">First Name</label>
+            <input type="text" class="form-control" id="inputName" asp-for="Customer.Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputSurname">Last Name</label>
+            <input type="text" class="form-control" id="inputSurname" asp-for="Customer.Surname">
+        </div>
+    </div>
+    <div class="form-row">
+
+        <div class="form-group col-md-4">
+            <label for="inputIdentity">Identity Number</label>
+            <input type="text" class="form-control" id="inputIdentity" placeholder="324546724" asp-for="Customer.Identity">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputAge">Age</label>
+            <input type="text" class="form-control" id="inputAge" placeholder="Age" asp-for="Customer.Age">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" asp-for="Customer.Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" asp-for="Customer.Address">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control" id="inputCity" asp-for="Customer.City">
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputState">Persons At Home</label>
+            <select id="inputState" class="form-control" asp-for="Customer.PersonsAtHome">
+                <option selected>Choose...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputKey">Key Received</label>
+            <input type="date" class="form-control" id="inputKey" asp-for="Customer.KeyReceived">
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+            <label for="inputProject">Project Entrpreneur</label>
+            <input type="text" class="form-control" id="inputProject" asp-for="Customer.ProjectName">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputConstructor">Constructor</label>
+            <input type="text" class="form-control" id="inputConstructor" asp-for="Customer.Constructor">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" asp-for="Customer.Subscribed">
+            <label class="form-check-label" for="gridCheck">
+                Subscribtion
+            </label>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Sign up"/>
 </form>
 

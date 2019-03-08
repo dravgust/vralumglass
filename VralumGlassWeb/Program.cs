@@ -7,18 +7,28 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Web;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace VralumGlassWeb
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+        public static Logger Logger = NLogBuilder.ConfigureNLog("/app/nlog.config").GetCurrentClassLogger();
+        public static void Main(string[] args)
 		{
-			CreateWebHostBuilder(args).Build().Run();
+		    CreateWebHostBuilder(args).Build().Run();
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>();
+	    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+	        WebHost.CreateDefaultBuilder(args)
+	            .UseStartup<Startup>()
+	            .ConfigureLogging(log =>
+	            {
+	                log.ClearProviders();
+	                log.SetMinimumLevel(LogLevel.Trace);
+	            })
+	            .UseNLog();
 	}
 }

@@ -1,4 +1,4 @@
-﻿CREATE TABLE "AspNetRoles" ( 
+CREATE TABLE "AspNetRoles" ( 
   "Id" varchar(128) NOT NULL,
   "Name" varchar(256) NOT NULL,
   PRIMARY KEY ("Id")
@@ -68,7 +68,18 @@ ALTER TABLE "AspNetUserRoles"
   
 CREATE TABLE "Customers" (
   "Id" serial NOT NULL,
-  "Name" character varying(256) NOT NULL,
-  
+  "CustomerId" character varying(64) NOT NULL,
+  "Identity" character varying(32),
+  "Name" character varying(128),
+  "Surname" character varying(128),
+	"Address" character varying(256),
+	"City" character vrying(32),
+	"Age" int NOT NULL DEFAULT 0,
+	"PersonsAtHome" int NOT NULL DEFAULT 0,
+	"KeyReceived" timestamp,
+	"ProjectName" character varying(64),
+	"Constructor" character varying(64),
+	"Email" character varying(128),
+	"Subscribed" boolean NOT NULL DEFAULT false,
   PRIMARY KEY ("Id")
 );
