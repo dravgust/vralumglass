@@ -4,5 +4,8 @@
 // Write your Javascript code.
 
 $('.carousel').carousel({
-    interval: 5000
+    interval: 8000,
+    wrap: true,
+    pouse: "hover",
+    touch: true
 });
