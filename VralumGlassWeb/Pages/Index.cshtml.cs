@@ -19,7 +19,7 @@ namespace VralumGlassWeb.Pages
 
 		public void OnGet()
 		{
-
+            _logger.LogInformation("INIT");
 		}
 	}
 }

@@ -15,10 +15,21 @@ namespace VralumGlassWeb
 {
 	public class Program
 	{
-        public static Logger Logger = NLogBuilder.ConfigureNLog("/app/nlog.config").GetCurrentClassLogger();
-        public static void Main(string[] args)
+		public static void Main(string[] args)
 		{
-		    CreateWebHostBuilder(args).Build().Run();
+		    var logger = NLogBuilder.ConfigureNLog("/app/nlog.config").GetCurrentClassLogger();
+		    try
+		    {
+		        CreateWebHostBuilder(args).Build().Run();
+            }
+		    catch (Exception e)
+		    {
+                logger.Error(e.Message);
+		    }
+		    finally
+		    {
+		        LogManager.Shutdown();
+		    }
 		}
 
 	    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
