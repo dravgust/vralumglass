@@ -31,15 +31,19 @@ namespace VralumGlassWeb.Pages
 
 	        Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(customerId));
 
-	        if (Customer == null)
-	        {
-				Customer = new Customer
-				{
-					CustomerId = customerId
-				};
-	        }
+            if (Customer == null)
+            {
+                Customer = new Customer
+                {
+                    CustomerId = customerId
+                };
 
-	        return Page();
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Certificate");
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -70,7 +74,7 @@ namespace VralumGlassWeb.Pages
 				throw new Exception($"Customer {Customer.Id} not found!");
 			}
 
-	        return RedirectToPage("/Index");
+	        return RedirectToPage("/Certificate");
         }
     }
 }
