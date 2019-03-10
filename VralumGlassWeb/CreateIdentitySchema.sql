@@ -73,7 +73,7 @@ CREATE TABLE "Customers" (
   "Name" character varying(128),
   "Surname" character varying(128),
 	"Address" character varying(256),
-	"City" character vrying(32),
+	"City" character varying(32),
 	"Age" int NOT NULL DEFAULT 0,
 	"PersonsAtHome" int NOT NULL DEFAULT 0,
 	"KeyReceived" timestamp,
