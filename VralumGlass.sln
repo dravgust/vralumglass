@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VralumGlassWeb", "VralumGlassWeb\VralumGlassWeb.csproj", "{CE954018-EAA9-4701-B1E7-BBA2F5532176}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VralumGlassWeb", "VralumGlassWeb\VralumGlassWeb.csproj", "{CE954018-EAA9-4701-B1E7-BBA2F5532176}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8DFEFC80-21DF-4BC0-8857-D726229112AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{3F924C10-B124-45CA-8040-E5051A747D4B}"
+	ProjectSection(SolutionItems) = preProject
+		db\Dockerfile = db\Dockerfile
+		db\InitialSchema.sql = db\InitialSchema.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,3 +1,11 @@
+\c postgres
+
+-- ##############################################
+-- #                                            #
+-- #  Create AspIdentity                              #
+-- #                                            #
+-- ##############################################
+
 CREATE TABLE "AspNetRoles" ( 
   "Id" varchar(128) NOT NULL,
   "Name" varchar(256) NOT NULL,
@@ -45,6 +53,14 @@ CREATE TABLE "AspNetUserRoles" (
   PRIMARY KEY ("UserId", "RoleId")
 );
 
+CREATE TABLE "AspNetUserTokens" (
+	"UserId" varchar(128) NOT NULL,
+	"LoginProvider" varchar(128) NOT NULL,
+	"Name" varchar(128) NOT NULL,
+	"Value" varchar(256) NULL,
+	PRIMARY KEY("UserId", "LoginProvider", "Name")
+);
+	
 CREATE INDEX "IX_AspNetUserClaims_UserId"	ON "AspNetUserClaims"	("UserId");
 CREATE INDEX "IX_AspNetUserLogins_UserId"	ON "AspNetUserLogins"	("UserId");
 CREATE INDEX "IX_AspNetUserRoles_RoleId"	ON "AspNetUserRoles"	("RoleId");
@@ -66,12 +82,22 @@ ALTER TABLE "AspNetUserRoles"
   ADD CONSTRAINT "FK_AspNetUserRoles_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id")
   ON DELETE CASCADE;
   
+ALTER TABLE "AspNetUserTokens"
+  ADD CONSTRAINT "FK_AspNetUserTokens_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id")
+  ON DELETE CASCADE;
+ 
+-- ##############################################
+-- #                                            #
+-- #  Create Customers                              #
+-- #                                            #
+-- ############################################## 
+  
 CREATE TABLE "Customers" (
-  "Id" serial NOT NULL,
-  "CustomerId" character varying(64) NOT NULL,
-  "Identity" character varying(32),
-  "Name" character varying(128),
-  "Surname" character varying(128),
+	"Id" serial NOT NULL,
+	"CustomerId" character varying(64) NOT NULL,
+	"Identity" character varying(32),
+	"Name" character varying(128),
+	"Surname" character varying(128),
 	"Address" character varying(256),
 	"City" character varying(32),
 	"Age" int NOT NULL DEFAULT 0,
@@ -81,5 +107,7 @@ CREATE TABLE "Customers" (
 	"Constructor" character varying(64),
 	"Email" character varying(128),
 	"Subscribed" boolean NOT NULL DEFAULT false,
-  PRIMARY KEY ("Id")
+	PRIMARY KEY ("Id")
 );
+
+CREATE INDEX "IX_Customers_UserId"	ON "Customers"	("CustomerId");

@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: VralumGlassWeb/Dockerfile
     volumes:
-      - ./logs:/app/logs
+      - ./logs/web:/app/logs
     ports:
       - "80:80"
       - "443:443"
@@ -20,10 +20,15 @@ services:
   postgres:
     container_name: "glass-postgredb"
     image: postgres
+    restart: always
+    #build:
+     # context: .
+      #dockerfile: db/Dockerfile
     environment:
       POSTGRES_PASSWORD: "1q2w3e4r"
-    #volumes:
-    #  - ./db:/var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
     networks:
       - glass-network
     ports:
@@ -32,3 +37,8 @@ services:
 networks:
     glass-network:
       driver: bridge
+
+volumes:
+    db-data:
+        driver: local
+    
