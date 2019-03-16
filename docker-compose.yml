@@ -4,6 +4,7 @@ services:
   vralumglassweb:
     container_name: "glass-web"
     image: ${DOCKER_REGISTRY-}web
+    restart: always
     build:
       context: .
       dockerfile: VralumGlassWeb/Dockerfile
@@ -19,7 +20,7 @@ services:
 
   postgres:
     container_name: "glass-postgredb"
-    image: postgres
+    image: postgres:11.2
     restart: always
     #build:
      # context: .
