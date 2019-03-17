@@ -66,8 +66,8 @@ services:
       #VIRTUAL_PORT: 80
       VIRTUAL_HOST: coronaglass.ddns.net
       SSL_POLICY: Mozilla-Modern
-      LETSENCRYPT_HOST: coronaglass.ddns.net
-      LETSENCRYPT_EMAIL: dravgust@hotmail.com
+      #LETSENCRYPT_HOST: coronaglass.ddns.net
+      #LETSENCRYPT_EMAIL: dravgust@hotmail.com
     volumes:
       - ./logs/web:/app/logs
     depends_on:
