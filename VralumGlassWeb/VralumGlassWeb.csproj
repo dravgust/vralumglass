@@ -24,4 +24,10 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vralumglass.Core\Vralumglass.Core.csproj" />
+    <ProjectReference Include="..\Vralumglass.Dropbox\Vralumglass.Dropbox.csproj" />
+  </ItemGroup>
+
 </Project>

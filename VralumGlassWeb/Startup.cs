@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using VralumGlassWeb.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vralumglass.Core;
+using Vralumglass.Dropbox;
 
 namespace VralumGlassWeb
 {
@@ -46,6 +48,9 @@ namespace VralumGlassWeb
 
 			services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 			services.AddTransient<IEmailSender, MessageSender>();
+
+			services.Configure<FileStorageSettings>(Configuration.GetSection("FileStorageSettings"));
+			services.AddTransient<IFileStorage, DropboxStorage>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
