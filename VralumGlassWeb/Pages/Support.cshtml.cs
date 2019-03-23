@@ -22,27 +22,27 @@ namespace VralumGlassWeb.Pages
 		[BindProperty]
 		public Customer Customer { get; set; }
 
-        public async Task<IActionResult> OnGet(string customerId)
+        public async Task<IActionResult> OnGet(string id)
         {
-	        if (string.IsNullOrEmpty(customerId))
+	        if (string.IsNullOrEmpty(id))
 	        {
 		        return RedirectToPage("/Index");
 	        }
 
-	        Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(customerId));
+	        Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(id));
 
             if (Customer == null)
             {
                 Customer = new Customer
                 {
-                    CustomerId = customerId
+                    CustomerId = id
                 };
 
                 return Page();
             }
             else
             {
-                return RedirectToPage("/Certificate");
+                return Redirect("~/Certificate?id=" + id);
             }
         }
 

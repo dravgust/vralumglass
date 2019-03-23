@@ -40,11 +40,11 @@ namespace VralumGlassWeb.Data
 					row.CreateCell(1).SetCellValue(c.Name);
 				    row.CreateCell(2).SetCellValue(c.Surname);
 				    row.CreateCell(3).SetCellValue(c.Identity);
-				    row.CreateCell(4).SetCellValue(c.Age);
+				    row.CreateCell(4).SetCellValue($"{c.Age}");
 				    row.CreateCell(5).SetCellValue(c.Email);
 				    row.CreateCell(6).SetCellValue(c.Address);
 				    row.CreateCell(7).SetCellValue(c.City);
-				    row.CreateCell(8).SetCellValue(c.PersonsAtHome);
+				    row.CreateCell(8).SetCellValue($"{c.PersonsAtHome}");
 				    row.CreateCell(9).SetCellValue(c.KeyReceived.ToString("dd/MM/yyyy"));
 				    row.CreateCell(10).SetCellValue(c.ProjectName);
 				    row.CreateCell(11).SetCellValue(c.Constructor);

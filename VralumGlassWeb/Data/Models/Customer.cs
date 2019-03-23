@@ -29,13 +29,13 @@ namespace VralumGlassWeb.Data.Models
         public string City { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         [Required, StringLength(128)]
         public string Email { get; set; }
 
         [Required]
-        public int PersonsAtHome { get; set; }
+        public int? PersonsAtHome { get; set; }
 
         public DateTime KeyReceived { get; set; }
 

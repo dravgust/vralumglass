@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
@@ -16,16 +17,17 @@ namespace Tests
 		{
 			_fileStorageOptions = Options.Create(new FileStorageSettings
 			{
-				AccessToken = "wG1RXvQ0W5AAAAAAAAAADBdy-u6D4-z5nRcY5o2w21vgjCPnahe5nFieaMVe2qRA"
+				AccessToken = "wG1RXvQ0W5AAAAAAAAAADBdy-u6D4-z5nRcY5o2w21vgjCPnahe5nFieaMVe2qRA",
+                BaseFolder = null
 			});
 		}
 
 		[Test]
 		public void Test1()
-		{
-			using (var dbx = new DropboxStorage(_fileStorageOptions))
+        {
+            var dbx = new DropboxStorage(_fileStorageOptions);
 			{
-				var root = dbx.ListRootFolderAsync().Result;
+				var root = dbx.ListFolderAsync().Result;
 				foreach (var item in root)
 				{
 					Console.WriteLine(item.ToJson());
@@ -34,22 +36,37 @@ namespace Tests
 			Assert.Pass();
 		}
 
-		[Test]
-		public void Test2()
+        [Test]
+        public void Test2()
+        {
+            var dbx = new DropboxStorage(_fileStorageOptions);
+            {
+                var f = File.ReadAllBytes(@"D:\\My Books\\startap-bez-byudzheta.pdf");
+
+                var res = dbx.Upload("/BeerSheva_Rambam/A/35", "metadata.pdf", f).Result;
+                Console.WriteLine(res);
+            }
+
+            Assert.Pass();
+        }
+
+        [Test]
+		public void Test3()
 		{
-			using (var dbx = new DropboxStorage(_fileStorageOptions))
-			{
-				var res = dbx.Upload("/BeerSheva_Rambam.497c06f4-9c6b-4d62-a1e3-8bac769047b4/4/35", "metadata.txt", "test").Result;
-				Console.WriteLine(res);
+			var dbx = new DropboxStorage(_fileStorageOptions);
+            {
+				var res = dbx.Download("/BeerSheva_Rambam/A/35", "metadata2.pdf").Result;
+                File.WriteAllBytes(@"D:\\My Books\\startap-bez-byudzheta2.pdf", res);
+                Console.WriteLine(res);
 			}
 
 			Assert.Pass();
 		}
 
 		[Test]
-		public void Test3()
-		{
-			using (var dbx = new DropboxStorage(_fileStorageOptions))
+		public void Test4()
+        {
+            var dbx = new DropboxStorage(_fileStorageOptions);
 			{
 				var res = dbx.Search("", ".png").Result;
 				Console.WriteLine(res.ToJson());

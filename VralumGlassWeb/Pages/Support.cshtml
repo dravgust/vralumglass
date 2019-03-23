@@ -26,7 +26,7 @@
 
         <div class="form-group col-md-4">
             <label for="inputIdentity">Identity Number</label>
-            <input type="text" class="form-control" id="inputIdentity" placeholder="324546724" asp-for="Customer.Identity">
+            <input type="text" class="form-control" id="inputIdentity" placeholder="" asp-for="Customer.Identity">
         </div>
         <div class="form-group col-md-2">
             <label for="inputAge">Age</label>
@@ -65,14 +65,14 @@
         </div>
         <div class="form-group col-md-3">
             <label for="inputKey">Key Received</label>
-            <input type="date" class="form-control" id="inputKey" asp-for="Customer.KeyReceived">
+            <input type="date" class="form-control" id="inputKey" min="2019-01-01" value="2019-01-31" asp-for="Customer.KeyReceived">
         </div>
     </div>
 
     <div class="form-row">
 
         <div class="form-group col-md-6">
-            <label for="inputProject">Project Entrpreneur</label>
+            <label for="inputProject">Project Entrepreneur</label>
             <input type="text" class="form-control" id="inputProject" asp-for="Customer.ProjectName">
         </div>
         <div class="form-group col-md-6">
@@ -85,7 +85,7 @@
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="gridCheck" asp-for="Customer.Subscribed">
             <label class="form-check-label" for="gridCheck">
-                Subscribtion
+                Subscription
             </label>
         </div>
     </div>

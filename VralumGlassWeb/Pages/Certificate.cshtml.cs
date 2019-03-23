@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using VralumGlassWeb.Data.Models;
 
 namespace VralumGlassWeb.Pages
 {
@@ -13,14 +14,20 @@ namespace VralumGlassWeb.Pages
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
+        [BindProperty]
+        public Customer Customer { get; set; }
+
         public CertificateModel(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public void OnGet()
+        public void OnGet(string id)
         {
-
+            Customer = new Customer
+            {
+                CustomerId = id
+            };
         }
 
         public async Task<IActionResult> OnPostExport()
@@ -36,6 +43,11 @@ namespace VralumGlassWeb.Pages
             }
             memory.Position = 0;
             return File(memory, "application/pdf", "certificate.pdf");
+        }
+
+        public IActionResult OnPostRequest()
+        {
+            return Redirect("~/Request?id=" + Customer.CustomerId);
         }
     }
 }

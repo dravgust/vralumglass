@@ -8,7 +8,7 @@ namespace Vralumglass.Core
 	{
 		public static void Using<T>(this T client, Action<T> work) where T : IFileStorage
 		{
-			using (client)
+			//using (client)
 			{
 				work(client);
 			}
@@ -16,7 +16,7 @@ namespace Vralumglass.Core
 
 		public static TResult Using<T, TResult>(this T client, Func<T, TResult> work) where T : IFileStorage
 		{
-			using (client)
+			//using (client)
 			{
 				return work(client);
 			}
