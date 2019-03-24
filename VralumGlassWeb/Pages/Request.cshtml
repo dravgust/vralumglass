@@ -1,5 +1,6 @@
 ﻿@page
 @model VralumGlassWeb.Pages.RequestModel
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewData["Title"] = "Request";
@@ -7,22 +8,48 @@
 
 <h1>Request</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <div asp-validation-summary="All"></div>
-        <form method="post" enctype="multipart/form-data">
-            <input type="hidden" asp-for="FileUpload.CustomerId" />
-            <div class="form-group">
-                <label asp-for="FileUpload.Description"></label>
-                <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
-                <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="FileUpload.UploadPhoto" type="file" class="form-control" style="height: auto" />
-                <span asp-validation-for="FileUpload.UploadPhoto" class="text-danger"></span>
-            </div>
-            <input type="submit" value="Upload Request" class="btn btn-primary" />
-        </form>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All"></div>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="FileUpload.CustomerId" />
+                <div class="form-group">
+                    <label asp-for="FileUpload.Description"></label>
+                    <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
+                    <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="FileUpload.UploadPhoto" type="file" class="form-control" style="height: auto" />
+                    <span asp-validation-for="FileUpload.UploadPhoto" class="text-danger"></span>
+                </div>
+                <button asp-page-handler="Manager" class="btn btn-primary">Upload Request</button>
+            </form>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All"></div>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="FileUpload.CustomerId" />
+                <div class="form-group">
+                    <label asp-for="FileUpload.Description"></label>
+                    <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
+                    <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="FileUpload.UploadPhoto" type="file" class="form-control" style="height: auto" />
+                    <span asp-validation-for="FileUpload.UploadPhoto" class="text-danger"></span>
+                </div>
+                <button asp-page-handler="Customer" class="btn btn-primary">Upload Request</button>
+            </form>
+        </div>
+    </div>
+}
+
 

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using VralumGlassWeb.Data;
 using VralumGlassWeb.Data.Models;
 
@@ -13,10 +15,14 @@ namespace VralumGlassWeb.Pages
     public class SupportModel : PageModel
     {
 	    private readonly ApplicationDbContext _db;
+	    private readonly SignInManager<IdentityUser> _signInManager;
+	    private readonly ILogger<SupportModel> _logger;
 
-		public SupportModel(ApplicationDbContext db)
+		public SupportModel(ApplicationDbContext db, SignInManager<IdentityUser> signInManager, ILogger<SupportModel> logger)
 		{
 			_db = db;
+			_signInManager = signInManager;
+			_logger = logger;
 		}
 
 		[BindProperty]
@@ -29,7 +35,12 @@ namespace VralumGlassWeb.Pages
 		        return RedirectToPage("/Index");
 	        }
 
-	        Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(id));
+	        if (_signInManager.IsSignedIn(User))
+	        {
+		        return Redirect("~/Request?id=" + id);
+			}
+
+			Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(id));
 
             if (Customer == null)
             {
@@ -74,7 +85,7 @@ namespace VralumGlassWeb.Pages
 				throw new Exception($"Customer {Customer.Id} not found!");
 			}
 
-	        return RedirectToPage("/Certificate");
-        }
+			return Redirect("~/Certificate?id=" + Customer.Id);
+		}
     }
 }

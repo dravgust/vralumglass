@@ -33,7 +33,7 @@ namespace VralumGlassWeb.Pages
             };
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCustomerAsync()
         {
             if (!ModelState.IsValid)
             {
