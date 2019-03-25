@@ -37,7 +37,7 @@ namespace VralumGlassWeb.Pages
 
 	        if (_signInManager.IsSignedIn(User))
 	        {
-		        return Redirect("~/Request?id=" + id);
+		        return Redirect("~/Management/Defect?id=" + id);
 			}
 
 			Customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(id));
@@ -82,10 +82,10 @@ namespace VralumGlassWeb.Pages
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				throw new Exception($"Customer {Customer.Id} not found!");
+				throw new Exception($"Customer {Customer.CustomerId} not found!");
 			}
 
-			return Redirect("~/Certificate?id=" + Customer.Id);
+			return Redirect("~/Certificate?id=" + Customer.CustomerId);
 		}
     }
 }

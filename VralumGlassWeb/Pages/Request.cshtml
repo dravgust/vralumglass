@@ -1,139 +1,28 @@
 ﻿@page
 @model VralumGlassWeb.Pages.RequestModel
-@inject SignInManager<IdentityUser> SignInManager
 
 @{
-    ViewData["Title"] = "Request";
+    ViewData["Title"] = "Defect Form";
 }
 
-
-@if (SignInManager.IsSignedIn(User))
-{
-    <h1>First Delivery Defects Form</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <div asp-validation-summary="All"></div>
-            <form method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="FileUpload.CustomerId" />
-
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label for="inputCity">Building</label>
-                        <input type="text" class="form-control" id="inputBuilding">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input class="custom-control-input" type="checkbox" id="inlineCheckbox1" value="broken">
-                                <label class="custom-control-label" for="inlineCheckbox1">Glass broken/cracked</label>
-                            </div>
-                            <div class="custom-control custom-switch">
-                                <input class="custom-control-input" type="checkbox" id="inlineCheckbox2" value="scratch">
-                                <label class="custom-control-label" for="inlineCheckbox2">Scratched in aluminum</label>
-                            </div>
-                            <div class="custom-control custom-switch">
-                                <input class="custom-control-input" type="checkbox" id="inlineCheckbox3" value="other">
-                                <label class="custom-control-label" for="inlineCheckbox3">Other</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="form-group col-md-9">
-                        <div class="form-group defect-size" style="display: none">
-                            <label>Sizes</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">1</span>
-                                </div>
-                                <input class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
-                            </div>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">2</span>
-                                </div>
-                                <input class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
-                            </div>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">3</span>
-                                </div>
-                                <input class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
-                            </div>
-                        </div>
-
-                        <div class="form-group defect-descr" style="display: none">
-                            <label asp-for="FileUpload.Description"></label>
-                            <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
-                            <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <button asp-page-handler="Manager" class="btn btn-primary">Send Defect</button>
-            </form>
-        </div>
+<h1>Defects Form</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="All"></div>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="FileUpload.CustomerId" />
+            <div class="form-group">
+                <label asp-for="FileUpload.Description"></label>
+                <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
+                <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="FileUpload.UploadPhoto" type="file" class="form-control" style="height: auto" />
+                <span asp-validation-for="FileUpload.UploadPhoto" class="text-danger"></span>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Send Defect"/>
+        </form>
     </div>
-}
-else
-{
-    <h1>Defects Form</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="All"></div>
-            <form method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="FileUpload.CustomerId" />
-                <div class="form-group">
-                    <label asp-for="FileUpload.Description"></label>
-                    <textarea rows="6" cols="50" asp-for="FileUpload.Description" type="text" class="form-control"></textarea>
-                    <span asp-validation-for="FileUpload.Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input asp-for="FileUpload.UploadPhoto" type="file" class="form-control" style="height: auto" />
-                    <span asp-validation-for="FileUpload.UploadPhoto" class="text-danger"></span>
-                </div>
-                <button asp-page-handler="Customer" class="btn btn-primary">Upload Request</button>
-            </form>
-        </div>
-    </div>
-}
+</div>
 
-@section Scripts { 
-    
-    <script type="text/javascript">
-        $(".custom-control-input").click(function () {
-
-            var checked = $(this).is(':checked');
-            switch ($(this).val()) {
-                case 'broken':
-                    if (checked) {
-                        $(".defect-size").show();
-                    } else {
-                        $(".defect-size").hide();
-                    }
-                    break;
-                case 'scratch':
-                default:
-                    if (checked) {
-                        $(".defect-descr").show();
-                    } else {
-                        $(".defect-descr").hide();
-                    }
-                    break;
-            }
-        });
-
-    </script>
-}
 

@@ -1,0 +1,112 @@
+﻿@page
+@model VralumGlassWeb.Areas.Management.Pages.DefectModel
+
+@{
+    ViewData["Title"] = "Defect Form";
+}
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function manageCheckboxes() {
+            var checked = $(this).is(':checked');
+            switch ($(this).attr("id")) {
+                case 'Defect_GlassBroken':
+                    if (checked) {
+                        $(".defect-size").show();
+                    } else {
+                        $(".defect-size").hide();
+                    }
+                    break;
+                case 'Defect_ScratchedAluminum':
+                default:
+                    if (checked) {
+                        $(".defect-descr").show();
+                    } else {
+                        $(".defect-descr").hide();
+                    }
+                    break;
+            }
+        }
+
+        $(":checkbox").each(manageCheckboxes);
+        $(".custom-control-input").change(manageCheckboxes);
+
+    </script>
+}
+
+<h1>First Delivery Defects Form</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div asp-validation-summary="All"></div>
+        <form method="post">
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputCity">City</label>
+                    <input asp-for="Defect.City" type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="inputAddress">Address</label>
+                    <input asp-for="Defect.Address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="inputBuilding">Building</label>
+                    <input asp-for="Defect.Building" type="text" class="form-control" id="inputBuilding">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input asp-for="Defect.GlassBroken" class="custom-control-input" type="checkbox">
+                            <label class="custom-control-label" asp-for="Defect.GlassBroken">Glass broken/cracked</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input asp-for="Defect.ScratchedAluminum" class="custom-control-input"  type="checkbox">
+                            <label class="custom-control-label" asp-for="Defect.ScratchedAluminum">Scratched in aluminum</label>
+                        </div>
+                        <div class="custom-control custom-switch">
+                            <input asp-for="Defect.Other" class="custom-control-input" type="checkbox">
+                            <label class="custom-control-label" asp-for="Defect.Other">Other</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-md-9">
+                    <div class="form-group defect-size" style="display: none">
+                        <label>Sizes</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">1</span>
+                            </div>
+                            <input asp-for="Defect.Sizes[0]" class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">2</span>
+                            </div>
+                            <input asp-for="Defect.Sizes[1]" class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">3</span>
+                            </div>
+                            <input asp-for="Defect.Sizes[2]" class="form-control col-lg-3 col-md-4 col-sm-4" type="text" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group defect-descr" style="display: none">
+                        <label asp-for="Defect.Description"></label>
+                        <textarea rows="6" cols="50" asp-for="Defect.Description" type="text" class="form-control"></textarea>
+                        <span asp-validation-for="Defect.Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button asp-area="Management" class="btn btn-primary">Send Defect</button>
+        </form>
+    </div>
+</div>
