@@ -19,11 +19,10 @@
                         $(".defect-size").hide();
                     }
                     break;
-                case 'Defect_ScratchedAluminum':
                 default:
                     if (checked) {
                         $(".defect-descr").show();
-                    } else {
+                    } else if (!$('#Defect_ScratchedAluminum').is(':checked') && !$('#Defect_Other').is(':checked')){
                         $(".defect-descr").hide();
                     }
                     break;

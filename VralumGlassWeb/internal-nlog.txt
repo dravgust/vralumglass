@@ -510,3 +510,20 @@
 2019-03-25 18:43:23.9803 Info Adding target File Target[ownFile-web]
 2019-03-25 18:43:23.9966 Info Configured from an XML element in /app/nlog.config...
 2019-03-25 18:43:24.0256 Info Found 45 configuration items
+2019-03-25 19:55:35.0429 Info Shutting down logging...
+2019-03-25 19:55:35.0954 Info Logger has been shut down.
+2019-03-25 19:55:38.9773 Info Message Template Auto Format enabled
+2019-03-25 19:55:38.9939 Info Loading assembly: NLog.Web.AspNetCore
+2019-03-25 19:55:39.0558 Info Adding target File Target[allfile]
+2019-03-25 19:55:39.0651 Info Adding target File Target[ownFile-web]
+2019-03-25 19:55:39.0799 Info Configured from an XML element in /app/nlog.config...
+2019-03-25 19:55:39.1089 Info Found 45 configuration items
+2019-03-25 19:56:59.9972 Info Shutting down logging...
+2019-03-25 19:57:00.0280 Info Logger has been shut down.
+2019-03-25 19:57:00.0920 Info Logger closing down...
+2019-03-25 19:57:02.5200 Info Message Template Auto Format enabled
+2019-03-25 19:57:02.5352 Info Loading assembly: NLog.Web.AspNetCore
+2019-03-25 19:57:02.6001 Info Adding target File Target[allfile]
+2019-03-25 19:57:02.6113 Info Adding target File Target[ownFile-web]
+2019-03-25 19:57:02.6284 Info Configured from an XML element in /app/nlog.config...
+2019-03-25 19:57:02.6574 Info Found 45 configuration items
