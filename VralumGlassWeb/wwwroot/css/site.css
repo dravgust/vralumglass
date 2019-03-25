@@ -82,3 +82,9 @@ body {
 {
     display: none;
 }
+
+
+
+.input-group + .input-group {
+    margin-top: .5rem;
+}

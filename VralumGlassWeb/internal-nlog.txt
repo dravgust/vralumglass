@@ -383,3 +383,9 @@
 2019-03-24 09:37:44.4329 Info Adding target File Target[ownFile-web]
 2019-03-24 09:37:44.4644 Info Configured from an XML element in /app/nlog.config...
 2019-03-24 09:37:44.5205 Info Found 45 configuration items
+2019-03-25 06:00:27.8515 Info Message Template Auto Format enabled
+2019-03-25 06:00:27.8799 Info Loading assembly: NLog.Web.AspNetCore
+2019-03-25 06:00:28.0545 Info Adding target File Target[allfile]
+2019-03-25 06:00:28.0728 Info Adding target File Target[ownFile-web]
+2019-03-25 06:00:28.1060 Info Configured from an XML element in /app/nlog.config...
+2019-03-25 06:00:28.1820 Info Found 45 configuration items
