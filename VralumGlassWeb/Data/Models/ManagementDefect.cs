@@ -5,6 +5,9 @@ namespace VralumGlassWeb.Data.Models
 {
     public class ManagementDefect
     {
+		[Required]
+		public string CustomerId { get; set; }
+
         [Required, StringLength(256)]
         public string Address { get; set; }
 

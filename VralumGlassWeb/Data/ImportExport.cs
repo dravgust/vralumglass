@@ -11,6 +11,45 @@ namespace VralumGlassWeb.Data
 {
 	public class ImportExport
 	{
+		public byte[] Export(IList<ManagementDefect> defects)
+		{
+			using (var fs = new MemoryStream())
+			{
+				var workbook = new XSSFWorkbook();
+				ISheet excelSheet = workbook.CreateSheet("Defects");
+				IRow row = excelSheet.CreateRow(0);
+
+				row.CreateCell(0).SetCellValue("ID");
+				row.CreateCell(1).SetCellValue("City");
+				row.CreateCell(2).SetCellValue("Address");
+				row.CreateCell(3).SetCellValue("Building");
+				row.CreateCell(4).SetCellValue("Glass broken/cracked");
+				row.CreateCell(5).SetCellValue("Scratched in aluminum");
+				row.CreateCell(6).SetCellValue("Other");
+				row.CreateCell(7).SetCellValue("Description");
+				row.CreateCell(8).SetCellValue("Sizes");
+
+				for (var i = 0; i < defects.Count; i++)
+				{
+					var c = defects[i];
+					row = excelSheet.CreateRow(i);
+					row.CreateCell(0).SetCellValue(c.CustomerId);
+					row.CreateCell(1).SetCellValue(c.City);
+					row.CreateCell(2).SetCellValue(c.Address);
+					row.CreateCell(3).SetCellValue(c.Building);
+					row.CreateCell(4).SetCellValue($"{c.GlassBroken}");
+					row.CreateCell(5).SetCellValue($"{c.ScratchedAluminum}");
+					row.CreateCell(6).SetCellValue($"{c.Other}");
+					row.CreateCell(7).SetCellValue(c.Description);
+					row.CreateCell(8).SetCellValue(string.Join(',', c.Sizes));
+				}
+
+				workbook.Write(fs);
+
+				return fs.ToArray();
+			}
+		}
+
 		public byte[] Export(IList<Customer> customers)
 		{
 			using (var fs = new MemoryStream())

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Vralumglass.Core;
+using VralumGlassWeb.Data;
 using VralumGlassWeb.Data.Models;
 
 namespace VralumGlassWeb.Areas.Management.Pages
@@ -29,6 +31,7 @@ namespace VralumGlassWeb.Areas.Management.Pages
         {
             Defect = new ManagementDefect
             {
+				CustomerId = id,
                 Sizes = new string[3]
             };
         }
@@ -40,9 +43,23 @@ namespace VralumGlassWeb.Areas.Management.Pages
                 return Page();
             }
 
-            var d = Defect;
-            await Task.Yield();
-            return RedirectToPage("./Index");
+            var folder = $"/{Defect.CustomerId.Substring(0, Defect.CustomerId.LastIndexOf('/'))}/Delivery";
+            var fileName = "defects.xlsx";
+
+            var ie = new ImportExport();
+            var data = ie.Export(new List<ManagementDefect>{ Defect });
+
+			var res1 = await _fileStorage.Upload(folder, fileName, data);
+
+			return RedirectToPage("./Index");
         }
-    }
+
+        public async Task<IActionResult> OnGetDownload(string id)
+        {
+	        var folder = $"/{id}";
+	        var res1 = await _fileStorage.Download(folder, "drawing.pdf");
+
+	        return File(res1, "application/pdf", "drawing.pdf");
+        }
+	}
 }
