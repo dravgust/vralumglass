@@ -22,7 +22,7 @@ namespace VralumGlassWeb.Data
             // name isn't found, error messages simply won't show
             // a display name.
             MemberInfo property =
-                typeof(FileUpload).GetProperty(
+                typeof(CustomerDefect).GetProperty(
                     formFile.Name.Substring(formFile.Name.IndexOf(".", StringComparison.Ordinal) + 1));
 
             if (property != null)

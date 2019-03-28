@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace VralumGlassWeb.Data.Models
 {
@@ -8,13 +9,13 @@ namespace VralumGlassWeb.Data.Models
 		[Required]
 		public string CustomerId { get; set; }
 
-        [Required, StringLength(256)]
+        [Required, Display(Name = "Address"), StringLength(256)]
         public string Address { get; set; }
 
-        [Required, StringLength(32)]
+        [Required, Display(Name = "City"), StringLength(32)]
         public string City { get; set; }
 
-        [Required, StringLength(3)]
+        [Required, Display(Name = "Building"), StringLength(3)]
         public string Building { get; set; }
 
         public bool GlassBroken { get; set; }
@@ -25,7 +26,10 @@ namespace VralumGlassWeb.Data.Models
 
         public string[] Sizes { get; set; }
 
-        [StringLength(2000)]
+        [Display(Name = "Description"), StringLength(2000)]
         public string Description { get; set; }
-    }
+
+        [Display(Name = "Photo")]
+        public IFormFile UploadPhoto { get; set; }
+	}
 }

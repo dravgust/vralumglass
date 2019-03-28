@@ -9,3 +9,16 @@ $('.carousel').carousel({
     pouse: "hover",
     touch: true
 });
+
+$('#submit').on('click', function (evt) {
+    if (!$('form').valid()) {
+        $('#loadingModal').modal('hide');
+    } else {
+        $('#loadingModal').modal('show');
+    }
+});
+
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});

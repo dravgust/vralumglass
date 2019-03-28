@@ -3,38 +3,53 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Vralumglass.Core;
 using VralumGlassWeb.Data;
 using VralumGlassWeb.Data.Models;
+using VralumGlassWeb.Pages;
 
 namespace VralumGlassWeb.Areas.Management.Pages
 {
+	[Authorize]
     public class DefectModel : PageModel
     {
         private readonly IFileStorage _fileStorage;
 
         private readonly IEmailSender _emailSender;
 
-        public DefectModel(IFileStorage fileStorage, IEmailSender emailSender)
+        private readonly ILogger<SupportModel> _logger;
+
+		public DefectModel(IFileStorage fileStorage, IEmailSender emailSender, ILogger<SupportModel> logger)
         {
             _fileStorage = fileStorage;
             _emailSender = emailSender;
+            _logger = logger;
         }
 
         [BindProperty]
         public ManagementDefect Defect { get; set; }
 
-        public void OnGet(string id)
-        {
-            Defect = new ManagementDefect
+		public IActionResult OnGet(string id)
+		{
+			if (string.IsNullOrEmpty(id))
+			{
+				return RedirectToPage("./Index");
+			}
+
+			Defect = new ManagementDefect
             {
 				CustomerId = id,
                 Sizes = new string[3]
             };
-        }
+
+			return Page();
+		}
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -51,8 +66,8 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
 			var res1 = await _fileStorage.Upload(folder, fileName, data);
 
-			return RedirectToPage("./Index");
-        }
+			return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
+		}
 
         public async Task<IActionResult> OnGetDownload(string id)
         {

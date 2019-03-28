@@ -18,6 +18,8 @@
               integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/loading-widget.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
 </head>
 <body>
     <header>
@@ -54,10 +56,23 @@
             @RenderBody()
         </main>
     </div>
-
+    <div class="modal" tabindex="-1" role="dialog" id="loadingModal" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content" style="border: none; background: none;">
+                <div class="loading-widget">
+                    <ul class="spinner" style="background: azure">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            dr@vgust &copy; 2019 - Corona Glass Techologies
+            dr@vgust &copy; 2019 - Corona Glass Technologies
         </div>
     </footer>
 
@@ -80,6 +95,8 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

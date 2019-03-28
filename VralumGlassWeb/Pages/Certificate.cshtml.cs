@@ -61,7 +61,7 @@ namespace VralumGlassWeb.Pages
 
         public IActionResult OnPostRequest()
         {
-            return Redirect("~/Request?id=" + Customer.CustomerId);
+            return Redirect("~/Defect?id=" + Customer.CustomerId);
         }
     }
 }
