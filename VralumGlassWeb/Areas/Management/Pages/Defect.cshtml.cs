@@ -128,7 +128,7 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
         public async Task<IActionResult> OnGetDownload(string id)
         {
-            if (!ProjectIdentity.TryParse(Defect.CustomerId, out var cIdentity))
+            if (!ProjectIdentity.TryParse(id, out var cIdentity))
             {
                 return NotFound();
             }
