@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,7 +85,9 @@ namespace VralumGlassWeb.Pages
 
             await _emailSender.SendEmailAsync(email, subject, body);
 
-			return Redirect("~/Certificate?id=" + Defect.CustomerId);
+            TempData["alerts"] = new List<string> { "Defect sent successfully." };
+
+            return Redirect("~/Certificate?id=" + Defect.CustomerId);
 		}
     }
 }

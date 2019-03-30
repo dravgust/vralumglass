@@ -123,12 +123,17 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
             TempData["alerts"] = new List<string>{"Defect sent successfully."};
 
-        return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
+            return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
 		}
 
         public async Task<IActionResult> OnGetDownload(string id)
         {
-	        var folder = $"/{id}";
+            if (!ProjectIdentity.TryParse(Defect.CustomerId, out var cIdentity))
+            {
+                return NotFound();
+            }
+
+            var folder = $"/{id}";
 	        var res1 = await _fileStorage.Download(folder, "drawing.pdf");
 
 	        return File(res1, "application/pdf", "drawing.pdf");
