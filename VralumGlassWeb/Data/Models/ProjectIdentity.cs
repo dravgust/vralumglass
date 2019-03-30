@@ -28,7 +28,7 @@ namespace VralumGlassWeb.Data.Models
             {
                 try
                 {
-                    var data = id.Trim('/').Split('/');
+                    var data = Uri.UnescapeDataString(id).Trim('/').Split('/');
                     if (data.Length == 4)
                     {
                         cIdentity = new ProjectIdentity
