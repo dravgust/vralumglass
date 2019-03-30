@@ -13,36 +13,43 @@ namespace VralumGlassWeb.Data.Models
         [Required, StringLength(64)]
         public string CustomerId { get; set; }
 
-        [Required, StringLength(32)]
+        [Required, Display(Name = "Identity Number"), StringLength(32)]
         public string Identity { get; set; }
 
-        [Required, StringLength(128)]
+        [Required, Display(Name = "Name"), StringLength(128)]
         public string Name { get; set; }
 
-        [Required, StringLength(128)]
+        [Required, Display(Name = "Surname"), StringLength(128)]
         public string Surname { get; set; }
 
-        [Required, StringLength(256)]
-        public string Address { get; set; }
-
-        [Required, StringLength(32)]
+        [Required, Display(Name = "City"), StringLength(32)]
         public string City { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Address"), StringLength(256)]
+        public string Address { get; set; }
+
+        [Required, Display(Name = "Building"), StringLength(3)]
+        public string Building { get; set; }
+
+        [Required, Display(Name = "Apartment")]
+        public int Apartment { get; set; }
+
+        [Required, Display(Name = "Age")]
         public int? Age { get; set; }
 
-        [Required, StringLength(128)]
+        [Required, Display(Name = "Email"), StringLength(128)]
         public string Email { get; set; }
 
-        [Required]
+        [Required, Display(Name = "Persons At Home")]
         public int? PersonsAtHome { get; set; }
 
+        [Display(Name = "Key Received")]
         public DateTime KeyReceived { get; set; }
 
-        [StringLength(64)]
+        [Display(Name = "Project Entrepreneur"), StringLength(64)]
         public string ProjectName { get; set; }
 
-        [StringLength(64)]
+        [Display(Name = "Constructor"), StringLength(64)]
         public string Constructor { get; set; }
 
         public bool Subscribed { get; set; }

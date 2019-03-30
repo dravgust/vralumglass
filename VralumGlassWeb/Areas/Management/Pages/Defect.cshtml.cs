@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using Vralumglass.Core;
 using VralumGlassWeb.Data;
@@ -36,16 +37,22 @@ namespace VralumGlassWeb.Areas.Management.Pages
         public ManagementDefect Defect { get; set; }
 
 		public IActionResult OnGet(string id)
-		{
-			if (string.IsNullOrEmpty(id))
-			{
-				return RedirectToPage("./Index");
-			}
+        {
+            if (!ProjectIdentity.TryParse(id, out var cIdentity))
+            {
+                return NotFound();
+            }
 
-			Defect = new ManagementDefect
+            Defect = new ManagementDefect
             {
 				CustomerId = id,
-                Sizes = new string[3]
+
+                City = cIdentity.City,
+                Address = cIdentity.Address,
+                Building = cIdentity.Building,
+                Apartment = cIdentity.Apartment,
+
+                Sizes = new string[3],
             };
 
 			return Page();
@@ -53,20 +60,70 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ProjectIdentity.TryParse(Defect.CustomerId, out var cIdentity))
             {
-                return Page();
+                return NotFound();
             }
 
-            var folder = $"/{Defect.CustomerId.Substring(0, Defect.CustomerId.LastIndexOf('/'))}/Delivery";
-            var fileName = "defects.xlsx";
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("Management/Defect", new
+                {
+                    id = Defect.CustomerId
+                });
+            }
+
+            var deliveryFolder = $"/{cIdentity.City}/{cIdentity.Address}/{cIdentity.Building}/FirstDelivery";
+            const string fileName = "DefectList.xlsx";
 
             var ie = new ImportExport();
-            var data = ie.Export(new List<ManagementDefect>{ Defect });
+            var defects = new List<ManagementDefect>();
+            List<string> search = null;
 
-			var res1 = await _fileStorage.Upload(folder, fileName, data);
+            try
+            {
+                search = await _fileStorage.Search(deliveryFolder, fileName, 1);
+                _logger.LogDebug($"search {fileName} => {search.Count}");
+            }
+            catch (Exception e)
+            {
+                _logger.LogDebug(e.Message);
+            }
 
-			return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
+            if (search != null && search.Any())
+            {
+                var iData = await _fileStorage.Download(deliveryFolder, fileName);
+                _logger.LogDebug($"download {fileName} => {iData.Length}");
+                defects.AddRange(ie.Import(iData));
+
+                _logger.LogDebug($"import {fileName} => {defects.ToJson()}");
+            }
+
+            defects.Add(Defect);
+            var eData = ie.Export(defects);
+
+            var res1 = await _fileStorage.Upload(deliveryFolder, fileName, eData);
+
+            if (Defect.UploadPhoto != null)
+            {
+                var customerFolder =
+                    $"/{cIdentity.City}/{cIdentity.Address}/{cIdentity.Building}/{cIdentity.Apartment}/FirstDelivery/{DateTime.Now:F}";
+                using (var ms = new MemoryStream())
+                {
+                    await Defect.UploadPhoto.CopyToAsync(ms);
+                    var res2 = await _fileStorage.Upload(customerFolder, "photo.jpg", ms.ToArray());
+                }
+            }
+
+            var email = "dravgust@hotmail.com";
+            var subject = "Work Manager Request";
+            var body = $"Work manager: {Defect.CustomerId} sent defect.";
+
+            await _emailSender.SendEmailAsync(email, subject, body);
+
+            TempData["alerts"] = new List<string>{"Defect sent successfully."};
+
+        return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
 		}
 
         public async Task<IActionResult> OnGetDownload(string id)

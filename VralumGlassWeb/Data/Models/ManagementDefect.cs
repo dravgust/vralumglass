@@ -9,14 +9,17 @@ namespace VralumGlassWeb.Data.Models
 		[Required]
 		public string CustomerId { get; set; }
 
-        [Required, Display(Name = "Address"), StringLength(256)]
-        public string Address { get; set; }
-
         [Required, Display(Name = "City"), StringLength(32)]
         public string City { get; set; }
 
+        [Required, Display(Name = "Address"), StringLength(256)]
+        public string Address { get; set; }
+
         [Required, Display(Name = "Building"), StringLength(3)]
         public string Building { get; set; }
+
+        [Required, Display(Name = "Apartment")]
+        public int? Apartment { get; set; }
 
         public bool GlassBroken { get; set; }
 

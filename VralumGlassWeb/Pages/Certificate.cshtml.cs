@@ -31,6 +31,11 @@ namespace VralumGlassWeb.Pages
 
         public IActionResult OnGet(string id)
         {
+            if (!ProjectIdentity.TryParse(id, out var cIdentity))
+            {
+                return NotFound();
+            }
+
             if (_signInManager.IsSignedIn(User))
             {
                 return Redirect("~/Management/Defect?id=" + id);

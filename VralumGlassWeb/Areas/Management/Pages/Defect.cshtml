@@ -1,4 +1,5 @@
 ﻿@page
+@using NPOI.SS.Formula.Functions
 @model VralumGlassWeb.Areas.Management.Pages.DefectModel
 
 @{
@@ -9,7 +10,7 @@
 
 <div class="row mt-5">
     <div class="col-md-12">
-        <a class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer" 
+        <a class="btn btn-outline-success btn-lg" target="_blank" rel="noopener noreferrer"
            asp-area="Management" asp-page="/Defect" asp-page-handler="Download"
            asp-route-id="@Model.Defect.CustomerId">Download Drawing PDF</a>
     </div>
@@ -17,26 +18,39 @@
 <div class="row mt-3">
     <div class="col-md-12">
 
-        <form method="post">
-            <input type="hidden" asp-for="Defect.CustomerId"/>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Defect.CustomerId" />
             <div class="form-row">
+
+                @*<div class="form-group col-md-3">
+                    <label asp-for="Defect.City">City</label>
+                    <select asp-for="Defect.City" type="text" class="form-control">
+                        <option>Choose...</option>
+                    </select>
+                    <span asp-validation-for="Defect.City" class="text-danger"></span>
+                </div>*@
                 <div class="form-group col-md-3">
-                    <label for="inputCity">City</label>
-                    <input asp-for="Defect.City" type="text" class="form-control" id="inputCity">
+                    <label asp-for="Defect.City">City</label>
+                    <input asp-for="Defect.City" type="text" class="form-control" readonly="">
                     <span asp-validation-for="Defect.City" class="text-danger"></span>
                 </div>
-                <div class="form-group col-md-8">
-                    <label for="inputAddress">Address</label>
-                    <input asp-for="Defect.Address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St.">
+                <div class="form-group col-md-7">
+                    <label asp-for="Defect.Address">Address</label>
+                    <input asp-for="Defect.Address" type="text" class="form-control" readonly="">
                     <span asp-validation-for="Defect.Address" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-1">
-                    <label for="inputBuilding">Building</label>
-                    <input asp-for="Defect.Building" type="text" class="form-control" id="inputBuilding">
+                    <label asp-for="Defect.Building">Building</label>
+                    <input asp-for="Defect.Building" type="text" class="form-control" readonly="">
                     <span asp-validation-for="Defect.Building" class="text-danger"></span>
                 </div>
+                <div class="form-group col-md-1">
+                    <label asp-for="Defect.Apartment"></label>
+                    <input asp-for="Defect.Apartment" type="text" class="form-control" readonly="">
+                    <span asp-validation-for="Defect.Apartment" class="text-danger"></span>
+                </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <div class="custom-file">
@@ -95,8 +109,7 @@
                     </div>
                 </div>
             </div>
-
-            <button asp-area="Management" class="btn btn-primary">Send Defect</button>
+            <input asp-area="Management" type="submit" class="btn btn-primary" id="submit" value="Send Defect" />
         </form>
 
     </div>
@@ -106,28 +119,40 @@
 
     <script type="text/javascript">
 
-        function manageCheckboxes() {
-            var checked = $(this).is(':checked');
-            switch ($(this).attr("id")) {
-            case 'Defect_GlassBroken':
-                if (checked) {
-                    $(".defect-size").show();
-                } else {
-                    $(".defect-size").hide();
+        $(function() {
+            function manageCheckboxes() {
+                var checked = $(this).is(':checked');
+                switch ($(this).attr("id")) {
+                case 'Defect_GlassBroken':
+                    if (checked) {
+                        $(".defect-size").show();
+                    } else {
+                        $(".defect-size").hide();
+                    }
+                    break;
+                default:
+                    if (checked) {
+                        $(".defect-descr").show();
+                    } else if (!$('#Defect_ScratchedAluminum').is(':checked') && !$('#Defect_Other').is(':checked')) {
+                        $(".defect-descr").hide();
+                    }
+                    break;
                 }
-                break;
-            default:
-                if (checked) {
-                    $(".defect-descr").show();
-                } else if (!$('#Defect_ScratchedAluminum').is(':checked') && !$('#Defect_Other').is(':checked')){
-                    $(".defect-descr").hide();
-                }
-                break;
             }
-        }
 
-        $(":checkbox").each(manageCheckboxes);
-        $(".custom-control-input").change(manageCheckboxes);
+            $(":checkbox").each(manageCheckboxes);
+            $(".custom-control-input").change(manageCheckboxes);
+
+            @*$.getJSON('/storage/city_list.json',
+                function(data) {
+                    var options = $("#Defect_City");
+                    $.each(data.cities, function(key, val) {
+                        if (val.eng_name !== undefined && val.eng_name !== "") {
+                                options.append(new Option(val.eng_name, val.eng_name, false, val.eng_name === "@Model.Defect.City"));
+                            }
+                        });
+                });*@
+        });
 
     </script>
 }

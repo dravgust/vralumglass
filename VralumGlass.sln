@@ -9,8 +9,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{3F924C10-B124-45CA-8040-E5051A747D4B}"
 	ProjectSection(SolutionItems) = preProject
-		db\Dockerfile = db\Dockerfile
-		db\InitialSchema.sql = db\InitialSchema.sql
+		db\init_schema.sql = db\init_schema.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vralumglass.Core", "Vralumglass.Core\Vralumglass.Core.csproj", "{DAB9F020-8039-413E-A588-95D396B4F79A}"

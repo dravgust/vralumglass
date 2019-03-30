@@ -30,12 +30,12 @@ namespace VralumGlassWeb.Pages
 
         public async Task<IActionResult> OnGet(string id)
         {
-	        if (string.IsNullOrEmpty(id))
-	        {
-		        return RedirectToPage("/Index");
-	        }
+            if (!ProjectIdentity.TryParse(id, out var cIdentity))
+            {
+                return NotFound();
+            }
 
-	        if (_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
 	        {
 		        return Redirect("~/Management/Defect?id=" + id);
 			}
@@ -46,7 +46,11 @@ namespace VralumGlassWeb.Pages
             {
                 Customer = new Customer
                 {
-                    CustomerId = id
+                    CustomerId = id,
+                    City = cIdentity.City,
+                    Address = cIdentity.Address,
+                    Building = cIdentity.Building,
+                    Apartment = cIdentity.Apartment
                 };
 
                 return Page();
@@ -61,10 +65,13 @@ namespace VralumGlassWeb.Pages
         {
 	        if (!ModelState.IsValid)
 	        {
-		        return Page();
-	        }
+                return RedirectToPage("Support", new
+                {
+                    id = Customer.CustomerId
+                });
+            }
 
-			var customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(Customer.CustomerId));
+            var customer = await _db.Customers.FirstOrDefaultAsync(c => c.CustomerId.Equals(Customer.CustomerId));
 
 			if (customer != null)
 			{

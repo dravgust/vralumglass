@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using VralumGlassWeb.Data;
 using VralumGlassWeb.Data.Models;
 
-namespace VralumGlassWeb.Pages
+namespace VralumGlassWeb.Areas.Management.Pages
 {
 	[Authorize]
     public class CustomerModel : PageModel

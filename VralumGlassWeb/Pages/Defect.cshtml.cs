@@ -35,12 +35,12 @@ namespace VralumGlassWeb.Pages
 
 		public IActionResult OnGet(string id)
 		{
-			if (string.IsNullOrEmpty(id))
-			{
-				return RedirectToPage("./Index");
-			}
+            if (!ProjectIdentity.TryParse(id, out var cIdentity))
+            {
+                return NotFound();
+            }
 
-			if (_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
 	        {
 		        return Redirect("~/Management/Defect?id=" + id);
 	        }
@@ -55,12 +55,20 @@ namespace VralumGlassWeb.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ProjectIdentity.TryParse(Defect.CustomerId, out var cIdentity))
             {
-                return Page();
+                return NotFound();
             }
 
-            var folder = $"/{Defect.CustomerId}/{DateTime.Now:F}";
+            if (!ModelState.IsValid)
+            {
+                return RedirectToPage("Defect", new
+                {
+                    id = Defect.CustomerId
+                });
+            }
+
+            var folder = $"/{cIdentity.City}/{cIdentity.Address}/{cIdentity.Building}/{cIdentity.Apartment}/{DateTime.Now:F}";
             var res1 = await _fileStorage.Upload(folder, "description.txt",
                 Encoding.UTF8.GetBytes(Defect.Description));
 
@@ -72,7 +80,7 @@ namespace VralumGlassWeb.Pages
 
             var email = "dravgust@hotmail.com";
             var subject = "Customer Request";
-            var body = $"customer: {Defect.CustomerId} request was sent.";
+            var body = $"customer: {Defect.CustomerId} sent defect.";
 
             await _emailSender.SendEmailAsync(email, subject, body);
 

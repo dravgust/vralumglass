@@ -98,6 +98,8 @@ CREATE TABLE "Customers" (
 	"Identity" character varying(32),
 	"Name" character varying(128),
 	"Surname" character varying(128),
+	"Building" character varying(3),
+	"Apartment" int NOT NULL,
 	"Address" character varying(256),
 	"City" character varying(32),
 	"Age" int,
