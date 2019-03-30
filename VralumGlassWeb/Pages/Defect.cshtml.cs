@@ -69,7 +69,7 @@ namespace VralumGlassWeb.Pages
                 });
             }
 
-            var folder = $"/{cIdentity.City}/{cIdentity.Address}/{cIdentity.Building}/{cIdentity.Apartment}/{DateTime.Now:F}";
+            var folder = $"/{cIdentity.City}/{cIdentity.Address}/{cIdentity.Building}/{cIdentity.Apartment}/Defects/{DateTime.Now:F}";
             var res1 = await _fileStorage.Upload(folder, "description.txt",
                 Encoding.UTF8.GetBytes(Defect.Description));
 

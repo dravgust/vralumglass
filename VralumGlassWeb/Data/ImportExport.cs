@@ -111,7 +111,7 @@ namespace VralumGlassWeb.Data
                 for (var i = 0; i < customers.Count; i++)
 				{
 					var c = customers[i];
-					row = excelSheet.CreateRow(i);
+					row = excelSheet.CreateRow(i + 1);
 					row.CreateCell(0).SetCellValue(c.CustomerId);
 					row.CreateCell(1).SetCellValue(c.Name);
 				    row.CreateCell(2).SetCellValue(c.Surname);
