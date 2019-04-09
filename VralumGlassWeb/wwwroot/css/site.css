@@ -88,3 +88,11 @@ body {
 .input-group + .input-group {
     margin-top: .5rem;
 }
+
+
+#scroller {
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    display: none;
+}

@@ -1,0 +1,307 @@
+﻿@page
+@model VralumGlassWeb.Pages.SmartCutModel
+@{
+    ViewData["Title"] = "SmartCut";
+}
+
+<h1>Smart Cut</h1>
+
+@Html.AntiForgeryToken()
+
+<div class="row mt-5">
+    <div class="col-md-6">
+
+        <div id="plank_table" class="table-editable">
+
+            <table class="table table-bordered table-responsive-md text-center table-sm">
+
+                <tr>
+                    <th scope="col" class="text-center">№</th>
+                    <th scope="col" class="text-center">Plank Length</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+
+                @for (var i = 0; i < @Model.Planks.Count; i++)
+                {
+                    <tr>
+                        <td style="width: 53px;">@(i + 1)</td>
+                        <td contenteditable="true">@Model.Planks[i]</td>
+                        <td style="width: 43px;">
+                            <span class="table-remove"><i class="fa fa-trash"></i></span>
+                        </td>
+                    </tr>
+                }
+
+                <tr style="display: none">
+                    <td style="width: 53px;"></td>
+                    <td contenteditable="true"></td>
+                    <td style="width: 43px;">
+                        <span class="table-remove"><i class="fa fa-trash"></i></span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Plank</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div id="snippet_table" class="table-editable">
+
+            <span class="float-right mb-3 mr-2">
+                <a href="#!" class="btn btn-outline-dark rounded-0"><i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel</a>
+            </span>
+
+            <table class="table table-bordered table-responsive-md text-center table-sm">
+
+                <tr>
+                    <th scope="col" class="text-center">№</th>
+                    <th scope="col" class="text-center">Snippet Length</th>
+                    <th scope="col" class="text-center">Apartment</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+
+                @for (var i = 0; i < @Model.Snippets.Count; i++)
+                {
+                    <tr>
+                        <td style="width: 53px;">@(i + 1)</td>
+                        <td contenteditable="true">@Model.Snippets[i].Length</td>
+                        <td contenteditable="true">@Model.Snippets[i].Apartment</td>
+                        <td style="width: 43px;">
+                            <span class="table-remove"><i class="fa fa-trash"></i></span>
+                        </td>
+                    </tr>
+                }
+                
+                <tr style="display: none">
+                    <td style="width: 53px;"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td style="width: 43px;">
+                        <span class="table-remove"><i class="fa fa-trash"></i></span>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div class="row">
+                <div class="col-md-2 pr-md-1">
+                    <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Snippet</button>
+                </div>
+                <div class="col-md-10 pl-md-1">
+                    <button id="cutting-btn" class="btn btn-dark btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="export" class="row mt-5 animated fadeIn" style="display: none">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <blockquote class="blockquote mb-0">
+                    <h1 class="text-success">Calculation complete!</h1>
+                    <h4>Used planks sizes:</h4>
+                    <ul id="export_body" class="list-group"></ul>
+                    <footer id="export_footer" class="blockquote-footer"></footer>
+                </blockquote>
+            </div>
+        </div>
+        
+        <span class="float-right mb-3 mr-2">
+            <a href="#!" class="btn btn-outline-dark rounded-0"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
+        </span>
+        
+        <table class="table table-hover table-bordered table-responsive-md text-center table-sm mt-5"></table>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        String.prototype.format = function() {
+            var args = arguments;
+            return this.replace(/\{\{|\}\}|\{(\d+)\}/g,
+                function(m, n) {
+                    if (m == "{{") {
+                        return "{";
+                    }
+                    if (m == "}}") {
+                        return "}";
+                    }
+                    return args[n];
+                });
+        };
+
+        var isNumeric = function(n) {
+            return isFinite(n) && parseFloat(n) == n;
+        };
+
+        var $PLANK_TABLE = $('#plank_table');
+        var $SNIPPET_TABLE = $('#snippet_table');
+        var $BTN = $('#cutting-btn');
+
+        $('.table-add').click(function() {
+            var tableEdit = $(this).parents('.table-editable');
+            var $clone = tableEdit.find('tr:hidden').clone(true).css('display', '');
+            var lastIndex = tableEdit.find('tr:not(:hidden):last').find('td').eq(0).text();
+            $clone.find('td').eq(0).text(parseInt(lastIndex) + 1);
+            tableEdit.find('table').append($clone);
+        });
+
+        $('.table-remove').click(function() {
+            $(this).parents('tr').detach();
+        });
+
+        $('.table-up').click(function() {
+            var $row = $(this).parents('tr');
+            if ($row.index() === 1) return; // Don't go above the header
+            $row.prev().before($row.get(0));
+        });
+
+        $('.table-down').click(function() {
+            var $row = $(this).parents('tr');
+            $row.next().after($row.get(0));
+        });
+
+        // A few jQuery helpers for exporting only
+        jQuery.fn.pop = [].pop;
+        jQuery.fn.shift = [].shift;
+
+        $BTN.click(function() {
+
+            $("#export_body").empty();
+            $('#export').find('table tr').remove();
+            $("#export").hide();
+
+            var $rowsPlank = $PLANK_TABLE.find('tr:not(:hidden)');
+            var dataPlank = [];
+            $rowsPlank.each(function() {
+                var $td = $(this).find('td');
+                if ($td.length !== 0) {
+                    var value = $td.eq(1).text();
+                    if (isNumeric(value)) {
+                        dataPlank.push(value);
+                    }
+                }
+            });
+
+
+            var $rows = $SNIPPET_TABLE.find('tr:not(:hidden)');
+            var headers = ["Id", "Length", "Apartment"];
+            var data = [];
+
+            // Get the headers (add special header logic here)
+            //$($rows.shift()).find('th:not(:empty)').each(function() {
+            //    headers.push($(this).text().toLowerCase());
+            //});
+
+            // Turn all existing rows into a loopable array
+            $rows.each(function() {
+                var $td = $(this).find('td');
+                if ($td.length !== 0) {
+                    var h = {};
+
+                    // Use the headers from earlier to name our hash keys
+                    headers.forEach(function(header, i) {
+                        if (i !== 0) {
+                            var value = $td.eq(i).text();
+                            if (isNumeric(value)) {
+                                h[header] = value;
+                            }
+                        }
+                    });
+
+                    data.push(h);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Planks": dataPlank, "Snippets": data }),
+                success: function(response) {
+
+                    $("#export").show();
+
+                    $('html,body').animate({
+                        scrollTop: $("#export").offset().top
+                    });
+
+                    var plankSizes = {};
+                    $.each(response.planks,
+                        function(i, plank) {
+                            var l = plankSizes[plank.originalLength];
+                            if (!l) {
+                                plankSizes[plank.originalLength] = 1;
+                            } else {
+                                plankSizes[plank.originalLength] += 1;
+                            }
+                        });
+
+                    var exportBody = $('#export_body');
+                    var totalLength = 0;
+                    $.each(plankSizes,
+                        function(key, value) {
+                            var item = $('<li/>',
+                                { 'class': 'list-group-item d-flex justify-content-between align-items-center' });
+                            var length = parseFloat(key) * parseInt(value);
+                            item.append($('<span/>', { text: '{0} X {1} = {2}'.format(key, value, length) }));
+                            exportBody.append(item);
+
+                            totalLength += length;
+                        });
+
+                    $('#export_footer').text("total: {0} with {1} waste ({2}%)".format(totalLength, response.free, (parseFloat(response.free) * 100 / totalLength).toFixed(2) ));
+                    
+                    var exportTable = $('#export').find('table');
+                    exportTable.append($('<tr>')
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('№'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Plank Length'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Snippet [Apartment]'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Waste'))
+                    );
+                    $.each(response.planks,
+                        function(i, plank) {
+                            var cuts = $('<div/>', { 'class': 'row' });
+
+                            $.each(plank.cuts,
+                                function(i, cut) {
+                                    cuts.append($('<div/>', { 'class': 'col-md-2' })
+                                        .text("{0} [{1}]".format(cut.length, cut.apartment)));
+                                });
+
+                            exportTable.append($('<tr>')
+                                .append($('<td/>', { 'css': { 'width': '53px' } }).text(i + 1))
+                                .append($('<td/>').text(plank.originalLength))
+                                .append($('<td/>').append(cuts))
+                                .append($('<td/>').text(plank.freeLength))
+                            );
+                        });
+                },
+                failure: function(response) {
+                    alert(response);
+                }
+            });
+        });
+    </script>
+}

@@ -7,12 +7,20 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Varalumglass.Test;
 using Vralumglass.Core;
+using Vralumglass.Core.Interfaces;
 using Vralumglass.Dropbox;
 
 namespace Tests
 {
 	public class CuttingStockTests
 	{
+        public class MyClass
+        {
+            public List<float> Planks { get; set; } = new List<float>();
+
+            public List<TestSnippet> Snippets { get; set; } = new List<TestSnippet>();
+        }
+
 		[SetUp]
 		public void Setup()
 		{
@@ -36,43 +44,51 @@ namespace Tests
                 7052, 1282, 3044, 3829, 272, 1272, 6986, 2222, 2407, 6769, 2342,
             };
 
-            var t1 = desiredLengths.Max();
-            Console.WriteLine($"Apply sizes: {t1}");
+            var snippets = new List<ISnippet>();
+            var counter = 0;
+            for (var i = 1; i <= 50; i++)
+            {
+                if (i == 3) continue;
+
+                snippets.Add(new TestSnippet(desiredLengths[counter]) { Apartment = i });
+                snippets.Add(new TestSnippet(desiredLengths[counter + 1]) { Apartment = i });
+                snippets.Add(new TestSnippet(desiredLengths[counter + 2]) { Apartment = i });
+
+                counter += 3;
+            }
+
+            var cuttingStockJob = new CuttingStock(snippets);
 
             //The possible lengths of plank //
-            //var possibleLengths = new List<float> { 7059, 4950 };
-            var possibleLengths = new List<float> { t1 };
+            var possibleLengths = new List<float> { 7050, 4950 };
 
-            var algorithm = new CuttingStockJob(desiredLengths);
+            var planks = cuttingStockJob.CalculateCuts(possibleLengths);
 
-            var planks = algorithm.CalculateCuts(possibleLengths);
-
+            Console.WriteLine($"Use plank sizes: [{string.Join(", ", planks.Select(p => p.OriginalLength).Distinct())}]");
             Console.WriteLine();
             foreach (var plank in planks)
             {
-                Console.WriteLine("Cut a {0} long plank by: {1} to end up with {2} waste.", plank.OriginalLength,
-                    string.Join(", ", plank.Cuts), plank.FreeLength);
+                Console.WriteLine("Cut a {0} by: {1} with {2} waste.", plank.OriginalLength, string.Join(", ", plank.Cuts), plank.FreeLength);
             }
 
-            Console.WriteLine("Finished with {0} waste", CuttingStockJob.GetFree(planks));
-
-            var tt2 = planks.First(t => Math.Abs(t.FreeLength - planks.Max(tt => tt.FreeLength)) <= 0.0);
-            var t2 = tt2.Cuts.Sum();
-            Console.WriteLine($"Apply sizes: {t1} and {t2}");
-            var possibleLengths2 = new List<float> { t1, t2 };
-
-            var planks2 = algorithm.CalculateCuts(possibleLengths2);
-
-            Console.WriteLine();
-            foreach (var plank in planks2)
-            {
-                Console.WriteLine("Cut a {0} long plank by: {1} to end up with {2} waste.", plank.OriginalLength,
-                    string.Join(", ", plank.Cuts), plank.FreeLength);
-            }
-
-            Console.WriteLine("Finished with {0} waste", CuttingStockJob.GetFree(planks2));
+            Console.WriteLine("Finished with {0} waste", CuttingStock.GetFree(planks));
 
             Assert.Pass();
 		}
 	}
+
+    public class TestSnippet : Snippet
+    {
+        public TestSnippet(float length) : base(length)
+        {
+
+        }
+
+        public int Apartment { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Length}[{Apartment}]";
+        }
+    }
 }

@@ -1,0 +1,7 @@
+{
+  "name": "VralumGlassWeb",
+  "private": true,
+  "dependencies": {
+    "fontawesome": "^5.8.1"
+  }
+}
