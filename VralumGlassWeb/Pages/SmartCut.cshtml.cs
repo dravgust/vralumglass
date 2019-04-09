@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using Vralumglass.Core.Interfaces;
 
 namespace VralumGlassWeb.Pages
 {
+    [Authorize]
     public class SmartCutModel : PageModel
     {
         [BindProperty]
