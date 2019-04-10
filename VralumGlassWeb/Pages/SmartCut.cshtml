@@ -13,7 +13,7 @@
 
         <div id="plank_table" class="table-editable">
 
-            <table class="table table-bordered table-responsive-md text-center table-sm">
+            <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
 
                 <tr>
                     <th scope="col" class="text-center">№</th>
@@ -57,11 +57,17 @@
 
         <div id="snippet_table" class="table-editable">
 
-            <span class="float-right mb-3 mr-2">
-                <a href="#!" class="btn btn-outline-success rounded-0 disabled"><i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel</a>
-            </span>
+            <form method="POST" enctype="multipart/form-data">
 
-            <table class="table table-bordered table-responsive-md text-center table-sm">
+                <span class="float-right mb-3 mr-2">
+                    <span class="btn btn-outline-success rounded-0 fileinput-button">
+                        <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
+                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();"/>
+                    </span>
+                </span>
+            </form>
+
+            <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
 
                 <tr>
                     <th scope="col" class="text-center">№</th>
@@ -81,7 +87,7 @@
                         </td>
                     </tr>
                 }
-                
+
                 <tr style="display: none">
                     <td style="width: 53px;"></td>
                     <td contenteditable="true"></td>
@@ -118,18 +124,19 @@
                 </blockquote>
             </div>
         </div>
-        
+
         <span class="float-right mb-3 mr-2">
             <a href="#!" class="btn btn-outline-success rounded-0 disabled"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
         </span>
-        
-        <table class="table table-hover table-bordered table-responsive-md text-center table-sm mt-5"></table>
+
+        <table class="table table-bordered table-responsive-md text-center table-sm mt-5"></table>
     </div>
 </div>
 
 
 @section Scripts
 {
+
     <script type="text/javascript">
 
         String.prototype.format = function() {
@@ -149,6 +156,22 @@
         var isNumeric = function(n) {
             return isFinite(n) && parseFloat(n) == n;
         };
+
+        $('#ImportExcel2').on('change', function (evt) {
+
+            evt.preventDefault();
+            var form = document.getElementById("import_excel_form");
+                $.ajax({
+                    url: '?handler=Import',
+                    data: new FormData(form),
+                    contentType: false,
+                    processData: false,
+                    type: 'post',
+                    success: function() {
+                        alert('Uploaded by jQuery');
+                    }
+                });
+            });
 
         var $PLANK_TABLE = $('#plank_table');
         var $SNIPPET_TABLE = $('#snippet_table');
@@ -271,8 +294,10 @@
                             totalLength += length;
                         });
 
-                    $('#export_footer').text("total: {0} with {1} waste ({2}%)".format(totalLength, response.free, (parseFloat(response.free) * 100 / totalLength).toFixed(2) ));
-                    
+                    $('#export_footer').text("total: {0} with {1} waste ({2}%)".format(totalLength,
+                        response.free,
+                        (parseFloat(response.free) * 100 / totalLength).toFixed(2)));
+
                     var exportTable = $('#export').find('table');
                     exportTable.append($('<tr>')
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('№'))

@@ -81,7 +81,7 @@ namespace VralumGlassWeb.Pages
             return new JsonResult(new { Planks = planks, Free = CuttingStock.GetFree(planks) });
         }
 
-        public async Task<IActionResult> OnPostImportAsync()
+        public async Task<IActionResult> OnPostImport()
         {
             var ie = new ImportExport();
 
