@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using NPOI.HSSF.Record.Aggregates;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Vralumglass.Core.Models;
 using VralumGlassWeb.Data.Models;
+using VralumGlassWeb.Pages;
 
 namespace VralumGlassWeb.Data
 {
@@ -46,39 +48,91 @@ namespace VralumGlassWeb.Data
             return result;
         }
 
-		public byte[] Export(IList<ManagementDefect> defects)
+        public IList<TestSnippet> ImportSnippets(byte[] data)
+        {
+            var result = new List<TestSnippet>();
+            using (var ms = new MemoryStream(data))
+            {
+                var wb = new XSSFWorkbook(ms);
+                ISheet excelSheet = wb.GetSheetAt(0);
+
+                for (var i = 1; i <= excelSheet.LastRowNum; i++)
+                {
+                    try
+                    {
+                        IRow row = excelSheet.GetRow(i);
+                        result.Add(new TestSnippet(float.Parse(row.GetCell(0).ToString()))
+                        {
+                            Apartment = int.Parse(row.GetCell(1).ToString())
+                        });
+                    }
+                    catch { }
+                }
+            }
+
+            return result;
+        }
+
+        public byte[] Export(IList<ManagementDefect> defects)
+        {
+            using (var fs = new MemoryStream())
+            {
+                var workbook = new XSSFWorkbook();
+                ISheet excelSheet = workbook.CreateSheet("Defects");
+                IRow row = excelSheet.CreateRow(0);
+
+                row.CreateCell(0).SetCellValue("ID");
+                row.CreateCell(1).SetCellValue("City");
+                row.CreateCell(2).SetCellValue("Address");
+                row.CreateCell(3).SetCellValue("Building");
+                row.CreateCell(4).SetCellValue("Apartment");
+                row.CreateCell(5).SetCellValue("Glass broken/cracked");
+                row.CreateCell(6).SetCellValue("Scratched in aluminum");
+                row.CreateCell(7).SetCellValue("Other");
+                row.CreateCell(8).SetCellValue("Description");
+                row.CreateCell(9).SetCellValue("Sizes");
+
+                for (var i = 0; i < defects.Count; i++)
+                {
+                    var c = defects[i];
+                    row = excelSheet.CreateRow(i + 1);
+                    row.CreateCell(0).SetCellValue(c.CustomerId);
+                    row.CreateCell(1).SetCellValue(c.City);
+                    row.CreateCell(2).SetCellValue(c.Address);
+                    row.CreateCell(3).SetCellValue(c.Building);
+                    row.CreateCell(4).SetCellValue($"{c.Apartment}");
+                    row.CreateCell(5).SetCellValue($"{c.GlassBroken}");
+                    row.CreateCell(6).SetCellValue($"{c.ScratchedAluminum}");
+                    row.CreateCell(7).SetCellValue($"{c.Other}");
+                    row.CreateCell(8).SetCellValue(c.Description);
+                    row.CreateCell(9).SetCellValue(string.Join(',', c.Sizes));
+                }
+
+                workbook.Write(fs);
+
+                return fs.ToArray();
+            }
+        }
+
+        public byte[] Export(IList<Plank> planks)
 		{
 			using (var fs = new MemoryStream())
 			{
 				var workbook = new XSSFWorkbook();
-				ISheet excelSheet = workbook.CreateSheet("Defects");
+				ISheet excelSheet = workbook.CreateSheet("Planks");
 				IRow row = excelSheet.CreateRow(0);
 
-				row.CreateCell(0).SetCellValue("ID");
-				row.CreateCell(1).SetCellValue("City");
-				row.CreateCell(2).SetCellValue("Address");
-				row.CreateCell(3).SetCellValue("Building");
-                row.CreateCell(4).SetCellValue("Apartment");
-                row.CreateCell(5).SetCellValue("Glass broken/cracked");
-				row.CreateCell(6).SetCellValue("Scratched in aluminum");
-				row.CreateCell(7).SetCellValue("Other");
-				row.CreateCell(8).SetCellValue("Description");
-				row.CreateCell(9).SetCellValue("Sizes");
+				row.CreateCell(0).SetCellValue("Plank Length");
+				row.CreateCell(1).SetCellValue("Snippet [Apartment]");
+				row.CreateCell(2).SetCellValue("Waste");
 
-				for (var i = 0; i < defects.Count; i++)
+				for (var i = 0; i < planks.Count; i++)
 				{
-					var c = defects[i];
+					var plank = planks[i];
 					row = excelSheet.CreateRow(i + 1);
-					row.CreateCell(0).SetCellValue(c.CustomerId);
-					row.CreateCell(1).SetCellValue(c.City);
-					row.CreateCell(2).SetCellValue(c.Address);
-					row.CreateCell(3).SetCellValue(c.Building);
-					row.CreateCell(4).SetCellValue($"{c.Apartment}");
-					row.CreateCell(5).SetCellValue($"{c.GlassBroken}");
-					row.CreateCell(6).SetCellValue($"{c.ScratchedAluminum}");
-					row.CreateCell(7).SetCellValue($"{c.Other}");
-					row.CreateCell(8).SetCellValue(c.Description);
-					row.CreateCell(9).SetCellValue(string.Join(',', c.Sizes));
+					row.CreateCell(0).SetCellValue(plank.OriginalLength);
+					row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
+					row.CreateCell(2).SetCellValue(plank.FreeLength);
 				}
 
 				workbook.Write(fs);

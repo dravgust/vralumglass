@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using Vralumglass.Core;
 using Vralumglass.Core.Interfaces;
+using VralumGlassWeb.Data;
 
 namespace VralumGlassWeb.Pages
 {
@@ -20,6 +22,9 @@ namespace VralumGlassWeb.Pages
 
         [BindProperty]
         public List<TestSnippet> Snippets { get; set; } = new List<TestSnippet>();
+
+        [BindProperty]
+        public IFormFile ImportExcel { get; set; }
 
         public void OnGet()
         {
@@ -74,6 +79,49 @@ namespace VralumGlassWeb.Pages
             var planks = cuttingStock.CalculateCuts(Planks);
 
             return new JsonResult(new { Planks = planks, Free = CuttingStock.GetFree(planks) });
+        }
+
+        public async Task<IActionResult> OnPostImportAsync()
+        {
+            var ie = new ImportExport();
+
+            using (var ms = new MemoryStream())
+            {
+                await ImportExcel.CopyToAsync(ms);
+                Snippets.Clear();
+                Snippets.AddRange(ie.ImportSnippets(ms.ToArray()));
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostExportAsync()
+        {
+            var ie = new ImportExport();
+
+            var stream = new MemoryStream();
+            Request.Body.CopyTo(stream);
+            stream.Position = 0;
+            using (var reader = new StreamReader(stream))
+            {
+                var requestBody = await reader.ReadToEndAsync();
+                if (requestBody.Length > 0)
+                {
+                    var obj = JsonConvert.DeserializeObject<SmartCutModel>(requestBody);
+                    if (obj != null)
+                    {
+                        Snippets = obj.Snippets;
+                        Planks = obj.Planks;
+                    }
+                }
+            }
+
+            var cuttingStock = new CuttingStock(Snippets.Cast<ISnippet>().ToList());
+            var planks = cuttingStock.CalculateCuts(Planks);
+
+            var data = ie.Export(planks);
+
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Customers.xlsx");
         }
     }
 
