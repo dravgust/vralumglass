@@ -81,7 +81,7 @@ namespace VralumGlassWeb.Pages
             return new JsonResult(new { Planks = planks, Free = CuttingStock.GetFree(planks) });
         }
 
-        public async Task<IActionResult> OnPostImport()
+        public async Task<IActionResult> OnPostImportAsync()
         {
             var ie = new ImportExport();
 
@@ -92,7 +92,7 @@ namespace VralumGlassWeb.Pages
                 Snippets.AddRange(ie.ImportSnippets(ms.ToArray()));
             }
 
-            return Page();
+            return RedirectToPage("/SmartCut");
         }
 
         public async Task<IActionResult> OnPostExportAsync()

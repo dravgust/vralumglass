@@ -6,8 +6,6 @@
 
 <h1>Smart Cut</h1>
 
-@Html.AntiForgeryToken()
-
 <div class="row mt-5">
     <div class="col-md-6">
 
@@ -57,12 +55,12 @@
 
         <div id="snippet_table" class="table-editable">
 
-            <form method="POST" enctype="multipart/form-data">
-
+            <form method="POST" action="?handler=Import" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
                 <span class="float-right mb-3 mr-2">
                     <span class="btn btn-outline-success rounded-0 fileinput-button">
                         <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
-                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();"/>
+                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
                     </span>
                 </span>
             </form>
