@@ -92,7 +92,7 @@ namespace VralumGlassWeb.Pages
                 Snippets.AddRange(ie.ImportSnippets(ms.ToArray()));
             }
 
-            return RedirectToPage("/SmartCut");
+            return Page();
         }
 
         public async Task<IActionResult> OnPostExportAsync()
