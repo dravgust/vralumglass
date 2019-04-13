@@ -49,7 +49,7 @@ namespace VralumGlassWeb.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostExport()
+        public async Task<IActionResult> OnPostExportAsync()
         {
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
             const string sFileName = @"attachment.pdf";

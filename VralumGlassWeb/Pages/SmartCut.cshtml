@@ -55,8 +55,7 @@
 
         <div id="snippet_table" class="table-editable">
 
-            <form method="POST" action="?handler=Import" enctype="multipart/form-data">
-                @Html.AntiForgeryToken()
+            <form method="POST" enctype="multipart/form-data">
                 <span class="float-right mb-3 mr-2">
                     <span class="btn btn-outline-success rounded-0 fileinput-button">
                         <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
@@ -124,7 +123,7 @@
         </div>
 
         <span class="float-right mb-3 mr-2">
-            <a href="#!" class="btn btn-outline-success rounded-0 disabled"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
+            <a class="btn btn-outline-success rounded-0" target="_blank" rel="noopener noreferrer" asp-page-handler="Export"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
         </span>
 
         <table class="table table-bordered table-responsive-md text-center table-sm mt-5"></table>
@@ -252,7 +251,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "",
+                url: "?handler=Calculate",
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader("XSRF-TOKEN",
                         $('input:hidden[name="__RequestVerificationToken"]').val());

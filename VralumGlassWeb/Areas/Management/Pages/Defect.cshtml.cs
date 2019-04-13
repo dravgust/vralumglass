@@ -126,7 +126,7 @@ namespace VralumGlassWeb.Areas.Management.Pages
             return Redirect("~/Management/Defect?id=" + Defect.CustomerId);
 		}
 
-        public async Task<IActionResult> OnGetDownload(string id)
+        public async Task<IActionResult> OnGetDownloadAsync(string id)
         {
             if (!ProjectIdentity.TryParse(id, out var cIdentity))
             {

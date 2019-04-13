@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Vralumglass.Core;
 using Vralumglass.Core.Interfaces;
@@ -17,6 +19,14 @@ namespace VralumGlassWeb.Pages
     [Authorize]
     public class SmartCutModel : PageModel
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly ILogger<SupportModel> _logger;
+        public SmartCutModel(IHostingEnvironment environment, ILogger<SupportModel> logger)
+        {
+            _hostingEnvironment = environment;
+            _logger = logger;
+        }
+
         [BindProperty]
         public List<float> Planks { get; set; } = new List<float>();
 
@@ -56,7 +66,7 @@ namespace VralumGlassWeb.Pages
             Planks = new List<float> { 7050, 4950 };
         }
 
-        public async Task<JsonResult> OnPostAsync()
+        public async Task<JsonResult> OnPostCalculateAsync()
         {
             var stream = new MemoryStream();
             Request.Body.CopyTo(stream);
@@ -78,10 +88,20 @@ namespace VralumGlassWeb.Pages
             var cuttingStock = new CuttingStock(Snippets.Cast<ISnippet>().ToList());
             var planks = cuttingStock.CalculateCuts(Planks);
 
+            var sWebRootFolder = _hostingEnvironment.WebRootPath;
+            const string sFileName = @"SmartCutCalculation.xlsx";
+            var file = Path.Combine(sWebRootFolder, "storage", sFileName);
+            var ie = new ImportExport();
+            var data = ie.Export(planks);
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                await fileStream.WriteAsync(data, 0, data.Length);
+            }
+
             return new JsonResult(new { Planks = planks, Free = CuttingStock.GetFree(planks) });
         }
 
-        public async Task<IActionResult> OnPostImportAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             var ie = new ImportExport();
 
@@ -95,33 +115,24 @@ namespace VralumGlassWeb.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostExportAsync()
+        public async Task<IActionResult> OnGetExportAsync()
         {
-            var ie = new ImportExport();
+            var sWebRootFolder = _hostingEnvironment.WebRootPath;
+            const string sFileName = @"SmartCutCalculation.xlsx";
+            var file = Path.Combine(sWebRootFolder, "storage", sFileName);
 
-            var stream = new MemoryStream();
-            Request.Body.CopyTo(stream);
-            stream.Position = 0;
-            using (var reader = new StreamReader(stream))
+            if (!System.IO.File.Exists(file))
             {
-                var requestBody = await reader.ReadToEndAsync();
-                if (requestBody.Length > 0)
-                {
-                    var obj = JsonConvert.DeserializeObject<SmartCutModel>(requestBody);
-                    if (obj != null)
-                    {
-                        Snippets = obj.Snippets;
-                        Planks = obj.Planks;
-                    }
-                }
+                _logger.LogInformation($"The file {file} does not exists!");
             }
 
-            var cuttingStock = new CuttingStock(Snippets.Cast<ISnippet>().ToList());
-            var planks = cuttingStock.CalculateCuts(Planks);
-
-            var data = ie.Export(planks);
-
-            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Customers.xlsx");
+            var memory = new MemoryStream();
+            using (var fs = new FileStream(file, FileMode.Open))
+            {
+                await fs.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SmartCutCalculation.xlsx");
         }
     }
 
