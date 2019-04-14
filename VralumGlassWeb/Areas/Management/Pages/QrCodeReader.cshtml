@@ -4,7 +4,7 @@
     ViewData["Title"] = "QR Code Reader";
 }
 
-<div class="row mt-5">
+<div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="well">
@@ -17,6 +17,7 @@
     </div>
     <div class="col-md-4"></div>
 </div>
+<div><select class="form-control" id="camera-select"></select></div>
 
 
 @section Scripts {
@@ -142,6 +143,10 @@
 
         var decoder = $("#webcodecam-canvas").WebCodeCamJQuery(options).data().plugin_WebCodeCamJQuery;
 
+		//decoder.buildSelectMenu(document.createElement('select'), 1);
+		decoder.buildSelectMenu('#camera-select', 'environment|back');
+		decoder.init();
+		//decoder.buildSelectMenu(document.createElement('select'), 'environment|back').init().play();  
         decoder.play();
         //decoder.options['zoom'] = decoder.getOptimalZoom();;
 
