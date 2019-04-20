@@ -1,8 +1,13 @@
 ﻿@page
+@inject IStringLocalizer<IndexModel> Resources
+@using Microsoft.Extensions.Localization
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
+
+<div>@TempData["_welcome"]</div>
+<div>@Resources["_welcome"]</div>
 
 <div id="carouselExampleControls" class="carousel slide" width="800" height="400" data-ride="carousel">
     <div class="carousel-inner">

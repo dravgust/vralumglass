@@ -1,5 +1,9 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@using System.Globalization
+@inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@{
+    var direction = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +29,7 @@
     <link rel="stylesheet" href="~/css/loading-widget.css" />
     <link rel="stylesheet" href="~/css/animate.css" />
 </head>
-<body>
+<body dir="@(direction)">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -35,7 +39,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                   
+                    <partial name="_SelectLanguagePartial"/>
                     <partial name="_LoginPartial" />
+
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
