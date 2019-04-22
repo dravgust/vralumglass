@@ -2,27 +2,33 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
-    var direction = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+    var isRightToLeft = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+    var direction = isRightToLeft ? "rtl" : "ltr";
 }
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Title -->
-    <title>Construction | Unify - Responsive Website Template</title>
-
-    <!-- Required Meta Tags Always Come First -->
+    <title>@ViewData["Title"] - Corona Glass Technologies</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <!-- Favicon -->
     <link rel="shortcut icon" href="~/favicon.ico">
 
-    <!-- Google Fonts -->
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ek+Mukta:400,600,700|Niconne">
 
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="~/assets/vendor/bootstrap/bootstrap.min.css">
+    @if (isRightToLeft)
+    {
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.rtl.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/assets/vendor/bootstrap/bootstrap.min.css">
+    }
+
     <link rel="stylesheet" href="~/assets/vendor/icon-line/css/simple-line-icons.css">
 
     <!-- CSS Implementing Plugins -->
@@ -34,11 +40,17 @@
     <link rel="stylesheet" href="~/assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
     <link rel="stylesheet" href="~/assets/vendor/slick-carousel/slick/slick.css">
 
-    <!-- CSS Template -->
-    <link rel="stylesheet" href="~/assets/css/styles.op-construction.css">
+    @if (isRightToLeft)
+    {
+        <link rel="stylesheet" href="~/assets/css/styles.op-construction.rtl.css">
+        <link rel="stylesheet" href="~/assets/css/custom.rtl.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/assets/css/styles.op-construction.css">
+        <link rel="stylesheet" href="~/assets/css/custom.css">
+    }
 
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="~/assets/css/custom.css">
 </head>
 <body dir="@(direction)">
     <main class="g-pt-75 g-pt-90--md">
@@ -59,7 +71,7 @@
                         <!-- Navigation -->
                         <div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar" data-mobile-scroll-hide="true">
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-5--lg ml-auto">
-                               
+
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
                                     <a href="#home" class="nav-link p-0">Home <span class="sr-only">(current)</span></a>
                                 </li>
@@ -89,7 +101,7 @@
                                 </li>
                             </ul>
                         </div>
-                        
+
                         <!-- End Navigation -->
                         <!-- Responsive Toggle Button -->
                         <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-15 g-right-0" type="button"
@@ -115,7 +127,7 @@
 
         <!-- Footer -->
         <footer>
-            
+
             <div class="u-bg-overlay g-bg-img-hero g-color-white g-bg-primary-opacity-0_8--after g-py-100" style="background-image: url(/assets/img-temp/1920x1280/img1.jpg);">
                 <div class="container text-center text-md-left u-bg-overlay__inner">
                     <div class="row">
@@ -127,7 +139,7 @@
                         </div>
                         <div class="col-md-4 col-lg-2 d-flex text-center align-items-center g-mb-20 g-mb-0--md">
                             <p class="w-100 text-uppercase g-font-size-11 g-color-white mb-0">
-                               
+
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-5 g-flex-centered">
@@ -173,7 +185,16 @@
     <script src="~/assets/vendor/jquery/jquery.min.js"></script>
     <script src="~/assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
     <script src="~/assets/vendor/popper.js/popper.min.js"></script>
-    <script src="~/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+    @if (isRightToLeft)
+    {
+        <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+    }
+    else
+    {
+        <script src="~/assets/vendor/bootstrap/bootstrap.min.js"></script>
+    }
+
     <!-- JS Implementing Plugins -->
     <script src="~/assets/vendor/appear.js"></script>
     <script src="~/assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>

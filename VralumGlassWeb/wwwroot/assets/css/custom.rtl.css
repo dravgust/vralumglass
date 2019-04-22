@@ -1,0 +1,8 @@
+
+.fa-arrow-left:before {
+    content: "\f061";
+}
+
+.fa-arrow-right:before {
+    content: "\f060";
+}
