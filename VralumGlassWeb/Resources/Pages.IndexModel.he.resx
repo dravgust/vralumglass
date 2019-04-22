@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_welcome" xml:space="preserve">
-    <value>שלום1</value>
+  <data name="_about" xml:space="preserve">
+    <value>על החברה</value>
+  </data>
+  <data name="_about_1" xml:space="preserve">
+    <value>נתונים על החברה</value>
+  </data>
+  <data name="_clients" xml:space="preserve">
+    <value>לקוחות</value>
+  </data>
+  <data name="_clients_1" xml:space="preserve">
+    <value>לקוחות</value>
+  </data>
+  <data name="_clients_2" xml:space="preserve">
+    <value>אז מי באמת בחר בנו ?</value>
+  </data>
+  <data name="_clients_3" xml:space="preserve">
+    <value>חברות בנייה הנדסה ויזמות המובילות במשק הישראלי !</value>
+  </data>
+  <data name="_contact" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
+  <data name="_gallery" xml:space="preserve">
+    <value>גלריה</value>
+  </data>
+  <data name="_home" xml:space="preserve">
+    <value>דף הבית</value>
+  </data>
+  <data name="_projects" xml:space="preserve">
+    <value>פרויקטים</value>
+  </data>
+  <data name="_services" xml:space="preserve">
+    <value>שירותים</value>
   </data>
 </root>

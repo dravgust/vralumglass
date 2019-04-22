@@ -1,4 +1,6 @@
 ﻿@using System.Globalization
+@inject IStringLocalizer<IndexModel> Resources
+@using Microsoft.Extensions.Localization
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
@@ -73,28 +75,25 @@
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-5--lg ml-auto">
 
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
-                                    <a href="#home" class="nav-link p-0">Home <span class="sr-only">(current)</span></a>
+                                    <a href="#home" class="nav-link p-0">@Resources["_home"] <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#about" class="nav-link p-0">About</a>
+                                    <a href="#about" class="nav-link p-0">@Resources["_about"]</a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#services" class="nav-link p-0">Services</a>
+                                    <a href="#services" class="nav-link p-0">@Resources["_services"]</a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#recentProjects" class="nav-link p-0">Recent projects</a>
+                                    <a href="#recentProjects" class="nav-link p-0">@Resources["_projects"]</a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#testimonials" class="nav-link p-0">Testimonials</a>
+                                    <a href="#gallery" class="nav-link p-0">@Resources["_gallery"]</a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#gallery" class="nav-link p-0">Gallery</a>
-                                </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#career" class="nav-link p-0">Career</a>
+                                    <a href="#clients" class="nav-link p-0">@Resources["_clients"]</a>
                                 </li>
                                 <li class="nav-item g-ml-8--lg">
-                                    <a href="#contact" class="nav-link p-0">Contact</a>
+                                    <a href="#contact" class="nav-link p-0">@Resources["_contact"]</a>
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
                                     <partial name="_SelectLanguagePartial" />
