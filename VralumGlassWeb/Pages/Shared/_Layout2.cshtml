@@ -1,5 +1,9 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@using System.Globalization
+@inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@{
+    var direction = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,14 +33,14 @@
     <link rel="stylesheet" href="~/assets/vendor/animate.css">
     <link rel="stylesheet" href="~/assets/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
     <link rel="stylesheet" href="~/assets/vendor/slick-carousel/slick/slick.css">
-    
+
     <!-- CSS Template -->
     <link rel="stylesheet" href="~/assets/css/styles.op-construction.css">
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="~/assets/css/custom.css">
 </head>
-<body>
+<body dir="@(direction)">
     <main class="g-pt-75 g-pt-90--md">
         <!-- Header -->
         <header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999"
@@ -49,12 +53,13 @@
                         <!-- Logo -->
                         <a href="#" class="js-go-to navbar-brand u-header__logo"
                            data-type="static">
-                            <img class="u-header__logo-img u-header__logo-img--main g-height-40" src="~/assets/img/logo.jpg" alt="Corona">
+                            <img class="u-header__logo-img u-header__logo-img--main g-height-45" src="~/assets/img/logo2.png" alt="Corona">
                         </a>
                         <!-- End Logo -->
                         <!-- Navigation -->
                         <div class="collapse navbar-collapse align-items-center flex-sm-row" id="navBar" data-mobile-scroll-hide="true">
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-5--lg ml-auto">
+                               
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
                                     <a href="#home" class="nav-link p-0">Home <span class="sr-only">(current)</span></a>
                                 </li>
@@ -79,8 +84,12 @@
                                 <li class="nav-item g-ml-8--lg">
                                     <a href="#contact" class="nav-link p-0">Contact</a>
                                 </li>
+                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
+                                    <partial name="_SelectLanguagePartial" />
+                                </li>
                             </ul>
                         </div>
+                        
                         <!-- End Navigation -->
                         <!-- Responsive Toggle Button -->
                         <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-15 g-right-0" type="button"
@@ -106,81 +115,19 @@
 
         <!-- Footer -->
         <footer>
-            <div id="contact" class="text-center g-color-gray-dark-v1 g-py-100">
-                <div class="container">
-                    <div class="text-uppercase text-center u-heading-v2-4--bottom g-brd-primary g-mb-45">
-                        <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Contact us</h4>
-                        <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">Get in touch</h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="text-center g-overflow-hidden g-mb-30 g-mb-0--md">
-                                <div class="g-mx-minus-2 g-my-minus-2">
-                                    <div class="row mx-0">
-                                        <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
-                                            <i class="icon-anchor d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                            <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Address</h3>
-                                            <strong class="g-font-size-11">Sit amet adipiscing</strong>
-                                        </div>
-                                        <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
-                                            <i class="icon-call-in d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                            <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Phone number</h3>
-                                            <strong class="g-font-size-11">+402 5448 569</strong>
-                                        </div>
-                                        <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
-                                            <i class="icon-line icon-envelope-letter d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                            <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Email</h3>
-                                            <a class="g-font-size-11 g-color-gray-dark-v1" href="mailto:info@unify.com"><strong>info@unify.com</strong></a>
-                                        </div>
-                                        <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
-                                            <i class="icon-earphones-alt d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                            <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Toll free</h3>
-                                            <strong class="g-font-size-11">+402 5897 660</strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <form>
-                                <div class="form-group g-mb-10">
-                                    <input id="inputGroup1_1" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Your name">
-                                </div>
-                                <div class="form-group g-mb-10">
-                                    <input id="inputGroup1_2" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="tel" placeholder="Your phone">
-                                </div>
-                                <div class="form-group g-mb-10">
-                                    <input id="inputGroup1_3" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Subject">
-                                </div>
-                                <div class="form-group g-mb-40">
-                                    <textarea id="inputGroup1_4" class="form-control g-resize-none g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" rows="5" placeholder="Message"></textarea>
-                                </div>
-                                <div class="text-center">
-                                    <button class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" type="submit">
-                                        <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                                        Send message
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="u-bg-overlay g-bg-img-hero g-color-white g-bg-primary-opacity-0_8--after g-py-100" style="background-image: url(/assets/img-temp/1920x1280/img1.jpg);">
                 <div class="container text-center text-md-left u-bg-overlay__inner">
                     <div class="row">
                         <div class="col-md-4 col-lg-5 d-flex align-items-center g-mb-20 g-mb-0--md">
                             <p class="w-100 g-font-size-default g-color-white mb-0">
                                 &copy; 2019 All right reserved.
-                                <a class="g-font-weight-700 g-color-white" href="#"><strong>Unify</strong></a>
-                                Development by
-                                <a class="g-font-weight-700 g-color-white" href="#"><strong>Htmlstream</strong></a>
+                                <a class="g-font-weight-700 g-color-white" href="#"><strong>Corona Glass Technologies</strong></a>
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-2 d-flex text-center align-items-center g-mb-20 g-mb-0--md">
                             <p class="w-100 text-uppercase g-font-size-11 g-color-white mb-0">
-                                Support 24/7
-                                <strong class="d-block g-font-size-22 g-mt-5">+458 669 221</strong>
+                               
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-5 g-flex-centered">

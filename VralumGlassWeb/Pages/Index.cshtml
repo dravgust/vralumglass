@@ -1,4 +1,6 @@
 ﻿@page
+@inject IStringLocalizer<IndexModel> Resources
+@using Microsoft.Extensions.Localization
 @model IndexModel
 @{
     Layout = "Shared/_Layout2";
@@ -577,6 +579,7 @@
     </div>
 </section>
 <!-- End Section Content -->
+
 <section id="clients" class="g-bg-img-hero u-bg-overlay g-bg-primary-opacity-0_9--after g-py-80" style="background-image: url(/assets/img-temp/1920x350/img1.jpg);">
     <div class="container u-bg-overlay__inner text-center">
         <div class="js-carousel"
@@ -605,25 +608,10 @@
                  }
                }]'>
             <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img1.png" alt="Image description">
+                <img class="mx-auto g-width-120" src="" alt="">
             </div>
             <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img2.png" alt="Image description">
-            </div>
-            <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img3.png" alt="Image description">
-            </div>
-            <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img4.png" alt="Image description">
-            </div>
-            <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img5.png" alt="Image description">
-            </div>
-            <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img6.png" alt="Image description">
-            </div>
-            <div class="js-slide g-mx-15">
-                <img class="mx-auto g-width-120" src="~/assets/img-temp/clients/img7.png" alt="Image description">
+                <img class="mx-auto g-width-120" src="" alt="">
             </div>
         </div>
     </div>
@@ -940,45 +928,114 @@
         </div>
         <p class="g-color-gray-dark-v5 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
     </div>
-    <div class="u-bg-overlay g-bg-img-hero g-bg-primary-opacity-0_9--after g-py-100" style="background-image: url(/assets/img-temp/1920x1280/img2.jpg);">
-        <div class="container u-bg-overlay__inner">
-            <div class="js-carousel"
-                 data-infinite="true"
-                 data-arrows-classes="u-arrow-v1 g-pos-abs g-absolute-centered--y--md g-top-0 g-top-50x--md g-width-50 g-height-50 g-font-size-default g-color-primary g-bg-gray-dark-v1 g-opacity-0_8--hover g-transition-0_2 g-transition--ease-in"
-                 data-arrow-left-classes="fa fa-arrow-left g-left-0 g-ml-30--lg"
-                 data-arrow-right-classes="fa fa-arrow-right g-right-0 g-mr-30--lg">
-                <div class="js-slide">
-                    <div class="container text-center g-max-width-700">
-                        <h2 class="text-uppercase g-font-weight-700 g-font-size-26 g-color-white g-mb-40">Welder</h2>
-                        <p class="g-color-white-opacity-0_8 g-mx-50--md g-mb-40">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
-                        <a class="btn btn-lg u-btn-darkgray u-btn-inset" href="#">
-                            <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                            Submit resume
-                        </a>
+    <div class="u-bg-overlay g-bg-img-hero g-py-100">
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 g-mb-40 g-mb-0--lg">
+                        <img class="img-fluid" src="~/assets/img-temp/clients/Picture23.png" alt="">
                     </div>
                 </div>
-                <div class="js-slide">
-                    <div class="container text-center g-max-width-700">
-                        <h2 class="text-uppercase g-font-weight-700 g-font-size-26 g-color-white g-mb-40">Mollitia</h2>
-                        <p class="g-color-white-opacity-0_8 g-mb-40">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
-                        <a class="btn btn-lg u-btn-darkgray u-btn-inset" href="#">
-                            <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                            Submit resume
-                        </a>
-                    </div>
-                </div>
-                <div class="js-slide">
-                    <div class="container text-center g-max-width-700">
-                        <h2 class="text-uppercase g-font-weight-700 g-font-size-26 g-color-white g-mb-40">Cupiditate</h2>
-                        <p class="g-color-white-opacity-0_8 g-mb-40">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
-                        <a class="btn btn-lg u-btn-darkgray u-btn-inset" href="#">
-                            <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                            Submit resume
-                        </a>
-                    </div>
-                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<!-- End Section Content -->
+
+<section class="g-bg-img-hero u-bg-overlay g-bg-primary-opacity-0_9--after g-py-80" style="background-image: url(/assets/img-temp/1920x1280/img2.jpg);">
+    <div class="container u-bg-overlay__inner text-center">
+        <div class="js-carousel"
+             data-autoplay="true"
+             data-infinite="true"
+             data-slides-show="6"
+             data-responsive='[{
+                 "breakpoint": 1200,
+                 "settings": {
+                   "slidesToShow": 6
+                 }
+               }, {
+                 "breakpoint": 992,
+                 "settings": {
+                   "slidesToShow": 4
+                 }
+               }, {
+                 "breakpoint": 768,
+                 "settings": {
+                   "slidesToShow": 2
+                 }
+               }, {
+                 "breakpoint": 576,
+                 "settings": {
+                   "slidesToShow": 1
+                 }
+               }]'>
+            <div class="js-slide g-mx-15">
+                <img class="mx-auto g-width-120" src="" alt="">
+            </div>
+            <div class="js-slide g-mx-15">
+                <img class="mx-auto g-width-120" src="" alt="">
             </div>
         </div>
     </div>
 </section>
-<!-- End Section Content -->
+
+<div id="contact" class="text-center g-color-gray-dark-v1 g-py-100">
+    <div class="container">
+        <div class="text-uppercase text-center u-heading-v2-4--bottom g-brd-primary g-mb-45">
+            <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Contact us</h4>
+            <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">Get in touch</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center g-overflow-hidden g-mb-30 g-mb-0--md">
+                    <div class="g-mx-minus-2 g-my-minus-2">
+                        <div class="row mx-0">
+                            <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
+                                <i class="icon-anchor d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
+                                <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Address</h3>
+                                <strong class="g-font-size-11">Sit amet adipiscing</strong>
+                            </div>
+                            <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
+                                <i class="icon-call-in d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
+                                <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Phone number</h3>
+                                <strong class="g-font-size-11">+402 5448 569</strong>
+                            </div>
+                            <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
+                                <i class="icon-line icon-envelope-letter d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
+                                <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Email</h3>
+                                <a class="g-font-size-11 g-color-gray-dark-v1" href="mailto:info@unify.com"><strong>info@unify.com</strong></a>
+                            </div>
+                            <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
+                                <i class="icon-earphones-alt d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
+                                <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Toll free</h3>
+                                <strong class="g-font-size-11">+402 5897 660</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group g-mb-10">
+                        <input id="inputGroup1_1" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Your name">
+                    </div>
+                    <div class="form-group g-mb-10">
+                        <input id="inputGroup1_2" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="tel" placeholder="Your phone">
+                    </div>
+                    <div class="form-group g-mb-10">
+                        <input id="inputGroup1_3" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Subject">
+                    </div>
+                    <div class="form-group g-mb-40">
+                        <textarea id="inputGroup1_4" class="form-control g-resize-none g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" rows="5" placeholder="Message"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" type="submit">
+                            <i class="fa fa-arrow-right g-color-primary mr-2"></i>
+                            Send message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
