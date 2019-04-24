@@ -10,50 +10,71 @@ namespace Vralumglass.Core
     {
         private readonly List<ISnippet> _snippets;
 
-        private float MaxSnippetLength => _snippets.Max(l => l.Length);
-
         public CuttingStock(List<ISnippet> snippets)
         {
-            _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets));
-
-            _snippets.Sort();
-            _snippets.Reverse();
+            _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets)); 
         }
 
-        public List<Plank> OptimizedCuts(int numberOfOptions = 1)
+        public List<Plank> CalculateCuts(List<float> plankLengths, float minSnippetLength = 1000)
         {
-            var possibleLengths = new List<float> { MaxSnippetLength };
+            if (plankLengths == null || !plankLengths.Any())
+                throw new ArgumentException(nameof(plankLengths));
 
-            return CalculateCuts(possibleLengths);
+            plankLengths.Sort();
+
+            var maxPlankLength = plankLengths.Last();
+
+            var snippets = new List<ISnippet>();
+            var overLengthSnippets = new List<ISnippet>();
+
+            foreach (var snippet in _snippets)
+            {
+                if (snippet.Length > maxPlankLength)
+                {
+                    overLengthSnippets.Add(snippet);
+                }
+                else
+                {
+                    snippets.Add(snippet);
+                }
+            }
+
+            foreach (var snippet in overLengthSnippets)
+            {
+                var snippetLength = snippet.Length;
+                do
+                {
+                    var possibleLength = snippetLength - maxPlankLength;
+                    if (possibleLength < minSnippetLength)
+                    {
+                        maxPlankLength -= minSnippetLength; continue;
+                    }
+
+                    snippets.Add(snippet.Clone(maxPlankLength));
+
+                    snippetLength = possibleLength;
+                } while (snippetLength > maxPlankLength);
+
+                snippets.Add(snippet.Clone(snippetLength));
+            }
+
+            snippets.Sort();
+            snippets.Reverse();
+
+            return Calculate(plankLengths, snippets);
         }
 
-        public List<Plank> CalculateCuts(List<float> possibleLengths)
-        {
-            if (possibleLengths == null)
-            {
-                possibleLengths = new List<float> { MaxSnippetLength };
-            }
-            else if (!possibleLengths.Any() || possibleLengths.Max() < MaxSnippetLength)
-            {
-                possibleLengths.Add(MaxSnippetLength);
-            }
-
-            possibleLengths.Sort();
-
-            return Calculate(possibleLengths);
-        }
-
-        private List<Plank> Calculate(IReadOnlyCollection<float> possibleLengths)
+        private static List<Plank> Calculate(IReadOnlyCollection<float> plankLengths, IEnumerable<ISnippet> snippets)
         {
             var planks = new List<Plank>();
 
-            foreach (var i in _snippets)
+            foreach (var i in snippets)
             {
                 //if no eligible planks can be found
                 if (!planks.Any(plank => plank.FreeLength >= i.Length))
                 {
                     //make a plank
-                    planks.Add(new Plank(possibleLengths.Max()));
+                    planks.Add(new Plank(plankLengths.Max()));
                 }
 
                 //cut where possible
@@ -68,7 +89,7 @@ namespace Vralumglass.Core
             foreach (var plank in planks)
             {
                 float newLength = plank.OriginalLength;
-                foreach (float possibleLength in possibleLengths)
+                foreach (float possibleLength in plankLengths)
                 {
                     if (Math.Abs(possibleLength - plank.OriginalLength) > 0.0 && plank.OriginalLength - plank.FreeLength <= possibleLength)
                     {

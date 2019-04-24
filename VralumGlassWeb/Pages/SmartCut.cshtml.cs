@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Vralumglass.Core;
 using Vralumglass.Core.Interfaces;
+using Vralumglass.Core.Models;
 using VralumGlassWeb.Data;
 
 namespace VralumGlassWeb.Pages
@@ -148,6 +149,11 @@ namespace VralumGlassWeb.Pages
         public override string ToString()
         {
             return $"{Length}[{Apartment}]";
+        }
+
+        public override ISnippet Clone(float length)
+        {
+            return new TestSnippet(length) { Apartment = Apartment };
         }
     }
 }

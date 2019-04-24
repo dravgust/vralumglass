@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="_about" xml:space="preserve">
-    <value>על החברה</value>
+    <value>о компании</value>
   </data>
   <data name="_about_1" xml:space="preserve">
-    <value>נתונים על החברה</value>
+    <value>Данные о компании</value>
   </data>
   <data name="_clients" xml:space="preserve">
     <value>клиенты</value>
@@ -130,24 +130,24 @@
     <value>клиенты</value>
   </data>
   <data name="_clients_2" xml:space="preserve">
-    <value>אז מי באמת בחר בנו ?</value>
+    <value>Так кто же на самом деле выбрал нас?</value>
   </data>
   <data name="_clients_3" xml:space="preserve">
-    <value>חברות בנייה הנדסה ויזמות המובילות במשק הישראלי !</value>
+    <value>Ведущие строительные и инжиниринговые компании в Израиле!</value>
   </data>
   <data name="_contact" xml:space="preserve">
-    <value>צור קשר</value>
+    <value>связаться с нами</value>
   </data>
   <data name="_gallery" xml:space="preserve">
-    <value>גלריה</value>
+    <value>галерея</value>
   </data>
   <data name="_home" xml:space="preserve">
-    <value>דף הבית</value>
+    <value>домашняя</value>
   </data>
   <data name="_projects" xml:space="preserve">
-    <value>פרויקטים</value>
+    <value>проекты</value>
   </data>
   <data name="_services" xml:space="preserve">
-    <value>שירותים</value>
+    <value>сервисы</value>
   </data>
 </root>

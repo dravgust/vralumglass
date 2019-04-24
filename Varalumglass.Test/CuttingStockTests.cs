@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Varalumglass.Test;
 using Vralumglass.Core;
 using Vralumglass.Core.Interfaces;
+using Vralumglass.Core.Models;
 using Vralumglass.Dropbox;
 
 namespace Tests
@@ -71,7 +72,8 @@ namespace Tests
                 Console.WriteLine("Cut a {0} by: {1} with {2} waste.", plank.OriginalLength, string.Join(", ", plank.Cuts), plank.FreeLength);
             }
 
-            Console.WriteLine("Finished with {0} waste", CuttingStock.GetFree(planks));
+            var waste = CuttingStock.GetFree(planks);
+            Console.WriteLine("Finished with {0} waste => {1}%", waste, waste * 100 / desiredLengths.Sum());
 
             Assert.Pass();
 		}
@@ -89,6 +91,11 @@ namespace Tests
         public override string ToString()
         {
             return $"{Length}[{Apartment}]";
+        }
+
+        public override ISnippet Clone(float length)
+        {
+            return new TestSnippet(length) { Apartment = Apartment };
         }
     }
 }
