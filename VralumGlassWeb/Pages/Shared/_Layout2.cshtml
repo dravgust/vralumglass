@@ -4,11 +4,12 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
+    var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
     var isRightToLeft = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
     var direction = isRightToLeft ? "rtl" : "ltr";
 }
 <!DOCTYPE html>
-<html>
+<html lang="@(culture)">
 <head>
     <title>@ViewData["Title"] - Corona Glass Technologies</title>
     <meta charset="utf-8">
@@ -75,25 +76,19 @@
                             <ul id="js-scroll-nav" class="navbar-nav text-uppercase g-font-weight-700 g-font-size-12 g-pt-20 g-pt-5--lg ml-auto">
 
                                 <li class="nav-item g-mr-8--lg g-mb-7 g-mb-0--lg active">
-                                    <a href="#home" class="nav-link p-0">@Resources["_home"] <span class="sr-only">(current)</span></a>
+                                    <a asp-page="/Index" class="nav-link p-0">@Resources["_home"] <span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#about" class="nav-link p-0">@Resources["_about"]</a>
-                                </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#services" class="nav-link p-0">@Resources["_services"]</a>
-                                </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#recentProjects" class="nav-link p-0">@Resources["_projects"]</a>
-                                </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#gallery" class="nav-link p-0">@Resources["_gallery"]</a>
-                                </li>
-                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg">
-                                    <a href="#clients" class="nav-link p-0">@Resources["_clients"]</a>
-                                </li>
-                                <li class="nav-item g-ml-8--lg">
-                                    <a href="#contact" class="nav-link p-0">@Resources["_contact"]</a>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
+                                        <a class="nav-link text-dark" asp-area="Management" asp-page="/Customer">Customers</a>
+                                    </li>
+                                    <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/SmartCut">Smart Cut</a>
+                                    </li>
+                                }
+                                <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
+                                    <partial name="_LoginPartial" />
                                 </li>
                                 <li class="nav-item g-mx-8--lg g-mb-7 g-mb-0--lg pl-md-4 pr-md-4">
                                     <partial name="_SelectLanguagePartial" />
@@ -121,9 +116,34 @@
             </div>
         </header>
         <!-- End Header -->
-
+        <partial name="_CookieConsentPartial" />
+        @if (TempData["alerts"] != null)
+        {
+            foreach (var alert in (IList<string>)TempData["alerts"])
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Success!</strong> @alert
+                </div>
+            }
+        }
         @RenderBody()
-
+        <div class="modal" tabindex="-1" role="dialog" id="loadingModal" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content" style="border: none; background: none;">
+                    <div class="loading-widget">
+                        <ul class="spinner" style="background: azure">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Footer -->
         <footer>
 
