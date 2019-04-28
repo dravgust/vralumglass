@@ -947,8 +947,8 @@
         <div id="contact" class="text-center g-color-gray-dark-v1 g-py-100">
             <div class="container">
                 <div class="text-uppercase text-center u-heading-v2-4--bottom g-brd-primary g-mb-45">
-                    <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Contact us</h4>
-                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">Get in touch</h2>
+                    <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">@Resources["_contact"]</h4>
+                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">@Resources["_contact_1"]</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -957,46 +957,50 @@
                                 <div class="row mx-0">
                                     <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
                                         <i class="icon-anchor d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Address</h3>
-                                        <strong class="g-font-size-11">Sit amet adipiscing</strong>
+                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">@Resources["_address"]</h3>
+                                        <strong class="g-font-size-11">@Resources["_address_1"]</strong>
                                     </div>
                                     <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
                                         <i class="icon-call-in d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Phone number</h3>
-                                        <strong class="g-font-size-11">+402 5448 569</strong>
+                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">@Resources["_phone"]</h3>
+                                        <strong class="g-font-size-11">03-7744560</strong>
                                     </div>
                                     <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
                                         <i class="icon-line icon-envelope-letter d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Email</h3>
-                                        <a class="g-font-size-11 g-color-gray-dark-v1" href="mailto:info@unify.com"><strong>info@unify.com</strong></a>
+                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">@Resources["_email"]</h3>
+                                        <a class="g-font-size-11 g-color-gray-dark-v1" href="mailto:officecoronaglass@gmail.com"><strong>officecoronaglass@gmail.com</strong></a>
                                     </div>
                                     <div class="col-sm-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25">
                                         <i class="icon-earphones-alt d-inline-block g-font-size-50 g-color-primary g-mb-30"></i>
-                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">Toll free</h3>
-                                        <strong class="g-font-size-11">+402 5897 660</strong>
+                                        <h3 class="text-uppercase g-font-size-11 g-line-height-1 g-theme-color-gray-light-v2 mb-0">@Resources["_call"]</h3>
+                                        <strong class="g-font-size-11" dir="ltr">052-6801095</strong>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <form>
+                        <form method="post">
                             <div class="form-group g-mb-10">
-                                <input id="inputGroup1_1" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Your name">
+                                <input asp-for="ContactUsForm.Name" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="@Resources["_your_name"]">
+                                <span asp-validation-for="ContactUsForm.Name" class="text-danger"></span>
                             </div>
                             <div class="form-group g-mb-10">
-                                <input id="inputGroup1_2" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="tel" placeholder="Your phone">
+                                <input asp-for="ContactUsForm.Phone" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="tel" placeholder="@Resources["_your_phone"]">
+                                <span asp-validation-for="ContactUsForm.Phone" class="text-danger"></span>
                             </div>
                             <div class="form-group g-mb-10">
-                                <input id="inputGroup1_3" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="Subject">
+                                <input asp-for="ContactUsForm.Subject" class="form-control h-100 g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" type="text" placeholder="@Resources["_subject"]">
+                                <span asp-validation-for="ContactUsForm.Subject" class="text-danger"></span>
                             </div>
                             <div class="form-group g-mb-40">
-                                <textarea id="inputGroup1_4" class="form-control g-resize-none g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" rows="5" placeholder="Message"></textarea>
+                                <textarea asp-for="ContactUsForm.Message" class="form-control g-resize-none g-font-size-default g-color-gray-dark-v5 g-placeholder-inherit g-theme-bg-gray-light-v4 g-brd-transparent g-theme-brd-gray-light-v3--focus g-rounded-1 g-px-20 g-py-12" rows="5" placeholder="@Resources["_message"]"></textarea>
+                                <span asp-validation-for="ContactUsForm.Message" class="text-danger"></span>
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" type="submit">
                                     <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                                    Send message
+                                    @Resources["_send_message"]
                                 </button>
                             </div>
                         </form>
@@ -1014,7 +1018,7 @@
                         <div class="col-md-4 col-lg-5 d-flex align-items-center g-mb-20 g-mb-0--md">
                             <p class="w-100 g-font-size-default g-color-white mb-0" dir="ltr">
                                 &copy; 2019 All right reserved.
-                                <a class="g-font-weight-700 g-color-white" href="#"><strong>Corona Glass Technologies</strong></a>
+                                <a class="g-font-weight-700 g-color-white" href="#"><strong> Corona Glass Technologies</strong></a>
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-2 d-flex text-center align-items-center g-mb-20 g-mb-0--md">
@@ -1029,10 +1033,7 @@
                                         <a class="u-icon-v3 g-width-35 g-height-35 g-font-size-14 g-color-white g-color-primary--hover g-bg-gray-dark-v2 g-bg-white--hover g-transition-0_2 g-transition--ease-in" href="#"><i class="fa fa-twitter"></i></a>
                                     </li>
                                     <li class="list-inline-item g-mr-10--lg">
-                                        <a class="u-icon-v3 g-width-35 g-height-35 g-font-size-14 g-color-white g-color-primary--hover g-bg-gray-dark-v2 g-bg-white--hover g-transition-0_2 g-transition--ease-in" href="#"><i class="fa fa-pinterest-p"></i></a>
-                                    </li>
-                                    <li class="list-inline-item g-mr-10--lg">
-                                        <a class="u-icon-v3 g-width-35 g-height-35 g-font-size-14 g-color-white g-color-primary--hover g-bg-gray-dark-v2 g-bg-white--hover g-transition-0_2 g-transition--ease-in" href="#"><i class="fa fa-facebook"></i></a>
+                                        <a class="u-icon-v3 g-width-35 g-height-35 g-font-size-14 g-color-white g-color-primary--hover g-bg-gray-dark-v2 g-bg-white--hover g-transition-0_2 g-transition--ease-in" href="https://www.facebook.com/CoronaGlassTech/"><i class="fa fa-facebook"></i></a>
                                     </li>
                                     <li class="list-inline-item g-mr-10--lg">
                                         <a class="u-icon-v3 g-width-35 g-height-35 g-font-size-14 g-color-white g-color-primary--hover g-bg-gray-dark-v2 g-bg-white--hover g-transition-0_2 g-transition--ease-in" href="#"><i class="fa fa-instagram"></i></a>

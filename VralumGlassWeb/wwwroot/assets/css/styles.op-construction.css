@@ -32713,6 +32713,10 @@ pre[class*="language-"] .toolbar-item a {
   font-size: 2.85714rem !important;
 }
 
+.g-font-size-40:lang(ru) {
+    font-size: 2.71429rem !important;
+}
+
 .g-font-size-42 {
   font-size: 3rem !important;
 }

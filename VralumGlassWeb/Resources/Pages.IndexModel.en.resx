@@ -118,69 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="_about" xml:space="preserve">
-    <value>על החברה</value>
+    <value>About</value>
   </data>
   <data name="_about_1" xml:space="preserve">
-    <value>נתונים על החברה</value>
+    <value>About Us</value>
   </data>
   <data name="_address" xml:space="preserve">
-    <value>כתובת</value>
+    <value>Address</value>
   </data>
   <data name="_address_1" xml:space="preserve">
-    <value>ביצוע עבודות ושירות ברחבי כל הארץ</value>
+    <value>Performing work and service throughout the country</value>
   </data>
   <data name="_call" xml:space="preserve">
-    <value>ללא תשלום</value>
+    <value>Toll free</value>
   </data>
   <data name="_clients" xml:space="preserve">
-    <value>לקוחות</value>
+    <value>Clients</value>
   </data>
   <data name="_clients_1" xml:space="preserve">
-    <value>לקוחות</value>
+    <value>Clients</value>
   </data>
   <data name="_clients_2" xml:space="preserve">
-    <value>אז מי באמת בחר בנו ?</value>
+    <value>So who really chose us?</value>
   </data>
   <data name="_clients_3" xml:space="preserve">
-    <value>חברות בנייה הנדסה ויזמות המובילות במשק הישראלי !</value>
+    <value>Leading construction and engineering companies in the Israel!</value>
   </data>
   <data name="_contact" xml:space="preserve">
-    <value>צור קשר</value>
+    <value>Contact Us</value>
   </data>
   <data name="_contact_1" xml:space="preserve">
-    <value>ליצור קשר</value>
+    <value>Get in touch</value>
   </data>
   <data name="_email" xml:space="preserve">
-    <value>דוא"ל</value>
+    <value>Email</value>
   </data>
   <data name="_gallery" xml:space="preserve">
-    <value>גלריה</value>
+    <value>Gallery</value>
   </data>
   <data name="_home" xml:space="preserve">
-    <value>דף הבית</value>
+    <value>Home</value>
   </data>
   <data name="_message" xml:space="preserve">
-    <value>הודעה</value>
+    <value>Message</value>
   </data>
   <data name="_phone" xml:space="preserve">
-    <value>מספר טלפון</value>
+    <value>Phone number</value>
   </data>
   <data name="_projects" xml:space="preserve">
-    <value>פרויקטים</value>
+    <value>Projects</value>
   </data>
   <data name="_send_message" xml:space="preserve">
-    <value>לשלוח הודעה</value>
+    <value>Send message</value>
   </data>
   <data name="_services" xml:space="preserve">
-    <value>שירותים</value>
+    <value>Services</value>
   </data>
   <data name="_subject" xml:space="preserve">
-    <value>נושא</value>
+    <value>Subject</value>
   </data>
   <data name="_your_name" xml:space="preserve">
-    <value>השם שלך</value>
+    <value>Your name</value>
   </data>
   <data name="_your_phone" xml:space="preserve">
-    <value>הטלפון שלך</value>
+    <value>Your phone</value>
   </data>
 </root>

@@ -123,6 +123,15 @@
   <data name="_about_1" xml:space="preserve">
     <value>Данные о компании</value>
   </data>
+  <data name="_address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="_address_1" xml:space="preserve">
+    <value>Выполнение работ и услуг по всей стране</value>
+  </data>
+  <data name="_call" xml:space="preserve">
+    <value>Бесплатно</value>
+  </data>
   <data name="_clients" xml:space="preserve">
     <value>клиенты</value>
   </data>
@@ -138,16 +147,40 @@
   <data name="_contact" xml:space="preserve">
     <value>связаться с нами</value>
   </data>
+  <data name="_contact_1" xml:space="preserve">
+    <value>Связаться</value>
+  </data>
+  <data name="_email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="_gallery" xml:space="preserve">
     <value>галерея</value>
   </data>
   <data name="_home" xml:space="preserve">
     <value>домашняя</value>
   </data>
+  <data name="_message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="_phone" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
   <data name="_projects" xml:space="preserve">
     <value>проекты</value>
   </data>
+  <data name="_send_message" xml:space="preserve">
+    <value>Отправить сообщение</value>
+  </data>
   <data name="_services" xml:space="preserve">
     <value>сервисы</value>
+  </data>
+  <data name="_subject" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="_your_name" xml:space="preserve">
+    <value>Ваше имя</value>
+  </data>
+  <data name="_your_phone" xml:space="preserve">
+    <value>Ваш телефон</value>
   </data>
 </root>
