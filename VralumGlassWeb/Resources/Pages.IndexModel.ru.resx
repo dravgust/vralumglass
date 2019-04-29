@@ -171,11 +171,11 @@
   <data name="_send_message" xml:space="preserve">
     <value>Отправить сообщение</value>
   </data>
-  <data name="_services" xml:space="preserve">
-    <value>сервисы</value>
-  </data>
   <data name="_subject" xml:space="preserve">
     <value>Тема</value>
+  </data>
+  <data name="_vision" xml:space="preserve">
+    <value>видение</value>
   </data>
   <data name="_your_name" xml:space="preserve">
     <value>Ваше имя</value>

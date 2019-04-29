@@ -129,6 +129,9 @@
   <data name="_address_1" xml:space="preserve">
     <value>Performing work and service throughout the country</value>
   </data>
+  <data name="_btn_read_more" xml:space="preserve">
+    <value>Read more</value>
+  </data>
   <data name="_call" xml:space="preserve">
     <value>Toll free</value>
   </data>
@@ -165,6 +168,19 @@
   <data name="_phone" xml:space="preserve">
     <value>Phone number</value>
   </data>
+  <data name="_product_1_header" xml:space="preserve">
+    <value>Partitions Between Balconies</value>
+  </data>
+  <data name="_product_2_header" xml:space="preserve">
+    <value>Holds Hand</value>
+  </data>
+  <data name="_product_3_header" xml:space="preserve">
+    <value>Balustrades Stairs
+</value>
+  </data>
+  <data name="_product_4_header" xml:space="preserve">
+    <value>Balustrades For Balconies</value>
+  </data>
   <data name="_projects" xml:space="preserve">
     <value>Projects</value>
   </data>
@@ -172,10 +188,19 @@
     <value>Send message</value>
   </data>
   <data name="_services" xml:space="preserve">
-    <value>Services</value>
+    <value>Our Services</value>
+  </data>
+  <data name="_services_1" xml:space="preserve">
+    <value>What We Can Do</value>
   </data>
   <data name="_subject" xml:space="preserve">
     <value>Subject</value>
+  </data>
+  <data name="_vision" xml:space="preserve">
+    <value>vision</value>
+  </data>
+  <data name="_vision_1" xml:space="preserve">
+    <value>The company's vision</value>
   </data>
   <data name="_your_name" xml:space="preserve">
     <value>Your name</value>

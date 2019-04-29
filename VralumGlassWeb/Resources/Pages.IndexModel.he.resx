@@ -129,6 +129,9 @@
   <data name="_address_1" xml:space="preserve">
     <value>ביצוע עבודות ושירות ברחבי כל הארץ</value>
   </data>
+  <data name="_btn_read_more" xml:space="preserve">
+    <value>קרא עוד</value>
+  </data>
   <data name="_call" xml:space="preserve">
     <value>ללא תשלום</value>
   </data>
@@ -165,6 +168,18 @@
   <data name="_phone" xml:space="preserve">
     <value>מספר טלפון</value>
   </data>
+  <data name="_product_1_header" xml:space="preserve">
+    <value>מחיצות בין מרפסות</value>
+  </data>
+  <data name="_product_2_header" xml:space="preserve">
+    <value>מאחזי יד</value>
+  </data>
+  <data name="_product_3_header" xml:space="preserve">
+    <value>מעקות מדרגות</value>
+  </data>
+  <data name="_product_4_header" xml:space="preserve">
+    <value>מעקות למרפסות</value>
+  </data>
   <data name="_projects" xml:space="preserve">
     <value>פרויקטים</value>
   </data>
@@ -174,8 +189,17 @@
   <data name="_services" xml:space="preserve">
     <value>שירותים</value>
   </data>
+  <data name="_services_1" xml:space="preserve">
+    <value>מה אנחנו יכולים לעשות</value>
+  </data>
   <data name="_subject" xml:space="preserve">
     <value>נושא</value>
+  </data>
+  <data name="_vision" xml:space="preserve">
+    <value>חזון</value>
+  </data>
+  <data name="_vision_1" xml:space="preserve">
+    <value>חזון החברה</value>
   </data>
   <data name="_your_name" xml:space="preserve">
     <value>השם שלך</value>

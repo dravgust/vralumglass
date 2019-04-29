@@ -33915,7 +33915,7 @@ pre[class*="language-"] .toolbar-item a {
 .g-absolute-centered {
   position: absolute !important;
   top: 50% !important;
-  right: 50% !important;
+  left: 50% !important;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
@@ -33924,7 +33924,7 @@ pre[class*="language-"] .toolbar-item a {
 
 .g-absolute-centered--x {
   position: absolute !important;
-  right: 50% !important;
+  border-left-color: 50% !important;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -33934,7 +33934,7 @@ pre[class*="language-"] .toolbar-item a {
 @media (min-width: 576px) {
   .g-absolute-centered--x--sm {
     position: absolute !important;
-    right: 50% !important;
+    left: 50% !important;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -33945,7 +33945,7 @@ pre[class*="language-"] .toolbar-item a {
 @media (min-width: 768px) {
   .g-absolute-centered--x--md {
     position: absolute !important;
-    right: 50% !important;
+    left: 50% !important;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
