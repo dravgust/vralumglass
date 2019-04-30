@@ -200,6 +200,9 @@
     <value>vision</value>
   </data>
   <data name="_vision_1" xml:space="preserve">
+    <value>Liabilities</value>
+  </data>
+  <data name="_vision_header" xml:space="preserve">
     <value>The company's vision</value>
   </data>
   <data name="_your_name" xml:space="preserve">

@@ -123,6 +123,21 @@
   <data name="_about_1" xml:space="preserve">
     <value>נתונים על החברה</value>
   </data>
+  <data name="_about_2" xml:space="preserve">
+    <value>מי אנחנו</value>
+  </data>
+  <data name="_about_3" xml:space="preserve">
+    <value>ההיסטוריה שלנו</value>
+  </data>
+  <data name="_about_4" xml:space="preserve">
+    <value>השירותים שלנו</value>
+  </data>
+  <data name="_about_5" xml:space="preserve">
+    <value>הערכים שלנו</value>
+  </data>
+  <data name="_about_year" xml:space="preserve">
+    <value>שנת הקמה 2015</value>
+  </data>
   <data name="_address" xml:space="preserve">
     <value>כתובת</value>
   </data>
@@ -158,6 +173,9 @@
   </data>
   <data name="_gallery" xml:space="preserve">
     <value>גלריה</value>
+  </data>
+  <data name="_gallery_1" xml:space="preserve">
+    <value>העבודות שלנו</value>
   </data>
   <data name="_home" xml:space="preserve">
     <value>דף הבית</value>
@@ -199,6 +217,30 @@
     <value>חזון</value>
   </data>
   <data name="_vision_1" xml:space="preserve">
+    <value>התחייבויות</value>
+  </data>
+  <data name="_vision_1_text" xml:space="preserve">
+    <value>אלה שבחרו בנו נתנו אמון, אנחנו מתחייבים להם ל: איכות, בטיחות וזמנים !!!</value>
+  </data>
+  <data name="_vision_2" xml:space="preserve">
+    <value>בטיחות</value>
+  </data>
+  <data name="_vision_2_text" xml:space="preserve">
+    <value>מעקה הוא רכיב שתפקידו למנוע נפילה בין שני מפלסים שונים –אצלנו זו לא רק הגדרה</value>
+  </data>
+  <data name="_vision_3" xml:space="preserve">
+    <value>הון אנושי</value>
+  </data>
+  <data name="_vision_3_text" xml:space="preserve">
+    <value>אנחנו מאמינים שבסיס לכל הצלחה הוא בסיס אנושי, עבודת צוות ויחסי אנוש</value>
+  </data>
+  <data name="_vision_4" xml:space="preserve">
+    <value>מותג שמספר איכות</value>
+  </data>
+  <data name="_vision_4_text" xml:space="preserve">
+    <value>מוביל את תחום המעקות ברמת בטיחות ואיכות הגבוהים ביותר</value>
+  </data>
+  <data name="_vision_header" xml:space="preserve">
     <value>חזון החברה</value>
   </data>
   <data name="_your_name" xml:space="preserve">

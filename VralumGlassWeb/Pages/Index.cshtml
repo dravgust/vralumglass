@@ -131,7 +131,7 @@
         <section id="home">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_7--after text-md-right g-py-40 g-pr-50--md" style="background-image: url(/assets/img-temp/700x800/img1.jpg);"
+                    <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after text-md-right g-py-40 g-pr-50--md" style="background-image: url(/assets/img-temp/700x800/img3.jpg);"
                          data-calc-target="#js-header">
                         <div class="w-100 u-bg-overlay__inner g-py-100">
                             <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">We professionally do</h3>
@@ -139,12 +139,12 @@
                                 <h2 class="text-uppercase g-line-height-0_9 g-font-weight-700 g-font-size-40 g-font-size-56--md g-font-size-76--lg mb-0">Interior<br> works</h2>
                             </div>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
-                                Read more
+                                @Resources["_btn_read_more"]
                                 <i class="fa fa-arrow-left g-color-primary ml-2"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_7--after g-py-40 g-pl-50--md" style="background-image: url(/assets/img-temp/700x800/img2.jpg);"
+                    <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-py-40 g-pl-50--md" style="background-image: url(/assets/img-temp/700x800/img4.jpg);"
                          data-calc-target="#js-header">
                         <div class="w-100 u-bg-overlay__inner g-py-100">
                             <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">We professionally do</h3>
@@ -153,7 +153,7 @@
                             </div>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
-                                Read more
+                                @Resources["_btn_read_more"]
                             </a>
                         </div>
                     </div>
@@ -163,13 +163,10 @@
         <!-- End Section Content -->
         <!-- Section Content -->
         <section id="about">
-            <div class="u-bg-overlay g-bg-primary g-bg-primary-opacity-0_8--after g-py-40 g-py-10--lg">
+            <div class="u-bg-overlay g-bg-primary g-bg-primary-opacity-0_9--after g-py-40 g-py-10--lg" style="background-image: url(/assets/img-temp/1920x350/img2.jpg);">
                 <div class="container text-center text-lg-left g-color-white">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-3 ml-lg-autoQ">
-                            <img class="img-fluid g-width-200 g-width-auto--lg g-mb-30 g-mb-0--lg mx-auto" src="~/assets/img-temp/874x600/img1.png" alt="">
-                        </div>
-                        <div class="col-lg-8 u-bg-overlay__inner g-flex-centered">
+                    <div class="row justify-content-between g-py-50 text-center">
+                        <div class="col-lg-12 u-bg-overlay__inner g-flex-centered">
                             <div class="w-100">
                                 <h2 class="text-uppercase g-line-height-1_1 g-font-weight-700 g-font-size-26 g-mb-10">@Resources["_about_1"]</h2>
                                 <p class="g-line-height-1_2 g-font-size-18 g-color-white g-pb-20 g-pb-0--lg">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
@@ -179,14 +176,15 @@
                 </div>
             </div>
         </section>
-        <!-- End Section Content -->
-        <!-- Section Content -->
+    <!-- End Section Content -->
+    
+    <!-- Section Content -->
         <section id="since" class="g-py-80">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 g-mb-30 g-mb-0--md">
-                        <img class="img-fluid g-mb-30" src="~/assets/img-temp/1000x562/img2.jpg" alt="Image description">
-                        <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-black g-mb-10">Building since 2015</h3>
+                        <img class="img-fluid g-mb-30" src="~/assets/img-temp/1000x562/img4.jpg" alt="">
+                        <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-black g-mb-10">@Resources["_about_year"]</h3>
                         <p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
                     </div>
                     <div class="col-md-7">
@@ -197,7 +195,7 @@
                                        data-toggle="collapse"
                                        data-parent="#aboutAccordion">
                                         <i class="icon-user g-valign-middle g-font-size-23 g-color-primary g-mr-10 f-left"></i>
-                                        Who we are
+                                        @Resources["_about_2"]
                                         <span class="u-accordion__control-icon g-absolute-centered--y g-right-0 g-color-primary">
                                             <i class="fa fa-arrow-right"></i>
                                             <i class="fa fa-arrow-down"></i>
@@ -220,7 +218,7 @@
                                        data-toggle="collapse"
                                        data-parent="#aboutAccordion">
                                         <i class="icon-calendar g-valign-middle g-font-size-23 g-color-primary g-mr-10 f-left"></i>
-                                        Our history
+                                        @Resources["_about_3"]
                                         <span class="u-accordion__control-icon g-absolute-centered--y g-right-0 g-color-primary">
                                             <i class="fa fa-arrow-right"></i>
                                             <i class="fa fa-arrow-down"></i>
@@ -240,7 +238,7 @@
                                        data-toggle="collapse"
                                        data-parent="#aboutAccordion">
                                         <i class="icon-settings g-valign-middle g-font-size-23 g-color-primary g-mr-10 f-left"></i>
-                                        Our services
+                                        @Resources["_about_4"]
                                         <span class="u-accordion__control-icon g-absolute-centered--y g-right-0 g-color-primary">
                                             <i class="fa fa-arrow-right"></i>
                                             <i class="fa fa-arrow-down"></i>
@@ -260,7 +258,7 @@
                                        data-toggle="collapse"
                                        data-parent="#aboutAccordion">
                                         <i class="icon-diamond g-valign-middle g-font-size-23 g-color-primary g-mr-10 f-left"></i>
-                                        Our values
+                                        @Resources["_about_5"]
                                         <span class="u-accordion__control-icon g-absolute-centered--y g-right-0 g-color-primary">
                                             <i class="fa fa-arrow-right"></i>
                                             <i class="fa fa-arrow-down"></i>
@@ -284,10 +282,10 @@
         <section class="container-fluid px-0">
             <div class="row no-gutters">
                 <div class="col-md-6">
-                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_6--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img1.jpg);">
-                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img1.jpg" alt="Image description">
+                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img5.jpg);">
+                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img5.jpg" alt="">
                         <div class="text-center u-bg-overlay__inner g-absolute-centered g-width-90x">
-                            <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-white g-mb-20">@Resources["_product_1_header"]</h3>
+                            <h3 class="text-uppercase g-font-weight-700 g-font-size-20 g-color-white g-mb-20">@Resources["_product_1_header"]</h3>
                             <p class="g-color-white-opacity-0_7 g-mb-30">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
@@ -297,10 +295,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_6--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img2.jpg);">
-                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img2.jpg" alt="Image description">
+                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img6.jpg);">
+                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img6.jpg" alt="Image description">
                         <div class="text-center u-bg-overlay__inner g-absolute-centered g-width-90x">
-                            <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-white g-mb-20">@Resources["_product_2_header"]</h3>
+                            <h3 class="text-uppercase g-font-weight-700 g-font-size-20 g-color-white g-mb-20">@Resources["_product_2_header"]</h3>
                             <p class="g-color-white-opacity-0_7 g-mb-30">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
@@ -312,10 +310,10 @@
             </div>
             <div class="row no-gutters">
                 <div class="col-md-6">
-                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_6--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img3.jpg);">
-                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img3.jpg" alt="Image description">
+                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img7.jpg);">
+                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img7.jpg" alt="Image description">
                         <div class="text-center u-bg-overlay__inner g-absolute-centered g-width-90x">
-                            <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-white g-mb-20">@Resources["_product_3_header"]</h3>
+                            <h3 class="text-uppercase g-font-weight-700 g-font-size-20 g-color-white g-mb-20">@Resources["_product_3_header"]</h3>
                             <p class="g-color-white-opacity-0_7 g-mb-30">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
@@ -325,10 +323,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_6--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img4.jpg);">
-                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img4.jpg" alt="Image description">
+                    <div class="u-bg-overlay g-parent g-pos-rel g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-overflow-hidden" style="background-image: url(/assets/img-temp/900x506/img8.jpg);">
+                        <img class="img-fluid g-hidden-md-down g-transform-scale-1_2--parent-hover g-transition-0_2 g-transition--ease-in" src="~/assets/img-temp/900x506/img8.jpg" alt="Image description">
                         <div class="text-center u-bg-overlay__inner g-absolute-centered g-width-90x">
-                            <h3 class="text-uppercase g-font-weight-700 g-font-size-18 g-color-white g-mb-20">@Resources["_product_4_header"]</h3>
+                            <h3 class="text-uppercase g-font-weight-700 g-font-size-20 g-color-white g-mb-20">@Resources["_product_4_header"]</h3>
                             <p class="g-color-white-opacity-0_7 g-mb-30">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis.</p>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
@@ -528,52 +526,40 @@
         </section>
         <!-- End Section Content -->
         <!-- Section Content -->
-        <section id="ourVision" class="u-bg-overlay g-bg-img-hero g-bg-primary-opacity-0_9--after g-py-100" style="background-image: url(/assets/img-temp/1920x1073/img1.jpg);">
+        <section id="ourVision" class="u-bg-overlay g-bg-img-hero g-bg-primary-opacity-0_9--after g-py-100" style="background-image: url(/assets/img-temp/1920x1073/img2.jpg);">
             <div class="container u-bg-overlay__inner">
                 <div class="text-uppercase text-center u-heading-v2-4--bottom g-brd-white g-mb-60">
                     <h4 class="g-font-weight-700 g-font-size-12 g-color-white g-mb-15">@Resources["_vision"]</h4>
-                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-white g-mb-minus-10">@Resources["_vision_1"]</h2>
+                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-white g-mb-minus-10">@Resources["_vision_header"]</h2>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 g-mb-20 g-mb-0--md">
+                    <div class="col-md-3 g-mb-20 g-mb-0--md text-center">
                         <div class="u-heading-v8-1 g-mb-20">
-                            <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                <br> Excepteur sint occaecat cupidatat
-                            </h2>
+                            <h2 class="h4 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">@Resources["_vision_1"]</h2>
                         </div>
-                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img1.png" alt="Image description">
-                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img1.png" style="max-width:75%" alt="">
+                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40 g-font-size-16">@Resources["_vision_1_text"]</p>
                     </div>
-                    <div class="col-md-3 g-mb-20 g-mb-0--md">
+                    <div class="col-md-3 g-mb-20 g-mb-0--md text-center">
                         <div class="u-heading-v8-1 g-mb-20">
-                            <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                <br> Excepteur sint occaecat cupidatat
-                            </h2>
+                            <h2 class="h4 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">@Resources["_vision_2"]</h2>
                         </div>
-                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img2.png" alt="Image description">
-                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img2.png" style="max-width:75%" alt="">
+                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40 g-font-size-16">@Resources["_vision_2_text"]</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-center">
                         <div class="u-heading-v8-1 g-mb-20">
-                            <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                <br> Excepteur sint occaecat cupidatat
-                            </h2>
+                            <h2 class="h4 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">@Resources["_vision_3"]</h2>
                         </div>
-                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img3.png" alt="Image description">
-                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img3.png" style="max-width:75%" alt="">
+                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40 g-font-size-16">@Resources["_vision_3_text"]</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-center">
                         <div class="u-heading-v8-1 g-mb-20">
-                            <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                <br> Excepteur sint occaecat cupidatat
-                            </h2>
+                            <h2 class="h4 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">@Resources["_vision_4"]</h2>
                         </div>
-                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img4.png" alt="Image description">
-                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <img class="img-fluid g-mb-20 rounded-circle" src="~/assets/img-temp/254x254/img4.png" style="max-width:75%" alt="">
+                        <p class="g-line-height-1_8 g-font-size-default g-color-white-opacity-0_8 g-mb-40 g-font-size-16">@Resources["_vision_4_text"]</p>
                     </div>
                 </div>
             </div>
@@ -583,8 +569,8 @@
         <section id="gallery" class="g-pt-100">
             <div class="container">
                 <div class="text-uppercase text-center u-heading-v2-4--bottom g-brd-primary g-mb-60">
-                    <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Gallery</h4>
-                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">Our works</h2>
+                    <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">@Resources["_gallery"]</h4>
+                    <h2 class="u-heading-v2__title g-line-height-1_1 g-font-weight-700 g-font-size-40 g-color-black g-mb-minus-10">@Resources["_gallery_1"]</h2>
                 </div>
             </div>
             <div class="g-pos-rel g-overflow-x-hidden g-pr-40 g-pr-0--md g-mb-10 g-mb-0--md">
@@ -905,7 +891,7 @@
         </section>
         <!-- End Section Content -->
 
-        <section class="g-bg-img-hero u-bg-overlay g-bg-primary-opacity-0_9--after g-py-80" style="background-image: url(/assets/img-temp/1920x350/img1.jpg);">
+        <section class="g-bg-img-hero u-bg-overlay g-bg-primary-opacity-0_9--after g-py-80" style="background-image: url(/assets/img-temp/1920x350/img2.jpg);">
             <div class="container u-bg-overlay__inner text-center">
                 <div class="js-carousel"
                      data-autoplay="true"
@@ -1010,7 +996,7 @@
         <!-- Footer -->
         <footer>
 
-            <div class="u-bg-overlay g-bg-img-hero g-color-white g-bg-primary-opacity-0_8--after g-py-100" style="background-image: url(/assets/img-temp/1920x1280/img1.jpg);">
+            <div class="u-bg-overlay g-bg-img-hero g-color-white g-bg-primary-opacity-0_8--after g-py-100" style="background-image: url(/assets/img-temp/1920x1280/img3.jpg);">
                 <div class="container text-center text-md-left u-bg-overlay__inner">
                     <div class="row">
                         <div class="col-md-4 col-lg-5 d-flex align-items-center g-mb-20 g-mb-0--md">
