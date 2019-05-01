@@ -123,11 +123,29 @@
   <data name="_about_1" xml:space="preserve">
     <value>Данные о компании</value>
   </data>
+  <data name="_about_2" xml:space="preserve">
+    <value>Кто мы?</value>
+  </data>
+  <data name="_about_3" xml:space="preserve">
+    <value>Наша история</value>
+  </data>
+  <data name="_about_4" xml:space="preserve">
+    <value>Наши услуги</value>
+  </data>
+  <data name="_about_5" xml:space="preserve">
+    <value>Наши ценности</value>
+  </data>
+  <data name="_about_year" xml:space="preserve">
+    <value>Год образования 2015</value>
+  </data>
   <data name="_address" xml:space="preserve">
     <value>Адрес</value>
   </data>
   <data name="_address_1" xml:space="preserve">
     <value>Выполнение работ и услуг по всей стране</value>
+  </data>
+  <data name="_btn_read_more" xml:space="preserve">
+    <value>Читать дальше</value>
   </data>
   <data name="_call" xml:space="preserve">
     <value>Бесплатно</value>
@@ -153,11 +171,26 @@
   <data name="_email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="_exterior" xml:space="preserve">
+    <value>внешние &lt;br&gt;работы</value>
+  </data>
+  <data name="_exterior_design" xml:space="preserve">
+    <value>Внешний дизайн</value>
+  </data>
   <data name="_gallery" xml:space="preserve">
     <value>галерея</value>
   </data>
+  <data name="_gallery_1" xml:space="preserve">
+    <value>Наши работы</value>
+  </data>
   <data name="_home" xml:space="preserve">
     <value>домашняя</value>
+  </data>
+  <data name="_interior" xml:space="preserve">
+    <value>внутренние &lt;br&gt;работы</value>
+  </data>
+  <data name="_interior_design" xml:space="preserve">
+    <value>Дизайн интерьера</value>
   </data>
   <data name="_message" xml:space="preserve">
     <value>Сообщение</value>
@@ -165,17 +198,77 @@
   <data name="_phone" xml:space="preserve">
     <value>Номер телефона</value>
   </data>
+  <data name="_product_1_header" xml:space="preserve">
+    <value>Перегородки между балконами</value>
+  </data>
+  <data name="_product_2_header" xml:space="preserve">
+    <value>Поручни</value>
+  </data>
+  <data name="_product_3_header" xml:space="preserve">
+    <value>Лестничные перила</value>
+  </data>
+  <data name="_product_4_header" xml:space="preserve">
+    <value>Балюстрады для балконов</value>
+  </data>
+  <data name="_product_all" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="_professionally" xml:space="preserve">
+    <value>Мы делаем профессионально</value>
+  </data>
   <data name="_projects" xml:space="preserve">
     <value>проекты</value>
   </data>
+  <data name="_project_documentation" xml:space="preserve">
+    <value>Проектная документация</value>
+  </data>
+  <data name="_project_planning" xml:space="preserve">
+    <value>Планирование проекта</value>
+  </data>
+  <data name="_selection_of_materials" xml:space="preserve">
+    <value>Подбор материалов</value>
+  </data>
   <data name="_send_message" xml:space="preserve">
     <value>Отправить сообщение</value>
+  </data>
+  <data name="_services" xml:space="preserve">
+    <value>Сервисы</value>
+  </data>
+  <data name="_services_1" xml:space="preserve">
+    <value>Что мы можем сделать?</value>
   </data>
   <data name="_subject" xml:space="preserve">
     <value>Тема</value>
   </data>
   <data name="_vision" xml:space="preserve">
     <value>видение</value>
+  </data>
+  <data name="_vision_1" xml:space="preserve">
+    <value>пассивы</value>
+  </data>
+  <data name="_vision_1_text" xml:space="preserve">
+    <value>Те, кто выбрали нас, доверились нам, мы обещаем им: качество, безопасность и время !!!</value>
+  </data>
+  <data name="_vision_2" xml:space="preserve">
+    <value>безопасность</value>
+  </data>
+  <data name="_vision_2_text" xml:space="preserve">
+    <value>Перила - это компонент, функция которого заключается в предотвращении падения между двумя различными уровнями - в нашем случае это не просто определение</value>
+  </data>
+  <data name="_vision_3" xml:space="preserve">
+    <value>люди</value>
+  </data>
+  <data name="_vision_3_text" xml:space="preserve">
+    <value>Мы считаем, что основой любого успеха является человеческая основа, командная работа и человеческие отношения</value>
+  </data>
+  <data name="_vision_4" xml:space="preserve">
+    <value>качество бренда</value>
+  </data>
+  <data name="_vision_4_text" xml:space="preserve">
+    <value>Лидер индустрии поручней с высочайшим уровнем безопасности и качества</value>
+  </data>
+  <data name="_vision_header" xml:space="preserve">
+    <value>Видение компании</value>
   </data>
   <data name="_your_name" xml:space="preserve">
     <value>Ваше имя</value>

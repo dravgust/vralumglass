@@ -171,6 +171,12 @@
   <data name="_email" xml:space="preserve">
     <value>דוא"ל</value>
   </data>
+  <data name="_exterior" xml:space="preserve">
+    <value>עבודות &lt;br&gt;חיצוניות</value>
+  </data>
+  <data name="_exterior_design" xml:space="preserve">
+    <value>עיצוב חוץ</value>
+  </data>
   <data name="_gallery" xml:space="preserve">
     <value>גלריה</value>
   </data>
@@ -179,6 +185,12 @@
   </data>
   <data name="_home" xml:space="preserve">
     <value>דף הבית</value>
+  </data>
+  <data name="_interior" xml:space="preserve">
+    <value>עבודות &lt;br&gt;פנים</value>
+  </data>
+  <data name="_interior_design" xml:space="preserve">
+    <value>עיצוב פנים</value>
   </data>
   <data name="_message" xml:space="preserve">
     <value>הודעה</value>
@@ -198,8 +210,23 @@
   <data name="_product_4_header" xml:space="preserve">
     <value>מעקות למרפסות</value>
   </data>
+  <data name="_product_all" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="_professionally" xml:space="preserve">
+    <value>אנחנו עושים באופן מקצועי</value>
+  </data>
   <data name="_projects" xml:space="preserve">
     <value>פרויקטים</value>
+  </data>
+  <data name="_project_documentation" xml:space="preserve">
+    <value>תיעוד הפרויקט</value>
+  </data>
+  <data name="_project_planning" xml:space="preserve">
+    <value>תכנון פרוייקט</value>
+  </data>
+  <data name="_selection_of_materials" xml:space="preserve">
+    <value>מבחר חומרים</value>
   </data>
   <data name="_send_message" xml:space="preserve">
     <value>לשלוח הודעה</value>

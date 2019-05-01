@@ -134,9 +134,9 @@
                     <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after text-md-right g-py-40 g-pr-50--md" style="background-image: url(/assets/img-temp/700x800/img3.jpg);"
                          data-calc-target="#js-header">
                         <div class="w-100 u-bg-overlay__inner g-py-100">
-                            <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">We professionally do</h3>
+                            <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">@Resources["_professionally"]</h3>
                             <div class="g-brd-left g-brd-left-none--md g-brd-right--md g-brd-10 g-brd-primary g-color-white g-pl-30 g-pr-20 g-pl-0--lg g-mb-30">
-                                <h2 class="text-uppercase g-line-height-0_9 g-font-weight-700 g-font-size-40 g-font-size-56--md g-font-size-76--lg mb-0">Interior<br> works</h2>
+                                <h2 class="text-uppercase g-line-height-0_9 g-font-weight-700 g-font-size-40 g-font-size-56--md g-font-size-76--lg mb-0">@Html.Raw(@Resources["_interior"])</h2>
                             </div>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 @Resources["_btn_read_more"]
@@ -147,9 +147,9 @@
                     <div class="col-md-6 u-bg-overlay g-flex-centered g-height-100vh--md g-min-height-300 g-bg-img-hero g-bg-black-opacity-0_5--after g-py-40 g-pl-50--md" style="background-image: url(/assets/img-temp/700x800/img4.jpg);"
                          data-calc-target="#js-header">
                         <div class="w-100 u-bg-overlay__inner g-py-100">
-                            <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">We professionally do</h3>
+                            <h3 class="h4 g-font-weight-700 g-color-primary g-mb-20">@Resources["_professionally"]</h3>
                             <div class="g-brd-left g-brd-10 g-brd-primary g-color-white g-pl-30 g-mb-30">
-                                <h2 class="text-uppercase g-line-height-0_9 g-font-weight-700 g-font-size-40 g-font-size-56--md g-font-size-76--lg mb-0">Exterior<br> works</h2>
+                                <h2 class="text-uppercase g-line-height-0_9 g-font-weight-700 g-font-size-40 g-font-size-56--md g-font-size-76--lg mb-0">@Html.Raw(@Resources["_exterior"])</h2>
                             </div>
                             <a class="btn btn-lg u-btn-darkgray u-btn-inset mx-2" href="#">
                                 <i class="fa fa-arrow-right g-color-primary mr-2"></i>
@@ -356,35 +356,35 @@
                                 <a class="nav-link g-py-17 px-0 active" href="#servicesTabsBody1" role="tab"
                                    data-toggle="tab">
                                     <i class="fa fa-arrow-right g-color-primary g-mr-7"></i>
-                                    Project planning
+                                    @Resources["_project_planning"]
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link g-py-17 px-0" href="#servicesTabsBody2" role="tab"
                                    data-toggle="tab">
                                     <i class="fa fa-arrow-right g-color-primary g-mr-7"></i>
-                                    Project documentation
+                                    @Resources["_project_documentation"]
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link g-py-17 px-0" href="#servicesTabsBody3" role="tab"
                                    data-toggle="tab">
                                     <i class="fa fa-arrow-right g-color-primary g-mr-7"></i>
-                                    Selection of materials
+                                    @Resources["_selection_of_materials"]
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link g-py-17 px-0" href="#servicesTabsBody4" role="tab"
                                    data-toggle="tab">
                                     <i class="fa fa-arrow-right g-color-primary g-mr-7"></i>
-                                    Exterior design
+                                    @Resources["_exterior_design"]
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link g-py-17 px-0" href="#servicesTabsBody5" role="tab"
                                    data-toggle="tab">
                                     <i class="fa fa-arrow-right g-color-primary g-mr-7"></i>
-                                    Interior design
+                                    @Resources["_interior_design"]
                                 </a>
                             </li>
                         </ul>
@@ -580,27 +580,15 @@
                     <ul id="galleryCubePortfolioFilter" class="nav d-block d-md-flex justify-content-center text-center text-uppercase u-nav-v2-2 g-font-size-12">
                         <li class="cbp-filter-item nav-item d-inline-block cbp-filter-item-active"
                             data-filter="*">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">All</span>
+                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">@Resources["_product_all"]</span>
                         </li>
                         <li class="cbp-filter-item nav-item d-inline-block"
                             data-filter=".building">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">Building</span>
+                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">@Resources["_product_4_header"]</span>
                         </li>
                         <li class="cbp-filter-item nav-item d-inline-block"
-                            data-filter=".electricity">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">Electricity</span>
-                        </li>
-                        <li class="cbp-filter-item nav-item d-inline-block"
-                            data-filter=".painting">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">Painting</span>
-                        </li>
-                        <li class="cbp-filter-item nav-item d-inline-block"
-                            data-filter=".plumbing">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">Plumbing</span>
-                        </li>
-                        <li class="cbp-filter-item nav-item d-inline-block"
-                            data-filter=".construction">
-                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">Construction</span>
+                            data-filter=".stair">
+                            <span class="nav-link g-min-width-110--md py-0 g-py-30--md g-px-10">@Resources["_product_3_header"]</span>
                         </li>
                     </ul>
                     <!-- End Filter -->
@@ -624,19 +612,19 @@
                {"width": 500, "cols": 3},
                {"width": 320, "cols": 1}
              ]'>
-                <div class="cbp-item building">
+                <div class="cbp-item stair">
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img1.jpg"
                        data-title="Custom Title 1">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img1.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img21.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -644,19 +632,19 @@
                         </div>
                     </a>
                 </div>
-                <div class="cbp-item electricity">
+                <div class="cbp-item stair">
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img2.jpg"
                        data-title="Custom Title 2">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img2.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img22.jpg" alt="n">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Electricity</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -664,19 +652,19 @@
                         </div>
                     </a>
                 </div>
-                <div class="cbp-item painting">
+                <div class="cbp-item stair">
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img3.jpg"
                        data-title="Custom Title 3">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img3.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img23.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Painting</strong>
-                                            <br> House
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -688,75 +676,15 @@
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img4.jpg"
                        data-title="Custom Title 4">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img4.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img14.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                            <br> Offices
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="cbp-item electricity">
-                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img5.jpg"
-                       data-title="Custom Title 5">
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img5.jpg" alt="Image description">
-                        </div>
-                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
-                            <div class="cbp-l-caption g-py-20 g-px-30">
-                                <div class="cbp-l-caption-body">
-                                    <div class="u-heading-v8-1">
-                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Electricity</strong>
-                                            <br> Skyscraper
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="cbp-item painting">
-                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img6.jpg"
-                       data-title="Custom Title 6">
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img6.jpg" alt="Image description">
-                        </div>
-                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
-                            <div class="cbp-l-caption g-py-20 g-px-30">
-                                <div class="cbp-l-caption-body">
-                                    <div class="u-heading-v8-1">
-                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Painting</strong>
-                                            <br> Offices
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="cbp-item painting">
-                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img7.jpg"
-                       data-title="Custom Title 7">
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img7.jpg" alt="Image description">
-                        </div>
-                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
-                            <div class="cbp-l-caption g-py-20 g-px-30">
-                                <div class="cbp-l-caption-body">
-                                    <div class="u-heading-v8-1">
-                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Painting</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -765,18 +693,18 @@
                     </a>
                 </div>
                 <div class="cbp-item building">
-                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img8.jpg"
-                       data-title="Custom Title 8">
+                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img5.jpg"
+                       data-title="Custom Title 5">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img8.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img17.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -784,19 +712,79 @@
                         </div>
                     </a>
                 </div>
-                <div class="cbp-item plumbing">
-                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img9.jpg"
-                       data-title="Custom Title 9">
+                <div class="cbp-item building">
+                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img6.jpg"
+                       data-title="Custom Title 6">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img9.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img18.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Plumbing</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="cbp-item building">
+                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img7.jpg"
+                       data-title="Custom Title 7">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="~/assets/img-temp/500x375/img19.jpg" alt="">
+                        </div>
+                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
+                            <div class="cbp-l-caption g-py-20 g-px-30">
+                                <div class="cbp-l-caption-body">
+                                    <div class="u-heading-v8-1">
+                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="cbp-item stair">
+                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img8.jpg"
+                       data-title="Custom Title 8">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="~/assets/img-temp/500x375/img20.jpg" alt="">
+                        </div>
+                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
+                            <div class="cbp-l-caption g-py-20 g-px-30">
+                                <div class="cbp-l-caption-body">
+                                    <div class="u-heading-v8-1">
+                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="cbp-item building">
+                    <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img9.jpg"
+                       data-title="Custom Title 9">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="~/assets/img-temp/500x375/img16.jpg" alt="Image description">
+                        </div>
+                        <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
+                            <div class="cbp-l-caption g-py-20 g-px-30">
+                                <div class="cbp-l-caption-body">
+                                    <div class="u-heading-v8-1">
+                                        <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -808,15 +796,15 @@
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img10.jpg"
                        data-title="Custom Title 10">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img10.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img15.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Building</strong>
-                                            <br> Skyscraper
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -824,19 +812,19 @@
                         </div>
                     </a>
                 </div>
-                <div class="cbp-item construction">
+                <div class="cbp-item building">
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img11.jpg"
                        data-title="Custom Title 11">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img11.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img13.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Construction</strong>
-                                            <br> Recreation center
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
@@ -844,19 +832,19 @@
                         </div>
                     </a>
                 </div>
-                <div class="cbp-item construction">
+                <div class="cbp-item building">
                     <a class="cbp-caption cbp-lightbox info-v3-2 d-block g-parent" href="~/assets/img-temp/2800x2096/img12.jpg"
                        data-title="Custom Title 12">
                         <div class="cbp-caption-defaultWrap">
-                            <img src="~/assets/img-temp/500x375/img12.jpg" alt="Image description">
+                            <img src="~/assets/img-temp/500x375/img14.jpg" alt="">
                         </div>
                         <div class="cbp-caption-activeWrap g-bg-primary-opacity-0_9">
                             <div class="cbp-l-caption g-py-20 g-px-30">
                                 <div class="cbp-l-caption-body">
                                     <div class="u-heading-v8-1">
                                         <h2 class="h6 text-uppercase u-heading-v8__title g-font-weight-700 g-color-white mb-0">
-                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Construction</strong>
-                                            <br> House
+                                            <strong class="g-font-size-11 g-color-white-opacity-0_8 p-0 g-mb-7">Text</strong>
+                                            <br> Text
                                         </h2>
                                     </div>
                                 </div>
