@@ -44,25 +44,40 @@
                 <div class="col-md-12">
                     <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Plank</button>
                 </div>
+                
             </div>
-
         </div>
     </div>
+
 </div>
 
-<div class="row">
+<div class="row mt-2">
     <div class="col-md-12">
 
         <div id="snippet_table" class="table-editable">
 
-            <form method="POST" enctype="multipart/form-data">
-                <span class="float-right mb-3 mr-2">
-                    <span class="btn btn-outline-success rounded-0 fileinput-button">
-                        <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
-                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
-                    </span>
-                </span>
-            </form>
+            <div class="row">
+
+                <div class="col-md-2 pr-md-1">
+                    <button id="clear-all-btn" class="btn btn-outline-danger btn-block rounded-0"><i class="fas fa-minus" aria-hidden="true"></i> Clear Snippets</button>
+                </div>
+                <div class="col-md-4 pl-md-1">
+                    <button id="cutting-btn2" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
+                </div>
+                
+                <div class="col-md-6 pr-md-1">
+                    <form method="POST" enctype="multipart/form-data">
+                        <span class="float-right mb-3 mr-2">
+                            <span class="btn btn-outline-success rounded-0 fileinput-button">
+                                <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
+                                <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
+                            </span>
+                        </span>
+                    </form>
+                </div>
+
+           
+            </div>
 
             <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
 
@@ -70,23 +85,26 @@
                     <th scope="col" class="text-center">№</th>
                     <th scope="col" class="text-center">Snippet Length</th>
                     <th scope="col" class="text-center">Apartment</th>
+                    <th scope="col" class="text-center">Floor</th>
                     <th scope="col" class="text-center"></th>
                 </tr>
 
                 @for (var i = 0; i < @Model.Snippets.Count; i++)
                 {
-                    <tr>
-                        <td style="width: 53px;">@(i + 1)</td>
-                        <td contenteditable="true">@Model.Snippets[i].Length</td>
-                        <td contenteditable="true">@Model.Snippets[i].Apartment</td>
-                        <td style="width: 43px;">
-                            <span class="table-remove"><i class="fa fa-trash"></i></span>
-                        </td>
-                    </tr>
+            <tr>
+                <td style="width: 53px;">@(i + 1)</td>
+                <td contenteditable="true">@Model.Snippets[i].Length</td>
+                <td contenteditable="true">@Model.Snippets[i].Apartment</td>
+                <td contenteditable="true">@Model.Snippets[i].Floor</td>
+                <td style="width: 43px;">
+                    <span class="table-remove"><i class="fa fa-trash"></i></span>
+                </td>
+            </tr>
                 }
 
                 <tr style="display: none">
                     <td style="width: 53px;"></td>
+                    <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
                     <td style="width: 43px;">
@@ -101,7 +119,7 @@
                     <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Snippet</button>
                 </div>
                 <div class="col-md-10 pl-md-1">
-                    <button id="cutting-btn" class="btn btn-dark btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
+                    <button id="cutting-btn" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
                 </div>
             </div>
 
@@ -115,7 +133,7 @@
             <div class="col-md-6">
                 <blockquote class="blockquote mb-0">
                     <h1 class="text-success">Calculation complete!</h1>
-                    <h4>Used planks sizes:</h4>
+                    <h4>Used planks sizes (mm):</h4>
                     <ul id="export_body" class="list-group"></ul>
                     <footer id="export_footer" class="blockquote-footer"></footer>
                 </blockquote>
@@ -154,10 +172,11 @@
             return isFinite(n) && parseFloat(n) == n;
         };
 
-        $('#ImportExcel2').on('change', function (evt) {
+        $('#ImportExcel2').on('change',
+            function(evt) {
 
-            evt.preventDefault();
-            var form = document.getElementById("import_excel_form");
+                evt.preventDefault();
+                var form = document.getElementById("import_excel_form");
                 $.ajax({
                     url: '?handler=Import',
                     data: new FormData(form),
@@ -172,18 +191,25 @@
 
         var $PLANK_TABLE = $('#plank_table');
         var $SNIPPET_TABLE = $('#snippet_table');
-        var $BTN = $('#cutting-btn');
+        var $BTN = $('#cutting-btn, #cutting-btn2');
 
         $('.table-add').click(function() {
             var tableEdit = $(this).parents('.table-editable');
             var $clone = tableEdit.find('tr:hidden').clone(true).css('display', '');
             var lastIndex = tableEdit.find('tr:not(:hidden):last').find('td').eq(0).text();
+			if(!lastIndex){
+				lastIndex = 0;
+			}
             $clone.find('td').eq(0).text(parseInt(lastIndex) + 1);
             tableEdit.find('table').append($clone);
         });
 
-        $('.table-remove').click(function() {
+		$('.table-remove').click(function() {
             $(this).parents('tr').detach();
+        });
+
+        $('#clear-all-btn').click(function() {
+           $SNIPPET_TABLE.find('tr:not(:hidden):not(:first)').remove();
         });
 
         $('.table-up').click(function() {
@@ -221,7 +247,7 @@
 
 
             var $rows = $SNIPPET_TABLE.find('tr:not(:hidden)');
-            var headers = ["Id", "Length", "Apartment"];
+            var headers = ["Id", "Length", "Apartment", "Floor"];
             var data = [];
 
             // Get the headers (add special header logic here)
@@ -298,8 +324,9 @@
                     var exportTable = $('#export').find('table');
                     exportTable.append($('<tr>')
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('№'))
-                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Plank Length'))
-                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Snippet [Apartment]'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Plank Length (mm)'))
+                        .append(
+                            $('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Snippet [Floor/Apartment]'))
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Waste'))
                     );
                     $.each(response.planks,
@@ -309,12 +336,12 @@
                             $.each(plank.cuts,
                                 function(i, cut) {
                                     cuts.append($('<div/>', { 'class': 'col-md-2' })
-                                        .text("{0} [{1}]".format(cut.length, cut.apartment)));
+                                        .text("{0} [{1}/{2}]".format(cut.length, cut.floor, cut.apartment)));
                                 });
 
                             exportTable.append($('<tr>')
                                 .append($('<td/>', { 'css': { 'width': '53px' } }).text(i + 1))
-                                .append($('<td/>').text(plank.originalLength))
+                                .append($('<td/>', { 'css': { 'width': '200px' } }).text(plank.originalLength))
                                 .append($('<td/>').append(cuts))
                                 .append($('<td/>').text(plank.freeLength))
                             );
