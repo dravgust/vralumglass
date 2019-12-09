@@ -15,23 +15,25 @@ namespace Vralumglass.Core
             _snippets = snippets ?? throw new ArgumentNullException(nameof(snippets)); 
         }
 
-        public List<Plank> CalculateCuts(List<float> plankLengths, float minSnippetLength = 1000)
+        public List<Plank> CalculateCuts(List<float> plankLengths)
         {
             if (plankLengths == null || !plankLengths.Any())
                 throw new ArgumentException(nameof(plankLengths));
 
-            plankLengths.Sort();
-
-            var maxPlankLength = plankLengths.Last();
-
             var snippets = new List<ISnippet>();
-            var overLengthSnippets = new List<ISnippet>();
-
             foreach (var snippet in _snippets)
             {
-                if (snippet.Length > maxPlankLength)
+                if (snippet.Length > plankLengths.Max())
                 {
-                    overLengthSnippets.Add(snippet);
+                    var snippetLength = snippet.Length;
+                    var divider = 1;
+                    do
+                    {
+                        snippetLength /= ++divider;
+
+                    }while (snippetLength > plankLengths.Max());
+
+                    snippets.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
                 }
                 else
                 {
@@ -39,24 +41,7 @@ namespace Vralumglass.Core
                 }
             }
 
-            foreach (var snippet in overLengthSnippets)
-            {
-                var snippetLength = snippet.Length;
-                do
-                {
-                    var possibleLength = snippetLength - maxPlankLength;
-                    if (possibleLength < minSnippetLength)
-                    {
-                        maxPlankLength -= minSnippetLength; continue;
-                    }
-
-                    snippets.Add(snippet.Clone(maxPlankLength));
-
-                    snippetLength = possibleLength;
-                } while (snippetLength > maxPlankLength);
-
-                snippets.Add(snippet.Clone(snippetLength));
-            }
+            plankLengths.Sort();
 
             snippets.Sort();
             snippets.Reverse();

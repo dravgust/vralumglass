@@ -265,9 +265,9 @@
                     headers.forEach(function(header, i) {
                         if (i !== 0) {
                             var value = $td.eq(i).text();
-                            if (isNumeric(value)) {
+                            //if (isNumeric(value)) {
                                 h[header] = value;
-                            }
+                            //}
                         }
                     });
 
@@ -306,12 +306,14 @@
 
                     var exportBody = $('#export_body');
                     var totalLength = 0;
+					var plankReserve = parseInt('@Model.PlankReserve');
                     $.each(plankSizes,
                         function(key, value) {
                             var item = $('<li/>',
                                 { 'class': 'list-group-item d-flex justify-content-between align-items-center' });
-                            var length = parseFloat(key) * parseInt(value);
-                            item.append($('<span/>', { text: '{0} X {1} = {2}'.format(key, value, length) }));
+							var plankWithReserve = parseFloat(key) + plankReserve;
+                            var length = plankWithReserve * parseInt(value);
+                            item.append($('<span/>', { text: '{0} X {1} = {2}'.format(plankWithReserve, value, length) }));
                             exportBody.append(item);
 
                             totalLength += length;
@@ -341,7 +343,7 @@
 
                             exportTable.append($('<tr>')
                                 .append($('<td/>', { 'css': { 'width': '53px' } }).text(i + 1))
-                                .append($('<td/>', { 'css': { 'width': '200px' } }).text(plank.originalLength))
+								.append($('<td/>', { 'css': { 'width': '200px' } }).text('{0} (~{1})'.format(parseFloat(plank.originalLength) + plankReserve, plank.originalLength)))
                                 .append($('<td/>').append(cuts))
                                 .append($('<td/>').text(plank.freeLength))
                             );

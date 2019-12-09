@@ -28,11 +28,13 @@ namespace VralumGlassWeb.Pages
             _logger = logger;
         }
 
+        [BindProperty] public int PlankReserve { set; get; } = 50;
+
         [BindProperty]
         public List<float> Planks { get; set; } = new List<float>();
 
         [BindProperty]
-        public List<TestSnippet> Snippets { get; set; } = new List<TestSnippet>();
+        public List<CoronaSnippet> Snippets { get; set; } = new List<CoronaSnippet>();
 
         [BindProperty]
         public IFormFile ImportExcel { get; set; }
@@ -54,10 +56,10 @@ namespace VralumGlassWeb.Pages
 
             foreach (var (length, apartment, floor) in desiredLengths)
             {
-                Snippets.Add(new TestSnippet(length) { Apartment = apartment, Floor = floor });
+                Snippets.Add(new CoronaSnippet(length) { Apartment = $"{apartment}", Floor = $"{floor}" });
             }
 
-            Planks = new List<float> { 3690, 6000, 6500, 7000 };
+            Planks = new List<float> { 6000, 6900, 7000 };
         }
 
         public async Task<JsonResult> OnPostCalculateAsync()
@@ -80,19 +82,21 @@ namespace VralumGlassWeb.Pages
             }
 
             var cuttingStock = new CuttingStock(Snippets.Cast<ISnippet>().ToList());
-            var planks = cuttingStock.CalculateCuts(Planks);
-
+            var purePlanks = new List<float>();
+            Planks.ForEach(p => purePlanks.Add(p - PlankReserve));
+            var planks = cuttingStock.CalculateCuts(purePlanks);
+            var free = CuttingStock.GetFree(planks);
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
             const string sFileName = @"SmartCutCalculation.xlsx";
             var file = Path.Combine(sWebRootFolder, "storage", sFileName);
             var ie = new ImportExport();
-            var data = ie.Export(planks);
+            var data = ie.Export(planks, free, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await fileStream.WriteAsync(data, 0, data.Length);
             }
 
-            return new JsonResult(new { Planks = planks, Free = CuttingStock.GetFree(planks) });
+            return new JsonResult(new { Planks = planks, Free = free });
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -130,16 +134,16 @@ namespace VralumGlassWeb.Pages
         }
     }
 
-    public class TestSnippet : Snippet
+    public class CoronaSnippet : Snippet
     {
-        public TestSnippet(float length) : base(length)
+        public CoronaSnippet(float length) : base(length)
         {
 
         }
 
-        public int Apartment { get; set; }
+        public string Apartment { get; set; }
 
-        public int Floor { get; set; }
+        public string Floor { get; set; }
 
         public override string ToString()
         {
@@ -148,7 +152,7 @@ namespace VralumGlassWeb.Pages
 
         public override ISnippet Clone(float length)
         {
-            return new TestSnippet(length) { Apartment = Apartment, Floor = Floor };
+            return new CoronaSnippet(length) { Apartment = Apartment, Floor = Floor };
         }
     }
 }

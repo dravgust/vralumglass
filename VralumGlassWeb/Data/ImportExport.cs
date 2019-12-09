@@ -48,9 +48,9 @@ namespace VralumGlassWeb.Data
             return result;
         }
 
-        public IList<TestSnippet> ImportSnippets(byte[] data)
+        public IList<CoronaSnippet> ImportSnippets(byte[] data)
         {
-            var result = new List<TestSnippet>();
+            var result = new List<CoronaSnippet>();
             using (var ms = new MemoryStream(data))
             {
                 var wb = new XSSFWorkbook(ms);
@@ -61,9 +61,10 @@ namespace VralumGlassWeb.Data
                     try
                     {
                         IRow row = excelSheet.GetRow(i);
-                        result.Add(new TestSnippet(float.Parse(row.GetCell(0).ToString()))
+                        result.Add(new CoronaSnippet(float.Parse(row.GetCell(0).ToString()))
                         {
-                            Apartment = int.Parse(row.GetCell(1).ToString())
+                            Apartment = row.GetCell(1).ToString(),
+                            Floor = row.GetCell(2).ToString()
                         });
                     }
                     catch { }
@@ -114,7 +115,7 @@ namespace VralumGlassWeb.Data
             }
         }
 
-        public byte[] Export(IList<Plank> planks)
+        public byte[] Export(IList<Plank> planks, float free, int planReserve)
 		{
 			using (var fs = new MemoryStream())
 			{
@@ -130,7 +131,7 @@ namespace VralumGlassWeb.Data
 				{
 					var plank = planks[i];
 					row = excelSheet.CreateRow(i + 1);
-					row.CreateCell(0).SetCellValue(plank.OriginalLength);
+					row.CreateCell(0).SetCellValue($"{plank.OriginalLength + planReserve} ~ {plank.OriginalLength}");
 					row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
 					row.CreateCell(2).SetCellValue(plank.FreeLength);
 				}
