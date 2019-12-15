@@ -64,7 +64,7 @@ services:
     environment:
       VIRTUAL_NETWORK: nginx-proxy
       #VIRTUAL_PORT: 80
-      VIRTUAL_HOST: 31e5d367.ngrok.io
+      VIRTUAL_HOST: e10e3a14.ngrok.io
       SSL_POLICY: Mozilla-Modern
       #LETSENCRYPT_HOST: coronaglass.ddns.net
       #LETSENCRYPT_EMAIL: dravgust@hotmail.com

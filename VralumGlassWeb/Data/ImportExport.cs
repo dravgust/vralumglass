@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using NPOI.HSSF.Record.Aggregates;
 using NPOI.SS.UserModel;
@@ -141,8 +142,39 @@ namespace VralumGlassWeb.Data
 				return fs.ToArray();
 			}
 		}
+            
+        public byte[] Export2(IList<Plank> planks, float free, int planReserve)
+        {
+            using (var fs = new MemoryStream())
+            {
+                var workbook = new XSSFWorkbook();
+                ISheet excelSheet = workbook.CreateSheet("Planks");
+                IRow row = excelSheet.CreateRow(0);
 
-		public byte[] Export(IList<Customer> customers)
+                row.CreateCell(0).SetCellValue("Plank Length");
+                row.CreateCell(1).SetCellValue("Snippet [Floor/Apartment]");
+
+                var i = 1;
+                foreach (var group in planks.GroupBy(p => p.OriginalLength))
+                {
+                    row = excelSheet.CreateRow(i++);
+                    row.CreateCell(0).SetCellValue($"{group.Key + planReserve} ~ {group.Key}");
+                    foreach (var plank in group)
+                    {
+						row = excelSheet.CreateRow(i++);
+                        row.CreateCell(0).SetCellValue("");
+						row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
+						row.CreateCell(2).SetCellValue(plank.FreeLength);
+                    }	
+                }
+
+                workbook.Write(fs);
+
+                return fs.ToArray();
+            }
+        }
+
+        public byte[] Export(IList<Customer> customers)
 		{
 			using (var fs = new MemoryStream())
 			{

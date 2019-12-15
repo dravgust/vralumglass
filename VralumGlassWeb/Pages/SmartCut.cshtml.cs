@@ -90,7 +90,7 @@ namespace VralumGlassWeb.Pages
             const string sFileName = @"SmartCutCalculation.xlsx";
             var file = Path.Combine(sWebRootFolder, "storage", sFileName);
             var ie = new ImportExport();
-            var data = ie.Export(planks, free, PlankReserve);
+            var data = ie.Export2(planks, free, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await fileStream.WriteAsync(data, 0, data.Length);
