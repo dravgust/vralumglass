@@ -70,15 +70,19 @@ namespace VralumGlassWeb.Pages
             using (var reader = new StreamReader(stream))
             {
                 var requestBody = await reader.ReadToEndAsync();
-                if (requestBody.Length > 0)
-                {
-                    var obj = JsonConvert.DeserializeObject<SmartCutModel>(requestBody);
-                    if (obj != null)
-                    {
-                        Snippets = obj.Snippets;
-                        Planks = obj.Planks;
-                    }
-                }
+                if (requestBody.Length <= 0)
+                    throw new ArgumentException("no data found in request");
+
+                var obj = JsonConvert.DeserializeObject<SmartCutModel>(requestBody);
+                if(obj == null)
+                    throw new ArgumentException("no valid data found in request");
+                if(!obj.Snippets.Any())
+                    throw new ArgumentException("no snippets found in request");
+                if(!obj.Planks.Any())
+                    throw new ArgumentException("no planks found in request");
+
+                Snippets = obj.Snippets;
+                Planks = obj.Planks;
             }
 
             var cuttingStock = new CuttingStock(Snippets.Cast<ISnippet>().ToList());
@@ -108,6 +112,8 @@ namespace VralumGlassWeb.Pages
                 await ImportExcel.CopyToAsync(ms);
                 Snippets.Clear();
                 Snippets.AddRange(ie.ImportSnippets(ms.ToArray()));
+                Planks.Clear();
+                Planks.Add(7000);
             }
 
             return Page();

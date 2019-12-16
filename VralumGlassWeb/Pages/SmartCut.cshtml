@@ -1,10 +1,10 @@
 ﻿@page
 @model VralumGlassWeb.Pages.SmartCutModel
 @{                                      
-    ViewData["Title"] = "SmartCut";
+    ViewData["Title"] = "SmartCut Tool - optimal linear cutting";
 }
 
-<h1>Smart Cut</h1>
+    <h2>SmartCut Tool - <small class="text-muted">optimal linear cutting</small></h2>
 
 <div class="row mt-5">
     <div class="col-md-6">
@@ -135,7 +135,7 @@
                     <h1 class="text-success">Calculation complete!</h1>
                     <h4>Used planks sizes (mm):</h4>
                     <ul id="export_body" class="list-group"></ul>
-                    <footer id="export_footer" class="blockquote-footer"></footer>
+                    <footer id="export_footer" class="blockquote-footer text-danger"></footer>
                 </blockquote>
             </div>
         </div>
@@ -144,7 +144,7 @@
             <a class="btn btn-outline-success rounded-0" target="_blank" rel="noopener noreferrer" asp-page-handler="Export"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
         </span>
 
-        <table class="table table-bordered table-responsive-md text-center table-sm mt-5"></table>
+        <table class="table table-bordered table-success table-responsive-md text-center table-sm mt-5"></table>
     </div>
 </div>
 
@@ -294,6 +294,8 @@
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader("XSRF-TOKEN",
                         $('input:hidden[name="__RequestVerificationToken"]').val());
+
+                    $('#loadingModal').modal('show');
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -357,17 +359,22 @@
 
                             exportTable.append($('<tr>')
                                 .append($('<td/>', { 'css': { 'width': '53px' } }).text(i + 1))
-                                .append($('<td/>', { 'css': { 'width': '200px' } }).text(
+                                .append($('<td/>', { 'css': { 'width': '200px' }, 'class': 'text-success' }).text(
                                     '{0} (~{1})'.format(parseFloat(plank.originalLength) + plankReserve,
                                         plank.originalLength)))
                                 .append($('<td/>').append(cuts))
-                                .append($('<td/>').text(plank.freeLength))
+                                .append($('<td/>', { 'class': 'text-danger' }).text(plank.freeLength))
                             );
                         });
+
+                  
                 },
-                failure: function(response) {
+                error: function (response) {
                     alert(response);
-                }
+                },
+                complete: function() {
+                    $('#loadingModal').modal('hide');
+                },
             });
         });
     </script>

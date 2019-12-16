@@ -57,16 +57,19 @@ namespace VralumGlassWeb.Data
                 var wb = new XSSFWorkbook(ms);
                 ISheet excelSheet = wb.GetSheetAt(0);
 
-                for (var i = 1; i <= excelSheet.LastRowNum; i++)
+                for (var i = 0; i < excelSheet.LastRowNum; i++)
                 {
                     try
                     {
                         IRow row = excelSheet.GetRow(i);
-                        result.Add(new CoronaSnippet(float.Parse(row.GetCell(0).ToString()))
+                        if(float.TryParse(row.GetCell(0).ToString(), out var length))
                         {
-                            Apartment = row.GetCell(1).ToString(),
-                            Floor = row.GetCell(2).ToString()
-                        });
+                            result.Add(new CoronaSnippet(length)
+                            {
+                                Apartment = row.GetCell(1).ToString(),
+                                Floor = row.GetCell(2).ToString()
+                            });
+                        } 
                     }
                     catch { }
                 }
@@ -125,16 +128,14 @@ namespace VralumGlassWeb.Data
 				IRow row = excelSheet.CreateRow(0);
 
 				row.CreateCell(0).SetCellValue("Plank Length");
-				row.CreateCell(1).SetCellValue("Snippet [Apartment]");
-				row.CreateCell(2).SetCellValue("Waste");
+				row.CreateCell(1).SetCellValue("Snippet [Floor/Apartment]");
 
 				for (var i = 0; i < planks.Count; i++)
 				{
 					var plank = planks[i];
 					row = excelSheet.CreateRow(i + 1);
-					row.CreateCell(0).SetCellValue($"{plank.OriginalLength + planReserve} ~ {plank.OriginalLength}");
+					row.CreateCell(0).SetCellValue($"{plank.OriginalLength + planReserve}");
 					row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
-					row.CreateCell(2).SetCellValue(plank.FreeLength);
 				}
 
 				workbook.Write(fs);
@@ -143,30 +144,45 @@ namespace VralumGlassWeb.Data
 			}
 		}
             
-        public byte[] Export2(IList<Plank> planks, float free, int planReserve)
+        public byte[] Export2(IList<Plank> planks, float free, int plankReserve)
         {
             using (var fs = new MemoryStream())
             {
                 var workbook = new XSSFWorkbook();
                 ISheet excelSheet = workbook.CreateSheet("Planks");
-                IRow row = excelSheet.CreateRow(0);
+
+                var rownumber = 0;
+
+                IRow row = excelSheet.CreateRow(rownumber++);
+                row.CreateCell(0).SetCellValue("Plank Sizes");
+
+                foreach(var pl in planks.GroupBy(p => p.OriginalLength))
+                {
+                    row = excelSheet.CreateRow(rownumber++);
+                    row.CreateCell(0).SetCellValue($"{pl.Key + plankReserve} X {pl.Count()} = {pl.Key + plankReserve * pl.Count()}");
+                }
+
+                row = excelSheet.CreateRow(rownumber++);
+                row = excelSheet.CreateRow(rownumber++);
 
                 row.CreateCell(0).SetCellValue("Plank Length");
                 row.CreateCell(1).SetCellValue("Snippet [Floor/Apartment]");
 
-                var i = 1;
                 foreach (var group in planks.GroupBy(p => p.OriginalLength))
                 {
-                    row = excelSheet.CreateRow(i++);
-                    row.CreateCell(0).SetCellValue($"{group.Key + planReserve} ~ {group.Key}");
+                    row = excelSheet.CreateRow(rownumber++);
+                    row.CreateCell(0).SetCellValue($"{group.Key + plankReserve}");
                     foreach (var plank in group)
                     {
-						row = excelSheet.CreateRow(i++);
+						row = excelSheet.CreateRow(rownumber++);
                         row.CreateCell(0).SetCellValue("");
 						row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
-						row.CreateCell(2).SetCellValue(plank.FreeLength);
                     }	
                 }
+
+                //excelSheet.AutoSizeColumn(0);
+                //excelSheet.AutoSizeColumn(1);
+                //excelSheet.AutoSizeColumn(2);
 
                 workbook.Write(fs);
 

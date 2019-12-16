@@ -73,7 +73,7 @@
                                 <a class="nav-link text-dark" asp-area="Management" asp-page="/Customer">Customers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/SmartCut">SmartCut</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/SmartCut">SmartCut Tool</a>
                             </li>
                             @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Management" asp-page="/QrCodeReader">QR Coder Reader</a>
@@ -105,11 +105,11 @@
 
     <button type="button" id="scroller" class="btn btn-outline-dark"><i class="fa fa-arrow-up fa-2x"></i></button>
 
-    <div class="modal" tabindex="-1" role="dialog" id="loadingModal" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+    <div class="modal" tabindex="-1" role="dialog" id="loadingModal" aria-hidden="true" data-backdrop="true" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content" style="border: none; background: none;">
                 <div class="loading-widget">
-                    <ul class="spinner" style="background: azure">
+                    <ul class="spinner" style="background: none;border:none">
                         <li></li>
                         <li></li>
                         <li></li>
