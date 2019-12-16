@@ -197,19 +197,19 @@
             var tableEdit = $(this).parents('.table-editable');
             var $clone = tableEdit.find('tr:hidden').clone(true).css('display', '');
             var lastIndex = tableEdit.find('tr:not(:hidden):last').find('td').eq(0).text();
-			if(!lastIndex){
-				lastIndex = 0;
-			}
+            if (!lastIndex) {
+                lastIndex = 0;
+            }
             $clone.find('td').eq(0).text(parseInt(lastIndex) + 1);
             tableEdit.find('table').append($clone);
         });
 
-		$('.table-remove').click(function() {
+        $('.table-remove').click(function() {
             $(this).parents('tr').detach();
         });
 
         $('#clear-all-btn').click(function() {
-           $SNIPPET_TABLE.find('tr:not(:hidden):not(:first)').remove();
+            $SNIPPET_TABLE.find('tr:not(:hidden):not(:first)').remove();
         });
 
         $('.table-up').click(function() {
@@ -265,9 +265,22 @@
                     headers.forEach(function(header, i) {
                         if (i !== 0) {
                             var value = $td.eq(i).text();
-                            //if (isNumeric(value)) {
-                                h[header] = value;
-                            //}
+                            if (value) {
+                                if (i === 1) {
+                                    if (value.trim()) {
+                                        var v = parseFloat(value.trim());
+                                        if (!isNumeric(v)) {
+                                            var error = 'Invalid snippet length ({0} is not number in line {1})'.format(value, $td.eq(0).text());
+                                            alert(error);
+                                            throw error;
+                                        } else {
+                                            h[header] = v;
+                                        }
+                                    }
+                                } else if (i > 1) {
+                                    h[header] = value;
+                                }
+                            }
                         }
                     });
 
@@ -306,14 +319,15 @@
 
                     var exportBody = $('#export_body');
                     var totalLength = 0;
-					var plankReserve = parseInt('@Model.PlankReserve');
+                    var plankReserve = parseInt('@Model.PlankReserve');
                     $.each(plankSizes,
                         function(key, value) {
                             var item = $('<li/>',
                                 { 'class': 'list-group-item d-flex justify-content-between align-items-center' });
-							var plankWithReserve = parseFloat(key) + plankReserve;
+                            var plankWithReserve = parseFloat(key) + plankReserve;
                             var length = plankWithReserve * parseInt(value);
-                            item.append($('<span/>', { text: '{0} X {1} = {2}'.format(plankWithReserve, value, length) }));
+                            item.append($('<span/>',
+                                { text: '{0} X {1} = {2}'.format(plankWithReserve, value, length) }));
                             exportBody.append(item);
 
                             totalLength += length;
@@ -343,7 +357,9 @@
 
                             exportTable.append($('<tr>')
                                 .append($('<td/>', { 'css': { 'width': '53px' } }).text(i + 1))
-								.append($('<td/>', { 'css': { 'width': '200px' } }).text('{0} (~{1})'.format(parseFloat(plank.originalLength) + plankReserve, plank.originalLength)))
+                                .append($('<td/>', { 'css': { 'width': '200px' } }).text(
+                                    '{0} (~{1})'.format(parseFloat(plank.originalLength) + plankReserve,
+                                        plank.originalLength)))
                                 .append($('<td/>').append(cuts))
                                 .append($('<td/>').text(plank.freeLength))
                             );
