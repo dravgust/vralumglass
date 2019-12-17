@@ -25,10 +25,12 @@ namespace Vralumglass.Core
             {
                 if (snippet.Length > plankLengths.Max())
                 {
-                    var snippetLength = snippet.Length;
+                    float snippetLength;
                     var divider = 1;
+
                     do
                     {
+                        snippetLength = snippet.Length;
                         snippetLength /= ++divider;
 
                     }while (snippetLength > plankLengths.Max());
