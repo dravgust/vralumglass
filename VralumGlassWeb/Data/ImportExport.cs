@@ -167,6 +167,7 @@ namespace VralumGlassWeb.Data
 
                 row.CreateCell(0).SetCellValue("Plank Length");
                 row.CreateCell(1).SetCellValue("Snippet [Floor/Apartment]");
+                row.CreateCell(2).SetCellValue("Waste");
 
                 foreach (var group in planks.GroupBy(p => p.OriginalLength))
                 {
@@ -177,6 +178,7 @@ namespace VralumGlassWeb.Data
 						row = excelSheet.CreateRow(rownumber++);
                         row.CreateCell(0).SetCellValue("");
 						row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
+						row.CreateCell(2).SetCellValue($"{plank.FreeLength}");
                     }	
                 }
 

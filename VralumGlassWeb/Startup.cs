@@ -78,12 +78,12 @@ namespace VralumGlassWeb
             {
                 var supportedCultures = new[]
                 {
-                    new CultureInfo("en"),
+                    //new CultureInfo("en"),
 					new CultureInfo("he"),
                     new CultureInfo("ru")
                 };
 
-                options.DefaultRequestCulture = new RequestCulture("en");
+                options.DefaultRequestCulture = new RequestCulture("he");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
