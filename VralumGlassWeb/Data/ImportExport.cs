@@ -159,7 +159,7 @@ namespace VralumGlassWeb.Data
                 foreach(var pl in planks.GroupBy(p => p.OriginalLength))
                 {
                     row = excelSheet.CreateRow(rownumber++);
-                    row.CreateCell(0).SetCellValue($"{pl.Key + plankReserve} X {pl.Count()} = {pl.Key + plankReserve * pl.Count()}");
+                    row.CreateCell(0).SetCellValue($"{pl.Key + plankReserve} X {pl.Count()}");
                 }
 
                 row = excelSheet.CreateRow(rownumber++);
