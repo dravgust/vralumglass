@@ -33,7 +33,8 @@ namespace Vralumglass.Core
                         snippetLength = snippet.Length;
                         snippetLength /= ++divider;
 
-                    }while (snippetLength > plankLengths.Max());
+                    }
+                    while (snippetLength > plankLengths.Max());
 
                     snippets.AddRange(Enumerable.Range(1, divider).Select(i => snippet.Clone(snippetLength)));
                 }
