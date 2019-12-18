@@ -30,6 +30,8 @@ namespace VralumGlassWeb.Pages
 
         [BindProperty] public int PlankReserve { set; get; } = 50;
 
+        [BindProperty] public string ProjectName { set; get; }
+
         [BindProperty]
         public List<float> Planks { get; set; } = new List<float>();
 
@@ -81,6 +83,7 @@ namespace VralumGlassWeb.Pages
                 if(!obj.Planks.Any())
                     throw new ArgumentException("no planks found in request");
 
+                ProjectName = obj.ProjectName;
                 Snippets = obj.Snippets;
                 Planks = obj.Planks;
             }
@@ -94,7 +97,7 @@ namespace VralumGlassWeb.Pages
             const string sFileName = @"SmartCutCalculation.xlsx";
             var file = Path.Combine(sWebRootFolder, "storage", sFileName);
             var ie = new ImportExport();
-            var data = ie.Export2(planks, free, PlankReserve);
+            var data = ie.Export2(ProjectName, planks, free, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await fileStream.WriteAsync(data, 0, data.Length);

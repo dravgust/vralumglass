@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NPOI.HSSF.Record.Aggregates;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
 using Vralumglass.Core.Models;
 using VralumGlassWeb.Data.Models;
@@ -144,47 +148,122 @@ namespace VralumGlassWeb.Data
 			}
 		}
             
-        public byte[] Export2(IList<Plank> planks, float free, int plankReserve)
+        public byte[] Export2(string projectName, IList<Plank> planks, float free, int plankReserve)
         {
             using (var fs = new MemoryStream())
             {
                 var workbook = new XSSFWorkbook();
                 ISheet excelSheet = workbook.CreateSheet("Planks");
 
-                var rownumber = 0;
+                excelSheet.SetColumnWidth(0, 5000);
+                excelSheet.SetColumnWidth(1, 15000);
+                excelSheet.SetColumnWidth(2, 5000);
 
-                IRow row = excelSheet.CreateRow(rownumber++);
-                row.CreateCell(0).SetCellValue("Plank Sizes");
+                ICellStyle styleHeader = workbook.CreateCellStyle();
+                
+                // Header Style
+                styleHeader.FillForegroundColor = IndexedColors.RoyalBlue.Index;
+                styleHeader.FillPattern = FillPattern.SolidForeground;
+                styleHeader.Alignment = HorizontalAlignment.Center;
 
-                foreach(var pl in planks.GroupBy(p => p.OriginalLength))
-                {
-                    row = excelSheet.CreateRow(rownumber++);
-                    row.CreateCell(0).SetCellValue($"{pl.Key + plankReserve} X {pl.Count()}");
-                }
+                // Font 
+                XSSFFont hFontWhite = (XSSFFont)workbook.CreateFont();
+                //hFontWhite.FontHeightInPoints = 12;
+                hFontWhite.Boldweight = (short)FontBoldWeight.Bold;
+                hFontWhite.FontName = "Calibri";
+                hFontWhite.Color = IndexedColors.White.Index;
+                styleHeader.SetFont(hFontWhite);
 
-                row = excelSheet.CreateRow(rownumber++);
-                row = excelSheet.CreateRow(rownumber++);
 
-                row.CreateCell(0).SetCellValue("Plank Length");
-                row.CreateCell(1).SetCellValue("Snippet [Floor/Apartment]");
-                row.CreateCell(2).SetCellValue("Waste");
+                ICellStyle styleHeader1 = workbook.CreateCellStyle();
+                styleHeader1.Alignment = HorizontalAlignment.Center;
+                // Font 
+                XSSFFont hFontBlack = (XSSFFont)workbook.CreateFont();
+                //hFontBlack.FontHeightInPoints = 13;
+                hFontBlack.Boldweight = (short)FontBoldWeight.Bold; ;
+                hFontBlack.FontName = "Calibri";
+                hFontBlack.Color = IndexedColors.Black.Index;
+                styleHeader1.SetFont(hFontBlack);
 
+                ICellStyle borderStyle = workbook.CreateCellStyle();
+                borderStyle.Alignment = HorizontalAlignment.Center;
+                borderStyle.BorderTop = BorderStyle.Double;
+                borderStyle.TopBorderColor = IndexedColors.RoyalBlue.Index;
+                borderStyle.SetFont(hFontBlack);
+
+                ICellStyle sStyleGreen = workbook.CreateCellStyle();
+                sStyleGreen.Alignment = HorizontalAlignment.Center;
+                // Font 
+                XSSFFont hFontGreen = (XSSFFont)workbook.CreateFont();
+                hFontGreen.Color = IndexedColors.Green.Index;
+                sStyleGreen.SetFont(hFontGreen);
+
+                ICellStyle sStyleRed = workbook.CreateCellStyle();
+                sStyleRed.Alignment = HorizontalAlignment.Center;
+                // Font 
+                XSSFFont hFontRed = (XSSFFont)workbook.CreateFont();
+                hFontRed.Color = IndexedColors.Red.Index;
+                sStyleRed.SetFont(hFontRed);
+
+                ICellStyle dateStyle = workbook.CreateCellStyle();
+                dateStyle.Alignment = HorizontalAlignment.Center;
+
+                var rowNumber = 0;
+
+                IRow row = excelSheet.CreateRow(rowNumber++);
+                ICell cell = row.CreateCell(2);
+                cell.SetCellValue(DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
+                cell.CellStyle = dateStyle;
+
+                row = excelSheet.CreateRow(rowNumber++);
+                var cra = new CellRangeAddress(1, 1, 0, 1);
+                excelSheet.AddMergedRegion(cra);
+                cell = row.CreateCell(0);
+                cell.SetCellValue(projectName);
+                cell.CellStyle = styleHeader1;
+                row = excelSheet.CreateRow(rowNumber++);
+
+                row = excelSheet.CreateRow(rowNumber++);
+                cell = row.CreateCell(0);
+                cell.SetCellValue("Plank Length");
+                cell.CellStyle = styleHeader;
+                cell = row.CreateCell(1);
+                cell.SetCellValue("Snippet [Floor/Apartment]");
+                cell.CellStyle = styleHeader;
+                cell = row.CreateCell(2);
+                cell.SetCellValue("Waste");
+                cell.CellStyle = styleHeader;
+
+                float totalLength = 0;
                 foreach (var group in planks.GroupBy(p => p.OriginalLength))
                 {
-                    row = excelSheet.CreateRow(rownumber++);
-                    row.CreateCell(0).SetCellValue($"{group.Key + plankReserve}");
+                    row = excelSheet.CreateRow(rowNumber++);
+                    var length = group.Key + plankReserve;
+                    var count = group.Count();
+                    totalLength += length * count;
+
+                    cell = row.CreateCell(0);
+                    cell.SetCellValue($"{length} X {count}");
+                    cell.CellStyle = sStyleGreen;
+
                     foreach (var plank in group)
                     {
-						row = excelSheet.CreateRow(rownumber++);
-                        row.CreateCell(0).SetCellValue("");
-						row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
-						row.CreateCell(2).SetCellValue($"{plank.FreeLength}");
-                    }	
+						row = excelSheet.CreateRow(rowNumber++);
+                        row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
+
+                        cell = row.CreateCell(2, CellType.Numeric);
+                        cell.SetCellValue(plank.FreeLength);
+                        cell.CellStyle = sStyleRed;
+                    }
                 }
 
-                //excelSheet.AutoSizeColumn(0);
-                //excelSheet.AutoSizeColumn(1);
-                //excelSheet.AutoSizeColumn(2);
+                if (totalLength > 0)
+                {
+                    row = excelSheet.CreateRow(++rowNumber);
+                    cell = row.CreateCell(0); cell.SetCellValue($"Total: {totalLength}"); cell.CellStyle = borderStyle;
+                    cell = row.CreateCell(1); cell.CellStyle = borderStyle;
+                    cell = row.CreateCell(2); cell.SetCellValue($"{free} ({(free * 100 / totalLength):.00}%)"); cell.CellStyle = borderStyle;
+                }
 
                 workbook.Write(fs);
 

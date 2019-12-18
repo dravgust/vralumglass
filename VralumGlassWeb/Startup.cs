@@ -83,7 +83,7 @@ namespace VralumGlassWeb
                     new CultureInfo("ru")
                 };
 
-                options.DefaultRequestCulture = new RequestCulture("he");
+                options.DefaultRequestCulture = new RequestCulture("ru");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
