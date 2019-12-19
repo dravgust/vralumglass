@@ -102,6 +102,7 @@
                     <th scope="col" class="text-center">Snippet Length</th>
                     <th scope="col" class="text-center">Apartment</th>
                     <th scope="col" class="text-center">Floor</th>
+                    <th scope="col" class="text-center">Columns</th>
                     <th scope="col" class="text-center"></th>
                 </tr>
 
@@ -112,6 +113,7 @@
                 <td contenteditable="true">@Model.Snippets[i].Length</td>
                 <td contenteditable="true">@Model.Snippets[i].Apartment</td>
                 <td contenteditable="true">@Model.Snippets[i].Floor</td>
+                <td contenteditable="true">@Model.Snippets[i].Columns</td>
                 <td style="width: 43px;">
                     <span class="table-remove"><i class="fa fa-trash"></i></span>
                 </td>
@@ -120,6 +122,7 @@
 
                 <tr style="display: none">
                     <td style="width: 53px;"></td>
+                    <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
@@ -272,7 +275,7 @@
 
 
             var $rows = $SNIPPET_TABLE.find('tr:not(:hidden)');
-            var headers = ["Id", "Length", "Apartment", "Floor"];
+            var headers = ["Id", "Length", "Apartment", "Floor", "Columns"];
             var data = [];
 
             // Get the headers (add special header logic here)

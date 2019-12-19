@@ -71,7 +71,8 @@ namespace VralumGlassWeb.Data
                             result.Add(new CoronaSnippet(length)
                             {
                                 Apartment = row.GetCell(1).ToString(),
-                                Floor = row.GetCell(2).ToString()
+                                Floor = row.GetCell(2).ToString(),
+                                Columns = row.GetCell(3).ToString()
                             });
                         } 
                     }
@@ -148,7 +149,7 @@ namespace VralumGlassWeb.Data
 			}
 		}
             
-        public byte[] Export2(string projectName, IList<Plank> planks, float free, int plankReserve)
+        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal column6300Count, int plankReserve)
         {
             using (var fs = new MemoryStream())
             {
@@ -205,15 +206,15 @@ namespace VralumGlassWeb.Data
                 hFontRed.Color = IndexedColors.Red.Index;
                 sStyleRed.SetFont(hFontRed);
 
-                ICellStyle dateStyle = workbook.CreateCellStyle();
-                dateStyle.Alignment = HorizontalAlignment.Center;
+                ICellStyle dataStyle = workbook.CreateCellStyle();
+                dataStyle.Alignment = HorizontalAlignment.Center;
 
                 var rowNumber = 0;
 
                 IRow row = excelSheet.CreateRow(rowNumber++);
                 ICell cell = row.CreateCell(2);
                 cell.SetCellValue(DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
-                cell.CellStyle = dateStyle;
+                cell.CellStyle = dataStyle;
 
                 row = excelSheet.CreateRow(rowNumber++);
                 var cra = new CellRangeAddress(1, 1, 0, 1);
@@ -222,13 +223,23 @@ namespace VralumGlassWeb.Data
                 cell.SetCellValue(projectName);
                 cell.CellStyle = styleHeader1;
                 row = excelSheet.CreateRow(rowNumber++);
+                row = excelSheet.CreateRow(rowNumber++);
+                cell = row.CreateCell(0);
+                cell.SetCellValue("Columns");
+                cell.CellStyle = styleHeader;
+                row = excelSheet.CreateRow(rowNumber++);
+                cell = row.CreateCell(0);
+                cell.SetCellValue($"6300 X {column6300Count}");
+                cell.CellStyle = sStyleGreen;
+
+                row = excelSheet.CreateRow(rowNumber++);
 
                 row = excelSheet.CreateRow(rowNumber++);
                 cell = row.CreateCell(0);
-                cell.SetCellValue("Plank Length");
+                cell.SetCellValue("Planks");
                 cell.CellStyle = styleHeader;
                 cell = row.CreateCell(1);
-                cell.SetCellValue("Snippet [Floor/Apartment]");
+                cell.SetCellValue("Snippets [Floor/Apartment]");
                 cell.CellStyle = styleHeader;
                 cell = row.CreateCell(2);
                 cell.SetCellValue("Waste");

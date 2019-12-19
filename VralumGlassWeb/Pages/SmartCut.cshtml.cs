@@ -93,11 +93,22 @@ namespace VralumGlassWeb.Pages
             Planks.ForEach(p => purePlanks.Add(p - PlankReserve));
             var planks = cuttingStock.CalculateCuts(purePlanks);
             var free = CuttingStock.GetFree(planks);
+
+            decimal columnSum = 0;
+            foreach (var columnValue in Snippets.Select(s => s.Columns))
+            {
+                if (!string.IsNullOrEmpty(columnValue) && int.TryParse(columnValue, out var column))
+                {
+                    columnSum += column;
+                }
+            }
+            var column6300Count = Math.Ceiling(columnSum / 6);
+
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
             const string sFileName = @"SmartCutCalculation.xlsx";
             var file = Path.Combine(sWebRootFolder, "storage", sFileName);
             var ie = new ImportExport();
-            var data = ie.Export2(ProjectName, planks, free, PlankReserve);
+            var data = ie.Export2(ProjectName, planks, free, column6300Count, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await fileStream.WriteAsync(data, 0, data.Length);
@@ -154,6 +165,8 @@ namespace VralumGlassWeb.Pages
 
         public string Floor { get; set; }
 
+        public string Columns { get; set; }
+
         public override string ToString()
         {
             return $"{Length}[{Floor}/{Apartment}]";
@@ -161,7 +174,12 @@ namespace VralumGlassWeb.Pages
 
         public override ISnippet Clone(float length)
         {
-            return new CoronaSnippet(length) { Apartment = Apartment, Floor = Floor };
+            return new CoronaSnippet(length)
+            {
+                Apartment = Apartment, 
+                Floor = Floor, 
+                Columns = Columns
+            };
         }
     }
 }
