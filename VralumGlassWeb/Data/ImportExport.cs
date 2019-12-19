@@ -149,7 +149,7 @@ namespace VralumGlassWeb.Data
 			}
 		}
             
-        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal column6300Count, int plankReserve)
+        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal columnSum, decimal column6300Count, int plankReserve)
         {
             using (var fs = new MemoryStream())
             {
@@ -157,7 +157,7 @@ namespace VralumGlassWeb.Data
                 ISheet excelSheet = workbook.CreateSheet("Planks");
 
                 excelSheet.SetColumnWidth(0, 5000);
-                excelSheet.SetColumnWidth(1, 15000);
+                excelSheet.SetColumnWidth(1, 10000);
                 excelSheet.SetColumnWidth(2, 5000);
 
                 ICellStyle styleHeader = workbook.CreateCellStyle();
@@ -229,7 +229,7 @@ namespace VralumGlassWeb.Data
                 cell.CellStyle = styleHeader;
                 row = excelSheet.CreateRow(rowNumber++);
                 cell = row.CreateCell(0);
-                cell.SetCellValue($"6300 X {column6300Count}");
+                cell.SetCellValue($"{columnSum} p. 6300 X {column6300Count}");
                 cell.CellStyle = sStyleGreen;
 
                 row = excelSheet.CreateRow(rowNumber++);
