@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -61,22 +62,25 @@ namespace VralumGlassWeb.Data
                 var wb = new XSSFWorkbook(ms);
                 ISheet excelSheet = wb.GetSheetAt(0);
 
-                for (var i = 0; i < excelSheet.LastRowNum; i++)
+                for (var i = 0; i <= excelSheet.LastRowNum; i++)
                 {
                     try
                     {
                         IRow row = excelSheet.GetRow(i);
-                        if(float.TryParse(row.GetCell(0).ToString(), out var length))
+                        if (float.TryParse(row.GetCell(0).ToString(), out var length))
                         {
                             result.Add(new CoronaSnippet(length)
                             {
-                                Apartment = row.GetCell(1).ToString(),
-                                Floor = row.GetCell(2).ToString(),
-                                Columns = row.GetCell(3).ToString()
+                                Apartment = row.GetCell(1)?.ToString(),
+                                Floor = row.GetCell(2)?.ToString(),
+                                Columns = row.GetCell(3)?.ToString()
                             });
-                        } 
+                        }
                     }
-                    catch { }
+                    catch(Exception e)
+                    {
+                        Trace.TraceError(e.Message);
+                    }
                 }
             }
 
