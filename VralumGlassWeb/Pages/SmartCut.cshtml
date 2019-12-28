@@ -193,8 +193,8 @@
         <h5 class="text-success card-title">@Resources["Optimization complete!"]</h5>
         <div class="row">
             <div class="col-md-6">
-                <blockquote class="blockquote mb-0 mt-2">
-                    <h6>@Resources["Used stocks length (mm):"]</h6>
+                <blockquote class="mb-0 mt-2">
+                    <label>@Resources["Used stocks length (mm):"]</label>
                     <ul id="export_body" class="list-group list-group-flush"></ul>
                     <footer id="export_footer" class="blockquote-footer text-danger"></footer>
                 </blockquote>
@@ -343,7 +343,9 @@
                                     if (value.trim()) {
                                         var v = parseFloat(value.trim());
                                         if (!isNumeric(v)) {
-                                            var error = '@Html.Raw(Resources["Invalid snippet length ({0} is not number in line {1})"])'.format(value, $td.eq(0).text());
+                                            var error =
+                                                '@Html.Raw(Resources["Invalid snippet length ({0} is not number in line {1})"])'
+                                                    .format(value, $td.eq(0).text());
                                             console.log(error);
                                             alert(error);
                                             throw error;
@@ -373,7 +375,12 @@
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify({ "ProjectName": $PROJECT_NAME.val(), "Clip":$CLIP.val(), "Planks": dataPlank, "Snippets": data }),
+                data: JSON.stringify({
+                    "ProjectName": $PROJECT_NAME.val(),
+                    "Clip": $CLIP.val(),
+                    "Planks": dataPlank,
+                    "Snippets": data
+                }),
                 success: function(response) {
 
                     $("#export").show();
@@ -399,7 +406,10 @@
                     $.each(plankSizes,
                         function(key, value) {
                             var item = $('<li/>',
-                                { 'class': 'list-group-item d-flex justify-content-between align-items-center' });
+                                {
+                                    'class': 'list-group-item d-flex justify-content-between align-items-center',
+                                    'css': { 'padding-top': '0.3rem', 'padding-bottom': '0.3rem' }
+                                });
                             var plankWithReserve = parseFloat(key) + plankReserve;
                             var length = plankWithReserve * parseInt(value);
                             item.append($('<span/>',
@@ -418,7 +428,8 @@
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('№'))
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Stocks"]'))
                         .append(
-                            $('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Snippets [Floor/Apartment]"]'))
+                            $('<th/>', { 'scope': 'col', 'class': 'text-center' })
+                            .html('@Resources["Snippets [Floor/Apartment]"]'))
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Waste"]'))
                     );
                     $.each(response.planks,
@@ -443,7 +454,7 @@
 
 
                 },
-                error: function (response) {
+                error: function(response) {
                     var result = response.responseJSON;
                     alert(result.Message);
                 },

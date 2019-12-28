@@ -24,8 +24,7 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
         public async Task OnGetAsync()
         {
-            throw new Exception("test");
-	        Customers = await _db.Customers.AsNoTracking().ToListAsync();
+            Customers = await _db.Customers.AsNoTracking().ToListAsync();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)

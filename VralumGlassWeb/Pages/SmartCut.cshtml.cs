@@ -26,6 +26,7 @@ namespace VralumGlassWeb.Pages
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly ILogger<SupportModel> _logger;
         private readonly IStringLocalizer<SmartCutModel> _resources;
+        const string SFileName = @"optimization.xlsx";
         public SmartCutModel(IHostingEnvironment environment, ILogger<SupportModel> logger, IStringLocalizer<SmartCutModel> resources)
         {
             _hostingEnvironment = environment;
@@ -114,8 +115,7 @@ namespace VralumGlassWeb.Pages
             var clip = _clips.FirstOrDefault(c => c.Id == Clip);
 
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
-            var sFileName = $"CatOptimization.xlsx";
-            var file = Path.Combine(sWebRootFolder, "storage", sFileName);
+            var file = Path.Combine(sWebRootFolder, "storage", SFileName);
             var ie = new ImportExport();
             var data = ie.Export2(ProjectName, planks, free, columnSum, clip?.Weight?? 0.0, column6300Count, columnWeight, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
@@ -145,13 +145,19 @@ namespace VralumGlassWeb.Pages
         public async Task<IActionResult> OnGetExportAsync()
         {
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
-            const string sFileName = @"CatOptimization.xlsx";
-            var file = Path.Combine(sWebRootFolder, "storage", sFileName);
+            
+            var file = Path.Combine(sWebRootFolder, "storage", SFileName);
 
             if (!System.IO.File.Exists(file))
             {
                 _logger.LogInformation($"The file {file} does not exists!");
             }
+
+            var fileName = "cut_optimization";
+            if (string.IsNullOrEmpty(fileName))
+                fileName = SFileName.Replace(".xlsx", "");
+            else if (fileName.Length > 20)
+                fileName = fileName.Substring(0, 20);
 
             var memory = new MemoryStream();
             using (var fs = new FileStream(file, FileMode.Open))
@@ -159,7 +165,7 @@ namespace VralumGlassWeb.Pages
                 await fs.CopyToAsync(memory);
             }
             memory.Position = 0;
-            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CatOptimization.xlsx");
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{fileName}.xlsx");
         }
     }
 }

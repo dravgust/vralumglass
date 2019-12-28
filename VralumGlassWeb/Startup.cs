@@ -91,32 +91,20 @@ namespace VralumGlassWeb
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
-			//app.Use(async (context, next) =>
+			//if (env.IsDevelopment())
 			//{
-			//    await next.Invoke();
+			//	app.UseDeveloperExceptionPage();
+			//	app.UseDatabaseErrorPage();
+			//}
+			//else
+			//{
+			//	app.UseExceptionHandler("/Error");
+			//	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+			//	app.UseHsts();
+			//}
 
-			//    if (context.Response.StatusCode == StatusCodes.Status500InternalServerError)
-			//    {
-			//        if (context.Request.IsAjaxRequest())
-			//        {
-			//            await context.Response.WriteAsync("Whoops! Something went wrong.");
-			//        }
-			//    }
-			//});
-
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
-
-            app.ConfigureExceptionHandler(logger);
+			app.UseCustomException();
+			//app.UseCustomExceptionHandler(logger);
 
 			var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
