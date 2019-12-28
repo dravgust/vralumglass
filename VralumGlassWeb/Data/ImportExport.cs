@@ -153,16 +153,17 @@ namespace VralumGlassWeb.Data
 			}
 		}
             
-        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal columnSum, decimal column6300Count, int plankReserve)
+        public byte[] Export2(string projectName, IList<Plank> planks, float free, decimal columnSum, double clipWeight, decimal column6300Count, double columnWeight, int plankReserve)
         {
             using (var fs = new MemoryStream())
             {
                 var workbook = new XSSFWorkbook();
-                ISheet excelSheet = workbook.CreateSheet("Planks");
+                ISheet excelSheet = workbook.CreateSheet("Stock Optimization");
 
-                excelSheet.SetColumnWidth(0, 5000);
-                excelSheet.SetColumnWidth(1, 10000);
-                excelSheet.SetColumnWidth(2, 5000);
+                //excelSheet.SetColumnWidth(0, 5000);
+                excelSheet.SetColumnWidth(1, 5000);
+                excelSheet.SetColumnWidth(2, 10000);
+                excelSheet.SetColumnWidth(3, 5000);
 
                 ICellStyle styleHeader = workbook.CreateCellStyle();
                 
@@ -192,9 +193,17 @@ namespace VralumGlassWeb.Data
 
                 ICellStyle borderStyle = workbook.CreateCellStyle();
                 borderStyle.Alignment = HorizontalAlignment.Center;
-                borderStyle.BorderTop = BorderStyle.Double;
+                borderStyle.BorderTop = BorderStyle.Thin;
+                borderStyle.BorderBottom = BorderStyle.Double;
                 borderStyle.TopBorderColor = IndexedColors.RoyalBlue.Index;
-                borderStyle.SetFont(hFontBlack);
+                borderStyle.BottomBorderColor = IndexedColors.RoyalBlue.Index;
+                //borderStyle.SetFont(hFontBlack);
+
+                ICellStyle boldStyle = workbook.CreateCellStyle();
+                boldStyle.SetFont(hFontBlack);
+
+                ICellStyle alignmentStyle = workbook.CreateCellStyle();
+                alignmentStyle.Alignment = HorizontalAlignment.Center;
 
                 ICellStyle sStyleGreen = workbook.CreateCellStyle();
                 sStyleGreen.Alignment = HorizontalAlignment.Center;
@@ -216,36 +225,48 @@ namespace VralumGlassWeb.Data
                 var rowNumber = 0;
 
                 IRow row = excelSheet.CreateRow(rowNumber++);
-                ICell cell = row.CreateCell(2);
+                ICell cell = row.CreateCell(3);
                 cell.SetCellValue(DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
                 cell.CellStyle = dataStyle;
 
                 row = excelSheet.CreateRow(rowNumber++);
-                var cra = new CellRangeAddress(1, 1, 0, 1);
+                var cra = new CellRangeAddress(1, 1, 0, 3);
                 excelSheet.AddMergedRegion(cra);
                 cell = row.CreateCell(0);
                 cell.SetCellValue(projectName);
                 cell.CellStyle = styleHeader1;
-                row = excelSheet.CreateRow(rowNumber++);
-                row = excelSheet.CreateRow(rowNumber++);
-                cell = row.CreateCell(0);
-                cell.SetCellValue("Columns");
-                cell.CellStyle = styleHeader;
-                row = excelSheet.CreateRow(rowNumber++);
-                cell = row.CreateCell(0);
-                cell.SetCellValue($"{columnSum} p. 6300 X {column6300Count}");
-                cell.CellStyle = sStyleGreen;
 
                 row = excelSheet.CreateRow(rowNumber++);
 
                 row = excelSheet.CreateRow(rowNumber++);
-                cell = row.CreateCell(0);
-                cell.SetCellValue("Planks");
-                cell.CellStyle = styleHeader;
+                cell = row.CreateCell(1); cell.SetCellValue("Columns"); cell.CellStyle = styleHeader;
+                row = excelSheet.CreateRow(rowNumber++);
+                cell = row.CreateCell(1); cell.SetCellValue($"6300 X {column6300Count}"); cell.CellStyle = sStyleGreen;
+                row = excelSheet.CreateRow(rowNumber++);
+                cell = row.CreateCell(0); cell.SetCellValue("Total:"); cell.CellStyle = boldStyle;
+                cell = row.CreateCell(1); cell.SetCellValue($"{6300 * column6300Count} mm"); cell.CellStyle = borderStyle;
+
+                if (column6300Count > 0)
+                {
+                    row = excelSheet.CreateRow(rowNumber++);
+                    cell = row.CreateCell(0); cell.SetCellValue("Quantity:"); cell.CellStyle = boldStyle;
+                    cell = row.CreateCell(1); cell.SetCellValue($"{columnSum} pcs."); cell.CellStyle = alignmentStyle;
+
+                    row = excelSheet.CreateRow(rowNumber++);
+                    cell = row.CreateCell(0); cell.SetCellValue("Weight:"); cell.CellStyle = boldStyle;
+                    cell = row.CreateCell(1); cell.SetCellValue($"{((6300 * column6300Count / 1000) * (decimal)columnWeight):.00} kg"); cell.CellStyle = alignmentStyle;
+                }
+
+                row = excelSheet.CreateRow(rowNumber++);
+
+                row = excelSheet.CreateRow(rowNumber++);
                 cell = row.CreateCell(1);
-                cell.SetCellValue("Snippets [Floor/Apartment]");
+                cell.SetCellValue("Stocks");
                 cell.CellStyle = styleHeader;
                 cell = row.CreateCell(2);
+                cell.SetCellValue("Snippets [Floor/Apartment]");
+                cell.CellStyle = styleHeader;
+                cell = row.CreateCell(3);
                 cell.SetCellValue("Waste");
                 cell.CellStyle = styleHeader;
 
@@ -257,16 +278,16 @@ namespace VralumGlassWeb.Data
                     var count = group.Count();
                     totalLength += length * count;
 
-                    cell = row.CreateCell(0);
+                    cell = row.CreateCell(1);
                     cell.SetCellValue($"{length} X {count}");
                     cell.CellStyle = sStyleGreen;
 
                     foreach (var plank in group)
                     {
 						row = excelSheet.CreateRow(rowNumber++);
-                        row.CreateCell(1).SetCellValue(string.Join(", ", plank.Cuts));
+                        row.CreateCell(2).SetCellValue(string.Join(", ", plank.Cuts));
 
-                        cell = row.CreateCell(2, CellType.Numeric);
+                        cell = row.CreateCell(3, CellType.Numeric);
                         cell.SetCellValue(plank.FreeLength);
                         cell.CellStyle = sStyleRed;
                     }
@@ -274,10 +295,16 @@ namespace VralumGlassWeb.Data
 
                 if (totalLength > 0)
                 {
-                    row = excelSheet.CreateRow(++rowNumber);
-                    cell = row.CreateCell(0); cell.SetCellValue($"Total: {totalLength}"); cell.CellStyle = borderStyle;
-                    cell = row.CreateCell(1); cell.CellStyle = borderStyle;
-                    cell = row.CreateCell(2); cell.SetCellValue($"{free} ({(free * 100 / totalLength):.00}%)"); cell.CellStyle = borderStyle;
+                    row = excelSheet.CreateRow(rowNumber++);
+                    cell = row.CreateCell(0); cell.SetCellValue("Total:"); cell.CellStyle = boldStyle;
+                    cell = row.CreateCell(1); cell.SetCellValue($"{totalLength} mm"); cell.CellStyle = borderStyle;
+                    cell = row.CreateCell(2); cell.CellStyle = borderStyle;
+                    cell = row.CreateCell(3); cell.SetCellValue($"{free} mm ({(free * 100 / totalLength):.00}%)"); cell.CellStyle = borderStyle;
+
+                    row = excelSheet.CreateRow(rowNumber);
+                    cell = row.CreateCell(0); cell.SetCellValue("Weight:"); cell.CellStyle = boldStyle;
+                    cell = row.CreateCell(1); cell.SetCellValue($"{((totalLength / 1000) * clipWeight):.00} kg"); cell.CellStyle = alignmentStyle;
+                    cell = row.CreateCell(3); cell.SetCellValue($"{((free / 1000) * clipWeight):.00} kg"); cell.CellStyle = alignmentStyle;
                 }
 
                 workbook.Write(fs);

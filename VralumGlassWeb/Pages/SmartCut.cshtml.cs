@@ -33,7 +33,7 @@ namespace VralumGlassWeb.Pages
             _resources = resources;
         }
 
-        [BindProperty] public List<Clip> Clips { set; get; } = new List<Clip>
+        private readonly List<Clip> _clips = new List<Clip>
         {
             new Clip(83, 2.625),
             new Clip(100, 2.42),
@@ -41,6 +41,8 @@ namespace VralumGlassWeb.Pages
             new Clip(120, 2.6),
             new Clip(130, 2.935)
         };
+
+        [BindProperty] public List<Clip> Clips { set; get; }
 
         [BindProperty]
         [Display(Name = "Clip:")] 
@@ -65,6 +67,7 @@ namespace VralumGlassWeb.Pages
         public void OnGet()
         {
             Planks = new List<float> { 7000 };
+            Clips = _clips;
         }
 
         public async Task<JsonResult> OnPostCalculateAsync()
@@ -107,12 +110,14 @@ namespace VralumGlassWeb.Pages
                 }
             }
             var column6300Count = Math.Ceiling(columnSum / 6);
+            var columnWeight = 1;
+            var clip = _clips.FirstOrDefault(c => c.Id == Clip);
 
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
             var sFileName = $"CatOptimization.xlsx";
             var file = Path.Combine(sWebRootFolder, "storage", sFileName);
             var ie = new ImportExport();
-            var data = ie.Export2(ProjectName, planks, free, columnSum, column6300Count, PlankReserve);
+            var data = ie.Export2(ProjectName, planks, free, columnSum, clip?.Weight?? 0.0, column6300Count, columnWeight, PlankReserve);
             using (var fileStream = new FileStream(file, FileMode.Create))
             {
                 await fileStream.WriteAsync(data, 0, data.Length);
@@ -154,7 +159,7 @@ namespace VralumGlassWeb.Pages
                 await fs.CopyToAsync(memory);
             }
             memory.Position = 0;
-            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SmartCutCalculation.xlsx");
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CatOptimization.xlsx");
         }
     }
 }
