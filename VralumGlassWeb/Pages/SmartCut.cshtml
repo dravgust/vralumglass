@@ -1,169 +1,213 @@
 ﻿@page
+@using Dropbox.Api.Sharing
+@using System.Globalization
+@inject IStringLocalizer<SharedResource> SharedResource
+@inject IStringLocalizer<SmartCutModel> Resources
+@using Microsoft.Extensions.Localization
 @model VralumGlassWeb.Pages.SmartCutModel
-@{                                      
-    ViewData["Title"] = "SmartCut Tool - optimal linear cutting";
+@{
+    ViewData["Title"] = SharedResource["Cutting Optimization"];
+
+    var clampList = new List<SelectListItem>();
+    Model.Clips.ForEach(i =>
+    {
+        clampList.Add(new SelectListItem(i.Name, $"{i.Name}"));
+    });
+
 }
 
-    <h2>SmartCut Tool - <small class="text-muted">optimal linear cutting</small></h2>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a  asp-area="" asp-page="/Index">@SharedResource["Home Page"]</a></li>
+        <li class="breadcrumb-item active">@SharedResource["Utilities"]</li>
+        <li class="breadcrumb-item active" aria-current="page">@SharedResource["Cutting Optimization"]</li>
+    </ol>
+</nav>
+@*<h2>SmartCut Tool - <small class="text-muted">optimal linear cutting</small></h2>*@
 
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <form id="projectForm">
-
-                <input type="hidden" asp-for="@Model.PlankReserve" />
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label asp-for="@Model.ProjectName"></label>
-                        <input type="text" class="form-control" required maxlength="100" asp-for="@Model.ProjectName">
-                        <span asp-validation-for="@Model.ProjectName" class="text-danger"></span>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
 <div class="row mt-5">
     <div class="col-md-6">
+        <div class="card">
+            <div class="card-body" style="min-height: 200px">
+                <h5 class="card-title">@Resources["Settings"]</h5>
+                <form id="projectForm">
 
-        <div id="plank_table" class="table-editable">
+                    <input type="hidden" asp-for="@Model.PlankReserve" />
 
-            <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
-
-                <tr>
-                    <th scope="col" class="text-center">№</th>
-                    <th scope="col" class="text-center">Plank Length</th>
-                    <th scope="col" class="text-center"></th>
-                </tr>
-
-                @for (var i = 0; i < @Model.Planks.Count; i++)
-                {
-                    <tr>
-                        <td style="width: 53px;">@(i + 1)</td>
-                        <td contenteditable="true">@Model.Planks[i]</td>
-                        <td style="width: 43px;">
-                            <span class="table-remove"><i class="fa fa-trash"></i></span>
-                        </td>
-                    </tr>
-                }
-
-                <tr style="display: none">
-                    <td style="width: 53px;"></td>
-                    <td contenteditable="true"></td>
-                    <td style="width: 43px;">
-                        <span class="table-remove"><i class="fa fa-trash"></i></span>
-                    </td>
-                </tr>
-
-            </table>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Plank</button>
-                </div>
-                
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" asp-for="@Model.ProjectName"></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" required maxlength="100" asp-for="@Model.ProjectName" placeholder="">
+                            <span asp-validation-for="@Model.ProjectName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" asp-for="@Model.Clip"></label>
+                        <div class="col-sm-4">
+                            <select class="form-control" asp-for="@Model.Clip" asp-items="clampList"></select>
+                            <span asp-validation-for="@Model.Clip" class="text-danger"></span>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
- 
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body" style="min-height: 200px">
+                <h5 class="card-title">@Resources["Stocks"]</h5>
+
+                <div id="plank_table" class="table-editable">
+
+                    <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
+
+                        <tr>
+                            <th scope="col" class="text-center">№</th>
+                            <th scope="col" class="text-center">@Resources["Length"]</th>
+                            <th scope="col" class="text-center"></th>
+                        </tr>
+
+                        @for (var i = 0; i < @Model.Planks.Count; i++)
+                        {
+                            <tr>
+                                <td style="width: 53px;">@(i + 1)</td>
+                                <td contenteditable="true">@Model.Planks[i]</td>
+                                <td style="width: 43px;">
+                                    <span class="table-remove"><i class="fa fa-trash"></i></span>
+                                </td>
+                            </tr>
+                        }
+
+                        <tr style="display: none">
+                            <td style="width: 53px;"></td>
+                            <td contenteditable="true"></td>
+                            <td style="width: 43px;">
+                                <span class="table-remove"><i class="fa fa-trash"></i></span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> @Resources["Add"]</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
 </div>
 
-<div class="row mt-2">
+<div class="row mt-5">
     <div class="col-md-12">
 
-        <div id="snippet_table" class="table-editable">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Resources["Snippets"]</h5>
+                <div id="snippet_table" class="table-editable">
 
-            <div class="row">
+                    <div class="row">
 
-                <div class="col-md-2 pr-md-1">
-                    <button id="clear-all-btn" class="btn btn-outline-danger btn-block rounded-0"><i class="fas fa-minus" aria-hidden="true"></i> Clear Snippets</button>
-                </div>
-                <div class="col-md-4 pl-md-1">
-                    <button id="cutting-btn2" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
-                </div>
-                
-                <div class="col-md-6 pr-md-1">
-                    <form method="POST" enctype="multipart/form-data">
-                        <span class="float-right mb-3 mr-2">
-                            <span class="btn btn-outline-success rounded-0 fileinput-button">
-                                <i class="fas fa-file-excel" aria-hidden="true"></i> Import Excel
-                                <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
-                            </span>
-                        </span>
-                    </form>
-                </div>
+                        <div class="col-md-2 pr-md-1">
+                            <button id="clear-all-btn" class="btn btn-outline-danger btn-block rounded-0"><i class="fas fa-minus" aria-hidden="true"></i> @Resources["Remove All"]</button>
+                        </div>
+                        <div class="col-md-4 pl-md-1">
+                            <button id="cutting-btn2" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> @Resources["Start Optimization"]</button>
+                        </div>
 
-           
+                        <div class="col-md-6 pr-md-1">
+                            <form method="POST" enctype="multipart/form-data">
+                                <span class="float-right mb-3 mr-2">
+                                    <span class="btn btn-outline-success rounded-0 fileinput-button">
+                                        <i class="fas fa-file-excel" aria-hidden="true"></i> @Resources["Import Excel"]
+                                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
+                                    </span>
+                                </span>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
+
+                        <tr>
+                            <th scope="col" class="text-center">№</th>
+                            <th scope="col" class="text-center">@Resources["Length"]</th>
+                            <th scope="col" class="text-center">@Resources["Apartment"]</th>
+                            <th scope="col" class="text-center">@Resources["Floor"]</th>
+                            <th scope="col" class="text-center">@Resources["Columns"]</th>
+                            <th scope="col" class="text-center"></th>
+                        </tr>
+
+                        @for (var i = 0; i < @Model.Snippets.Count; i++)
+                        {
+                            <tr>
+                                <td style="width: 53px;">@(i + 1)</td>
+                                <td contenteditable="true">@Model.Snippets[i].Length</td>
+                                <td contenteditable="true">@Model.Snippets[i].Apartment</td>
+                                <td contenteditable="true">@Model.Snippets[i].Floor</td>
+                                <td contenteditable="true">@Model.Snippets[i].Columns</td>
+                                <td style="width: 43px;">
+                                    <span class="table-remove"><i class="fa fa-trash"></i></span>
+                                </td>
+                            </tr>
+                        }
+
+                        <tr style="display: none">
+                            <td style="width: 53px;"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                            <td style="        width: 43px;
+">
+                                <span class="table-remove"><i class="fa fa-trash"></i></span>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-2 pr-md-1">
+                            <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> @Resources["Add"]</button>
+                        </div>
+                        <div class="col-md-10 pl-md-1">
+                            <button id="cutting-btn" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> @Resources["Start Optimization"]</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
-            <table class="table table-hover table-bordered table-responsive-md text-center table-sm">
-
-                <tr>
-                    <th scope="col" class="text-center">№</th>
-                    <th scope="col" class="text-center">Snippet Length</th>
-                    <th scope="col" class="text-center">Apartment</th>
-                    <th scope="col" class="text-center">Floor</th>
-                    <th scope="col" class="text-center">Columns</th>
-                    <th scope="col" class="text-center"></th>
-                </tr>
-
-                @for (var i = 0; i < @Model.Snippets.Count; i++)
-                {
-            <tr>
-                <td style="width: 53px;">@(i + 1)</td>
-                <td contenteditable="true">@Model.Snippets[i].Length</td>
-                <td contenteditable="true">@Model.Snippets[i].Apartment</td>
-                <td contenteditable="true">@Model.Snippets[i].Floor</td>
-                <td contenteditable="true">@Model.Snippets[i].Columns</td>
-                <td style="width: 43px;">
-                    <span class="table-remove"><i class="fa fa-trash"></i></span>
-                </td>
-            </tr>
-                }
-
-                <tr style="display: none">
-                    <td style="width: 53px;"></td>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true"></td>
-                    <td style="width: 43px;">
-                        <span class="table-remove"><i class="fa fa-trash"></i></span>
-                    </td>
-                </tr>
-
-            </table>
-
-            <div class="row">
-                <div class="col-md-2 pr-md-1">
-                    <button class="table-add btn btn-dark btn-block rounded-0"><i class="fas fa-plus" aria-hidden="true"></i> Add Snippet</button>
-                </div>
-                <div class="col-md-10 pl-md-1">
-                    <button id="cutting-btn" class="btn btn-primary btn-block rounded-0"><i class="fas fa-cut" aria-hidden="true"></i> Cutting</button>
-                </div>
-            </div>
-
         </div>
+
     </div>
 </div>
 
-<div id="export" class="row mt-5 animated fadeIn" style="display: none">
-    <div class="col-md-12">
+<div id="export" class="card mt-5 animated fadeIn" style="display: none">
+    <div class="card-body">
+        <h5 class="text-success card-title">@Resources["Optimization complete!"]</h5>
         <div class="row">
             <div class="col-md-6">
-                <blockquote class="blockquote mb-0">
-                    <h1 class="text-success">Calculation complete!</h1>
-                    <h4>Used planks sizes (mm):</h4>
-                    <ul id="export_body" class="list-group"></ul>
+                <blockquote class="blockquote mb-0 mt-2">
+                    <h6>@Resources["Used stocks length (mm):"]</h6>
+                    <ul id="export_body" class="list-group list-group-flush"></ul>
                     <footer id="export_footer" class="blockquote-footer text-danger"></footer>
                 </blockquote>
             </div>
         </div>
-
         <span class="float-right mb-3 mr-2">
-            <a class="btn btn-outline-success rounded-0" target="_blank" rel="noopener noreferrer" asp-page-handler="Export"><i class="fas fa-file-excel" aria-hidden="true"></i> Export Excel</a>
+            <a class="btn btn-outline-success rounded-0" target="_blank" rel="noopener noreferrer" asp-page-handler="Export">
+                <i class="fas fa-file-excel" aria-hidden="true"></i> @Resources["Export Excel"]
+            </a>
         </span>
 
-        <table class="table table-bordered table-success table-responsive-md text-center table-sm mt-5"></table>
+        <table class="table table-hover table-bordered table-responsive-md text-center table-sm mt-5"></table>
+
     </div>
 </div>
 
@@ -209,6 +253,7 @@
             });
 
         var $PROJECT_NAME = $('#ProjectName');
+        var $CLIP = $('#Clip');
         var $PLANK_TABLE = $('#plank_table');
         var $SNIPPET_TABLE = $('#snippet_table');
         var $BTN = $('#cutting-btn, #cutting-btn2');
@@ -298,7 +343,8 @@
                                     if (value.trim()) {
                                         var v = parseFloat(value.trim());
                                         if (!isNumeric(v)) {
-                                            var error = 'Invalid snippet length ({0} is not number in line {1})'.format(value, $td.eq(0).text());
+                                            var error = '@Html.Raw(Resources["Invalid snippet length ({0} is not number in line {1})"])'.format(value, $td.eq(0).text());
+                                            console.log(error);
                                             alert(error);
                                             throw error;
                                         } else {
@@ -327,7 +373,7 @@
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify({ "ProjectName": $PROJECT_NAME.val(), "Planks": dataPlank, "Snippets": data }),
+                data: JSON.stringify({ "ProjectName": $PROJECT_NAME.val(), "Clip":$CLIP.val(), "Planks": dataPlank, "Snippets": data }),
                 success: function(response) {
 
                     $("#export").show();
@@ -357,23 +403,23 @@
                             var plankWithReserve = parseFloat(key) + plankReserve;
                             var length = plankWithReserve * parseInt(value);
                             item.append($('<span/>',
-                                { text: '{0} X {1} = {2}'.format(plankWithReserve, value, length) }));
+                                { text: '{0}X{1}={2}'.format(plankWithReserve, value, length) }));
                             exportBody.append(item);
 
                             totalLength += length;
                         });
 
-                    $('#export_footer').text("total: {0} with {1} waste ({2}%)".format(totalLength,
+                    $('#export_footer').html('@Resources["total: {0} with {1} waste ({2}%)"]'.format(totalLength,
                         response.free,
                         (parseFloat(response.free) * 100 / totalLength).toFixed(2)));
 
                     var exportTable = $('#export').find('table');
                     exportTable.append($('<tr>')
                         .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('№'))
-                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Plank Length (mm)'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Stocks"]'))
                         .append(
-                            $('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Snippet [Floor/Apartment]'))
-                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).text('Waste'))
+                            $('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Snippets [Floor/Apartment]"]'))
+                        .append($('<th/>', { 'scope': 'col', 'class': 'text-center' }).html('@Resources["Waste"]'))
                     );
                     $.each(response.planks,
                         function(i, plank) {
@@ -381,7 +427,7 @@
 
                             $.each(plank.cuts,
                                 function(i, cut) {
-                                    cuts.append($('<div/>', { 'class': 'col-md-2' })
+                                    cuts.append($('<div/>', { 'class': 'col-md-3' })
                                         .text("{0} [{1}/{2}]".format(cut.length, cut.floor, cut.apartment)));
                                 });
 
@@ -395,10 +441,11 @@
                             );
                         });
 
-                  
+
                 },
                 error: function (response) {
-                    alert(response);
+                    var result = response.responseJSON;
+                    alert(result.Message);
                 },
                 complete: function() {
                     $('#loadingModal').modal('hide');

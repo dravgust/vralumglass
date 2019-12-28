@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace VralumGlassWeb.Areas.Management.Pages
 
         public async Task OnGetAsync()
         {
+            throw new Exception("test");
 	        Customers = await _db.Customers.AsNoTracking().ToListAsync();
         }
 

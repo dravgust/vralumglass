@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -10,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +14,11 @@ using Microsoft.EntityFrameworkCore;
 using VralumGlassWeb.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Vralumglass.Core;
 using Vralumglass.Dropbox;
+using VralumGlassWeb.Data.Utilities;
 
 namespace VralumGlassWeb
 {
@@ -70,9 +67,11 @@ namespace VralumGlassWeb
 			services.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix, options => options.ResourcesPath = "Resources")
-                .AddDataAnnotationsLocalization();
+                .AddDataAnnotationsLocalization(resOptions => {
+                    resOptions.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(SharedResource));
+                });
 
-            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+			services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -90,8 +89,21 @@ namespace VralumGlassWeb
         }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-		{
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        {
+			//app.Use(async (context, next) =>
+			//{
+			//    await next.Invoke();
+
+			//    if (context.Response.StatusCode == StatusCodes.Status500InternalServerError)
+			//    {
+			//        if (context.Request.IsAjaxRequest())
+			//        {
+			//            await context.Response.WriteAsync("Whoops! Something went wrong.");
+			//        }
+			//    }
+			//});
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -104,7 +116,9 @@ namespace VralumGlassWeb
 				app.UseHsts();
 			}
 
-            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.ConfigureExceptionHandler(logger);
+
+			var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
             //app.UseHttpsRedirection();

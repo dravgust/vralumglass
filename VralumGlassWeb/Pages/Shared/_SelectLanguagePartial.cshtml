@@ -13,5 +13,5 @@
 }
 
 <form asp-page="/Index" asp-page-handler="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post">
-    <select class="form-control form-control-sm rounded-0" name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
+    <select class="form-control form-control-sm mr-sm-2 rounded-0" name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
 </form>
