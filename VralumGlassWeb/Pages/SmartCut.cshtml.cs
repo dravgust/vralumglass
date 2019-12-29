@@ -111,7 +111,7 @@ namespace VralumGlassWeb.Pages
                 }
             }
             var column6300Count = Math.Ceiling(columnSum / 6);
-            var columnWeight = 1;
+            var columnWeight = 1.861;
             var clip = _clips.FirstOrDefault(c => c.Id == Clip);
 
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
