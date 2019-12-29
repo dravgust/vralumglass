@@ -121,7 +121,7 @@
     <value>* Обязательное поле для заполнения.</value>
   </data>
   <data name="Clip:" xml:space="preserve">
-    <value>Зажим:</value>
+    <value>Вид Маахаза:</value>
   </data>
   <data name="Cutting Optimization" xml:space="preserve">
     <value>Оптимизация резки</value>
@@ -141,8 +141,8 @@
   <data name="Manage Profile" xml:space="preserve">
     <value>Управление Профилем</value>
   </data>
-  <data name="Project Name:" xml:space="preserve">
-    <value>Имя Проекта:</value>
+  <data name="Name:" xml:space="preserve">
+    <value>Проект:</value>
   </data>
   <data name="Utilities" xml:space="preserve">
     <value>Инструменты</value>

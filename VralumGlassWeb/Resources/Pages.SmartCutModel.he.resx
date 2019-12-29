@@ -165,9 +165,6 @@
   <data name="total: {0} with {1} waste ({2}%)" xml:space="preserve">
     <value>סה"כ: {0} עם {1} פסולת ({2}%)</value>
   </data>
-  <data name="Used stocks length (mm):" xml:space="preserve">
-    <value>אורך ממלאי (מ"מ):</value>
-  </data>
   <data name="Waste" xml:space="preserve">
     <value>פסולות</value>
   </data>

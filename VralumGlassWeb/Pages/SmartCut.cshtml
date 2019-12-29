@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-body" style="min-height: 200px">
                 <h5 class="card-title">@Resources["Settings"]</h5>
-                <form id="projectForm">
+                <form id="main_form">
 
                     <input type="hidden" asp-for="@Model.PlankReserve" />
 
@@ -120,15 +120,14 @@
                         </div>
 
                         <div class="col-md-6 pr-md-1">
-                            <form method="POST" enctype="multipart/form-data">
-                                @*<input type="hidden" asp-for="ProjectName" />
-                                <input type="hidden" asp-for="Clip" />*@
+                            <form id="import_excel_form" method="POST" enctype="multipart/form-data">
                                 <span class="float-right mb-3 mr-2">
                                     <span class="btn btn-outline-success rounded-0 fileinput-button">
                                         <i class="fas fa-file-excel" aria-hidden="true"></i> @Resources["Import Excel"]
-                                        <input type="file" asp-for="ImportExcel" onchange="javascript:this.form.submit();" />
+                                        <input type="file" asp-for="ImportExcel" />
                                     </span>
                                 </span>
+                                <input type="submit" asp-page-handler="Import" style="display: none" />
                             </form>
                         </div>
 
@@ -196,7 +195,7 @@
         <div class="row">
             <div class="col-md-6">
                 <blockquote class="mb-0 mt-2">
-                    <label>@Resources["Used stocks length (mm):"]</label>
+                    <label>@Resources["Stocks"]:</label>
                     <ul id="export_body" class="list-group list-group-flush"></ul>
                     <footer id="export_footer" class="blockquote-footer text-danger"></footer>
                 </blockquote>
@@ -219,6 +218,12 @@
 
     <script type="text/javascript">
 
+		var $PROJECT_NAME = $('#ProjectName');
+        var $CLIP = $('#Clip');
+        var $PLANK_TABLE = $('#plank_table');
+        var $SNIPPET_TABLE = $('#snippet_table');
+        var $BTN = $('#cutting-btn, #cutting-btn2');
+		
         String.prototype.format = function() {
             var args = arguments;
             return this.replace(/\{\{|\}\}|\{(\d+)\}/g,
@@ -237,28 +242,40 @@
             return isFinite(n) && parseFloat(n) == n;
         };
 
-        $('#ImportExcel2').on('change',
+        $('#ImportExcel').on('change',
             function(evt) {
-
                 evt.preventDefault();
-                var form = document.getElementById("import_excel_form");
-                $.ajax({
-                    url: '?handler=Import',
-                    data: new FormData(form),
-                    contentType: false,
-                    processData: false,
-                    type: 'post',
-                    success: function() {
-                        alert('Uploaded by jQuery');
-                    }
-                });
-            });
+                var projectName = $('#main_form input[name=ProjectName]').val();			
+				$('#import_excel_form').append($('<input/>', { 'type':'hidden', 'name':'ProjectName', 'value': projectName }));  
+				var clip = $('#main_form select[name=Clip]').val();						
+				$('#import_excel_form').append($('<input/>', { 'type':'hidden', 'name':'Clip', 'value': clip }));
 
-        var $PROJECT_NAME = $('#ProjectName');
-        var $CLIP = $('#Clip');
-        var $PLANK_TABLE = $('#plank_table');
-        var $SNIPPET_TABLE = $('#snippet_table');
-        var $BTN = $('#cutting-btn, #cutting-btn2');
+				var $rowsPlank = $PLANK_TABLE.find('tr:not(:hidden)');
+				var index = 0;
+				$rowsPlank.each(function() {
+					var $td = $(this).find('td');
+					if ($td.length !== 0) {
+						var value = $td.eq(1).text();
+						if (isNumeric(value)) {
+							$('#import_excel_form').append($('<input/>', { 'type':'hidden', 'name':'Planks[' + index++ + ']', 'value': value }));
+						}
+					}
+				});
+
+                $("#import_excel_form input:submit").click();
+
+                //var form = document.getElementById("import_excel_form");
+                //$.ajax({
+                //    url: '?handler=Test',
+                //    data: new FormData(form),
+                //    contentType: false,
+                //    processData: false,
+                //    type: 'post',
+                //    success: function() {
+                //        alert('Uploaded by jQuery');
+                //    }
+                //});
+            });
 
         $('.table-add').click(function() {
             var tableEdit = $(this).parents('.table-editable');
@@ -300,7 +317,7 @@
             $('#export').find('table tr').remove();
             $("#export").hide();
 
-            if (!$('#projectForm').valid()) {
+            if (!$('#main_form').valid()) {
                 $('body,html').animate({
                         scrollTop: 0
                     },

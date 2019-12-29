@@ -53,7 +53,7 @@ namespace VralumGlassWeb.Pages
 
         [Required(ErrorMessage = "* This field is required.")]
         [BindProperty]
-        [Display(Name = "Project Name:")]
+        [Display(Name = "Name:")]
         public string ProjectName { set; get; }
 
         [BindProperty]
@@ -126,28 +126,6 @@ namespace VralumGlassWeb.Pages
             return new JsonResult(new { Planks = planks, Free = free });
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var ie = new ImportExport();
-
-            byte[] snippets;
-            using (var ms = new MemoryStream())
-            {
-                await ImportExcel.CopyToAsync(ms);
-                snippets = ms.ToArray();
-            }
-
-            Snippets.Clear();
-            Snippets.AddRange(ie.ImportSnippets(snippets));
-
-            Planks.Clear();
-            Planks.Add(7000);
-
-            Clips = _clips;
-
-            return Page();
-        }
-
         public async Task<IActionResult> OnGetExportAsync()
         {
             var sWebRootFolder = _hostingEnvironment.WebRootPath;
@@ -172,6 +150,25 @@ namespace VralumGlassWeb.Pages
             }
             memory.Position = 0;
             return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{fileName}.xlsx");
+        }
+
+        public async Task<IActionResult> OnPostImportAsync()
+        {
+            var ie = new ImportExport();
+
+            byte[] snippets;
+            using (var ms = new MemoryStream())
+            {
+                await ImportExcel.CopyToAsync(ms);
+                snippets = ms.ToArray();
+            }
+
+            Snippets.Clear();
+            Snippets.AddRange(ie.ImportSnippets(snippets));
+
+            Clips = _clips;
+
+            return Page();
         }
     }
 }

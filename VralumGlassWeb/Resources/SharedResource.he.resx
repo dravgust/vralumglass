@@ -141,8 +141,8 @@
   <data name="Manage Profile" xml:space="preserve">
     <value>נהל פרופיל</value>
   </data>
-  <data name="Project Name:" xml:space="preserve">
-    <value>שם הפרויקט</value>
+  <data name="Name:" xml:space="preserve">
+    <value>פרויקט</value>
   </data>
   <data name="Utilities" xml:space="preserve">
     <value>כלי עזר</value>

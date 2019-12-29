@@ -124,7 +124,7 @@
     <value>Квартира</value>
   </data>
   <data name="Columns" xml:space="preserve">
-    <value>Колонны</value>
+    <value>Столбы</value>
   </data>
   <data name="Export Excel" xml:space="preserve">
     <value>Экспорт Excel</value>
@@ -160,13 +160,10 @@
     <value>Начать Oптимизацию</value>
   </data>
   <data name="Stocks" xml:space="preserve">
-    <value>Склад</value>
+    <value>Состав</value>
   </data>
   <data name="total: {0} with {1} waste ({2}%)" xml:space="preserve">
     <value>Сумма: {0} с остатком {1} ({2}%)</value>
-  </data>
-  <data name="Used stocks length (mm):" xml:space="preserve">
-    <value>Длина используемых запасов (мм):</value>
   </data>
   <data name="Waste" xml:space="preserve">
     <value>Отходы</value>
