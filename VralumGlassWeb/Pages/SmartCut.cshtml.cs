@@ -130,14 +130,20 @@ namespace VralumGlassWeb.Pages
         {
             var ie = new ImportExport();
 
+            byte[] snippets;
             using (var ms = new MemoryStream())
             {
                 await ImportExcel.CopyToAsync(ms);
-                Snippets.Clear();
-                Snippets.AddRange(ie.ImportSnippets(ms.ToArray()));
-                Planks.Clear();
-                Planks.Add(7000);
+                snippets = ms.ToArray();
             }
+
+            Snippets.Clear();
+            Snippets.AddRange(ie.ImportSnippets(snippets));
+
+            Planks.Clear();
+            Planks.Add(7000);
+
+            Clips = _clips;
 
             return Page();
         }
